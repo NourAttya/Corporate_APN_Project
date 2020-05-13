@@ -1,0 +1,58 @@
+TG-GGSN12:
+-----------
+save configuration /flash/configfiles/Before_asecautomation-s-3gwic.cfg -redundant
+config
+ context aaa 
+   apn asecautomation-s-3gwic
+      accounting-mode none
+      gtpp group PGW12 accounting-context gn
+      ip hide-service-address
+      aaa group Corporate-radgom 
+      ip address alloc-method no-dynamic allow-user-specified
+      ip access-group Corporate.vodafone.net-acl.in in
+      ip access-group Corporate.vodafone.net-acl.out out
+      mediation-device no-interims 
+      ip context-name Gi-Corp
+      ip address pool name asecautomation-s-3gwic_pool
+      active-charging rulebase corporate-mbc-rs
+      ims-auth-service corporate-mbc-pool
+      credit-control-group corporate-mbc-cc
+     exit
+   context Gi-Corp
+      ip pool asecautomation-s-3gwic_pool.0 10.5.30.88/29 static group-name asecautomation-s-3gwic_pool advertise-if-used
+     exit
+    end
+save configuration /flash/configfiles/TG2-GGSN-running.cfg -redundant
+-----------------------------------------------
+ZH-GGSN-13:
+---------
+save configuration /flash/configfiles/Before_asecautomation-s-3gwic.cfg -redundant
+config
+ context aaa
+   apn asecautomation-s-3gwic  
+      accounting-mode none
+      gtpp group PGW13 accounting-context gn
+      ip hide-service-address
+      aaa group Corporate-radgom 
+      ip address alloc-method no-dynamic allow-user-specified
+      ip access-group Corporate.vodafone.net-acl.in in
+      ip access-group Corporate.vodafone.net-acl.out out
+      mediation-device no-interims 
+      ip context-name Gi-Corp
+      ip address pool name asecautomation-s-3gwic_pool
+      active-charging rulebase corporate-mbc-rs
+      ims-auth-service corporate-mbc-pool
+      credit-control-group corporate-mbc-cc
+     exit
+ 
+  context Gi-Corp
+      ip pool asecautomation-s-3gwic_pool.0 10.5.30.88/29 static group-name asecautomation-s-3gwic_pool advertise-if-used
+     exit
+    end  
+
+save configuration /flash/configfiles/ZH13-GGSN-config.cfg -redundant
+---------------------------------------------------------------
+Add the below entries On All IDNSs:
+----------------------------------------
+create naptrrecord asecautomation-s-3gwic.apn.epc.mnc002.mcc602.3gppnetwork.org. -set order=100;preference=10;flags=a;service=x-3gpp-pgw:x-s5-gtp:x-gn;replacement=topoff.pgws5gn.tg2gw.nodes.epc.mnc002.mcc602.3gppnetwork.org.
+

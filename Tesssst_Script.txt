@@ -1,0 +1,84 @@
+BS-GGSN08:
+-----------
+save configuration /flash/configfiles/Before_Tesssst -redundant
+config
+Context aaa
+   apn Tesssst
+      accounting-mode none
+      gtpp group PGW08 accounting-context gn
+      aaa group Corporate-radgom 
+      ip hide-service-address
+     ip address alloc-method local
+      ip access-group Corporate.vodafone.net-acl.in in
+      ip access-group Corporate.vodafone.net-acl.out out 
+      ip source-violation ignore 
+      mediation-device no-interims 
+      ip context-name Gi-Corp2
+      ip address pool name Tesssst_pool
+      active-charging rulebase corporate-mbc-rs
+      ims-auth-service corporate-mbc-pool
+      credit-control-group corporate-mbc-cc
+end
+
+config
+context Gi-Corp2
+    ip vrf Tesssst_vrf
+exit
+ip pool Tesssst_pool.0 10.0.0.0 255.255.255.192 private 0 group-name Tesssst_pool advertise-if-used vrf Tesssst_vrf 
+interface Tesssst tunnel
+      ip vrf forwarding Tesssst_vrf
+      ip address 10.0.0.0 255.255.255.192
+      tunnel-mode gre
+        source interface gi-corp-lb2
+        destination address 1.1.1.1
+      exit
+ ip route 0.0.0.0 0.0.0.0 0.0.0.0 Tesssst vrf Tesssst_vrf
+
+end
+save configuration /flash/configfiles/BS-GGSN-running -redundant
+------------------------------------------------------------------
+
+BS-GGSN-08:
+-----------
+save configuration /flash/configfiles/Before_Tesssst -redundant
+config
+Context aaa
+   apn Tesssst 
+      accounting-mode none
+      gtpp group PGW08 accounting-context gn
+      aaa group Corporate-radgom 
+      ip hide-service-address
+     ip address alloc-method local
+      ip access-group Corporate.vodafone.net-acl.in in
+      ip access-group Corporate.vodafone.net-acl.out out 
+      ip source-violation ignore 
+      mediation-device no-interims 
+      ip context-name Gi-Corp2
+      ip address pool name Tesssst_pool
+      active-charging rulebase corporate-mbc-rs
+      ims-auth-service corporate-mbc-pool
+      credit-control-group corporate-mbc-cc
+end
+
+config
+context Gi-Corp2
+    ip vrf Tesssst_vrf
+exit
+ip pool Tesssst_pool.0 10.0.0.0 255.255.255.192 private 0 group-name Tesssst_pool advertise-if-used vrf asecauto-s-pc_vrf  
+interface Tesssst tunnel
+      ip vrf forwarding Tesssst_vrf
+      ip address 10.0.0.0 255.255.255.192
+      tunnel-mode gre
+        source interface gi-corp-lb2-TG2
+        destination address 1.1.1.1
+      exit
+exit
+ ip route 0.0.0.0 0.0.0.0 0.0.0.0 Tesssst vrf Tesssst_vrf
+
+end
+save configuration /flash/configfiles/BS-GGSN-config -redundant
+---------------------------------------------------------------
+Add the below entries On all IDNs:
+----------------------------------------
+create naptrrecord Tesssst.apn.epc.mnc002.mcc602.3gppnetwork.org. -set order=100;preference=10;flags=a;service=x-3gpp-pgw:x-s5-gtp:x-gn;replacement=topoff.pgws5gn.bsgw.nodes.epc.mnc002.mcc602.3gppnetwork.org.
+---------------------------------------------------------------

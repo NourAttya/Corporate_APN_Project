@@ -1,0 +1,86 @@
+TG-GGSN12:
+-----------
+save configuration /flash/configfiles/Before_cbe-d-pc.cfg -redundant
+config
+Context aaa
+apn cbe-d-pc
+      accounting-mode none
+      gtpp group PGW12 accounting-context gn 
+      aaa group Corporate-radgom 
+      ip hide-service-address
+     ip address alloc-method local
+      ip access-group Corporate.vodafone.net-acl.in in
+      ip access-group Corporate.vodafone.net-acl.out out 
+      ip source-violation ignore 
+      mediation-device no-interims 
+      ip context-name Gi-Corp2
+      ip address pool name cbe-d-pc_pool
+      active-charging rulebase corporate-mbc-rs
+      ims-auth-service corporate-mbc-pool
+      credit-control-group corporate-mbc-cc
+end
+
+config
+context Gi-Corp2
+    ip vrf cbe-d-pc_vrf
+exit
+ip pool cbe-d-pc_pool.0 10.90.0.0/24 private 0 group-name cbe-d-pc_pool advertise-if-used vrf cbe-d-pc_vrf 
+interface cbe-d-pc tunnel
+      ip vrf forwarding cbe-d-pc_vrf
+      ip address 10.201.16.122/30
+      tunnel-mode gre
+        source interface gi-corp-lb2
+        destination address 10.215.122.163
+      exit
+       exit
+ ip route 0.0.0.0 0.0.0.0 0.0.0.0 cbe-d-pc vrf cbe-d-pc_vrf
+
+end
+save configuration /flash/configfiles/TG2-GGSN-running.cfg -redundant
+------------------------------------------------------------------
+
+ZH-GGSN13:
+-----------
+save configuration /flash/configfiles/Before_cbe-d-pc.cfg -redundant
+config
+Context aaa
+apn cbe-d-pc
+      accounting-mode none
+      gtpp group PGW13 accounting-context gn
+      aaa group Corporate-radgom 
+      ip hide-service-address
+      ip address alloc-method local
+      ip access-group Corporate.vodafone.net-acl.in in
+      ip access-group Corporate.vodafone.net-acl.out out 
+      ip source-violation ignore 
+      mediation-device no-interims 
+      ip context-name Gi-Corp2
+      ip address pool name cbe-d-pc_pool
+      active-charging rulebase corporate-mbc-rs
+      ims-auth-service corporate-mbc-pool
+      credit-control-group corporate-mbc-cc
+end
+
+config
+context Gi-Corp2
+    ip vrf cbe-d-pc_vrf
+exit
+ip pool cbe-d-pc_pool.0 10.90.0.0/24 private 0 group-name cbe-d-pc_pool advertise-if-used vrf cbe-d-pc_vrf 
+interface cbe-d-pc tunnel
+      ip vrf forwarding cbe-d-pc_vrf
+      ip address 10.201.16.122/30
+      tunnel-mode gre
+        source interface gi-corp-lb2-TG2
+        destination address 10.215.122.163
+      exit
+exit
+ ip route 0.0.0.0 0.0.0.0 0.0.0.0 cbe-d-pc vrf cbe-d-pc_vrf
+
+end
+save configuration /flash/configfiles/ZH13-GGSN-config.cfg -redundant
+---------------------------------------------------------------
+Add the below entries On all IDNs:
+----------------------------------------
+create naptrrecord cbe-d-pc.apn.epc.mnc002.mcc602.3gppnetwork.org. -set order=100;preference=10;flags=a;service=x-3gpp-pgw:x-s5-gtp:x-gn;replacement=topoff.pgws5gn.tg2gw.nodes.epc.mnc002.mcc602.3gppnetwork.org.
+---------------------------------------------------------------
+
