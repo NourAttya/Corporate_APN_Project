@@ -157,7 +157,6 @@ tkvar1= tkinter.StringVar(top)
 # Create a Tkinter variable
 tkvar2= tkinter.StringVar(top)
 
-
 # Create a Tkinter variable
 tkvar3= tkinter.StringVar(top)
 # on change dropdown value
