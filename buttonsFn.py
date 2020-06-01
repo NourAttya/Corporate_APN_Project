@@ -159,6 +159,9 @@ tkvar2= tkinter.StringVar(top)
 
 # Create a Tkinter variable
 tkvar3= tkinter.StringVar(top)
+
+# Create a Tkinter variable
+tkvar4= tkinter.StringVar(top)
 # on change dropdown value
 def change_dropdown1(*args):
     print(tkvar1.get())
@@ -170,3 +173,7 @@ def change_dropdown2(*args):
 # on change dropdown value
 def change_dropdown3(*args):
     print(tkvar3.get())
+
+# on change dropdown value
+def change_dropdown4(*args):
+    print(tkvar4.get())

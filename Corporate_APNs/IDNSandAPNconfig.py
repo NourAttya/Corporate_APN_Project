@@ -4,7 +4,7 @@ import xlrd
 
 
 
-def IDNSandAPNConfigCorp(APNname,IPpool,MTX,XLSXsheet,TypeOfAPN,SorD,VRFDest):
+def IDNSandAPNConfigCorp(APNname,IPpool,MTX,XLSXsheet,TypeOfAPN,SorD,VRFDest,SecMTX):
 
     #resolving IP(getting netmask)
     net= ipaddress.ip_network(IPpool)
@@ -31,20 +31,17 @@ def IDNSandAPNConfigCorp(APNname,IPpool,MTX,XLSXsheet,TypeOfAPN,SorD,VRFDest):
                     MTXindex=i
                 elif (row[i] == "MTX Number"):
                     MTXnumindex=i
-                elif (row[i] == "Secondary MTX"):
-                    SecMTXindex=i
-                elif (row[i] == "Secondary MTX Number"):
-                    SecMTXnumindex=i
 
             firstRow=1
         elif row[MTXindex]==MTX:
             MTXNum=str(row[MTXnumindex])
             MTXNum=MTXNum.replace('=',"")
             MTXNum = MTXNum.replace('"', "")
-            SecMTX=row[SecMTXindex]
-            secMTXnum=str(row[SecMTXnumindex])
+
+        if(row[MTXindex]==SecMTX and firstRow!=0):
+            secMTXnum=str(row[MTXnumindex])
             secMTXnum = secMTXnum.replace('=', "")
-            MTXNum = MTXNum.replace('"', "")
+            secMTXnum = secMTXnum.replace('"', "")
 
 
 

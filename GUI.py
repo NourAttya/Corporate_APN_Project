@@ -10,7 +10,7 @@ def TestConfigRun():
 
 
 def CorpConfigRun():
-    IDNSandAPNconfig.IDNSandAPNConfigCorp(buttonsFn.file3_path.get(), buttonsFn.file2_path.get(), buttonsFn.tkvar3.get(), buttonsFn.file1_path.get(), buttonsFn.tkvar1.get(), buttonsFn.tkvar2.get(), buttonsFn.file6_path.get())
+    IDNSandAPNconfig.IDNSandAPNConfigCorp(buttonsFn.file3_path.get(), buttonsFn.file2_path.get(), buttonsFn.tkvar3.get(), buttonsFn.file1_path.get(), buttonsFn.tkvar1.get(), buttonsFn.tkvar2.get(), buttonsFn.file6_path.get(),buttonsFn.tkvar4.get())
 
 #Nour Attyia
 #Ahmed Ayman
@@ -34,8 +34,16 @@ def UpdateDropDownFromExcel():
     print(MTXs)
     choices3 = MTXs
     popupMenu3 = tkinter.OptionMenu(buttonsFn.top, buttonsFn.tkvar3, *choices3)
-    popupMenu3.place(x=250, y=245)
+    popupMenu3.place(x=300, y=245)
     popupMenu3.config(height=1, width=4, fg='black')
+    buttonsFn.tkvar3.set(MTXs[0])  # set the default option
+
+    choices4=MTXs
+    popupMenu4 = tkinter.OptionMenu(buttonsFn.top, buttonsFn.tkvar4, *choices4)
+    popupMenu4.place(x=300, y=300)
+    popupMenu4.config(height=1, width=4, fg='black')
+    buttonsFn.tkvar4.set(MTXs[0])  # set the default option
+
 
 def openTestMenu():
     # define font
@@ -66,6 +74,8 @@ def openTestMenu():
     lb4 = tkinter.Label(buttonsFn.top, text="MTX")
     lb4.place(x=100, y=200)
     lb4.config(font=("Calibri", 12, 'bold'), fg='black',background = 'red')
+
+
 
     filepathText1 = tkinter.Entry(buttonsFn.top, textvariable=buttonsFn.file4_path)
     filepathText1.place(x=250, y=200, width=200, height=25)
@@ -101,7 +111,7 @@ def openTestMenu():
     lb.place(x=200, y=20)
 
     # Define the size of the main window
-    buttonsFn.top.geometry("800x450")  # Width x Height
+    buttonsFn.top.geometry("800x550")  # Width x Height
     buttonsFn.top.title("Test APN Configuration")
     # New_Window.configure(background='white')
 def openCorpMenu():
@@ -138,7 +148,7 @@ def openCorpMenu():
     buttonsFn.tkvar3.trace('w', buttonsFn.change_dropdown3)
 
     buttonRun = tkinter.Button(buttonsFn.top, text="Run", command=CorpConfigRun)
-    buttonRun.place(x=350, y=400)
+    buttonRun.place(x=330, y=460)
     buttonRun.config(height=1, width=10)
     buttonRun['font'] = myFont2
 
@@ -160,9 +170,13 @@ def openCorpMenu():
     buttonBrowse1.place(x=670, y=200)
     buttonBrowse1['font'] = myFont
 
-    lb4 = tkinter.Label(buttonsFn.top, text="Choose MTX")
-    lb4.place(x=100, y=245)
+    lb4 = tkinter.Label(buttonsFn.top, text="Choose Primary MTX")
+    lb4.place(x=100, y=250)
     lb4.config(font=("Calibri", 12, 'bold'), fg='black')
+
+    lb5 = tkinter.Label(buttonsFn.top, text="Choose Secondary MTX")
+    lb5.place(x=100, y=300)
+    lb5.config(font=("Calibri", 12, 'bold'), fg='black')
 
     # Dictionary with options
     choices1 = {'Internet APN', 'PC Connectivity', '3G WIc'}
@@ -170,9 +184,9 @@ def openCorpMenu():
 
     popupMenu1 = tkinter.OptionMenu(buttonsFn.top, buttonsFn.tkvar1, *choices1)
     lb2=tkinter.Label(buttonsFn.top, text="Choose APN Type")
-    lb2.place(x=100, y=300)
+    lb2.place(x=100, y=345)
     lb2.config(font=("Calibri", 12, 'bold'), fg='black')
-    popupMenu1.place(x=250, y=300)
+    popupMenu1.place(x=250, y=345)
 
     # link function to change dropdown
     buttonsFn.tkvar1.trace('w', buttonsFn.change_dropdown1)
@@ -182,19 +196,19 @@ def openCorpMenu():
     buttonsFn.tkvar2.set('Static')  # set the default option
 
     lb3 = tkinter.Label(buttonsFn.top, text="VRF Tunnel\nDestination IP")
-    lb3.place(x=400, y=300)
+    lb3.place(x=400, y=345)
     lb3.config(font=("Calibri", 12, 'bold'), fg='black')
 
     filepathText1 = tkinter.Entry(buttonsFn.top, textvariable=buttonsFn.file6_path)
-    filepathText1.place(x=520, y=310, width=200, height=25)
+    filepathText1.place(x=520, y=355, width=200, height=25)
     filepathText1.delete(0, 'end')
 
 
     popupMenu2 = tkinter.OptionMenu(buttonsFn.top, buttonsFn.tkvar2, *choices2)
     lb2 = tkinter.Label(buttonsFn.top, text="Choose Static\n or Dynamic")
-    lb2.place(x=100, y=355)
+    lb2.place(x=100, y=400)
     lb2.config(font=("Calibri", 12, 'bold'), fg='black')
-    popupMenu2.place(x=250, y=355)
+    popupMenu2.place(x=250, y=400)
 
     # link function to change dropdown
     buttonsFn.tkvar2.trace('w', buttonsFn.change_dropdown2)
@@ -206,7 +220,7 @@ def openCorpMenu():
     lb.place(x=200, y=20)
 
     # Define the size of the main window
-    buttonsFn.top.geometry("800x450")  # Width x Height
+    buttonsFn.top.geometry("800x520")  # Width x Height
     buttonsFn.top.title("Corporate APN Configuration")
     buttonsFn.top.mainloop()
     # New_Window.configure(background='white')
