@@ -2,7 +2,7 @@ import time
 import tkinter
 import tkinter.font as font
 import buttonsFn
-import IDNSandAPNconfig
+from Corporate_APNs import IDNSandAPNconfig
 import xlrd
 
 def TestConfigRun():

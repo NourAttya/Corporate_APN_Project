@@ -1,5 +1,5 @@
 import ipaddress
-import Internet_APN_script, PCconnectivity_APN_script, WIc3G_APN_script, whitelisting_APN_script
+from Corporate_APNs import Internet_APN_script, PCconnectivity_APN_script, WIc3G_APN_script
 import xlrd
 
 
