@@ -503,14 +503,4 @@ def WhitelistingScript(APNname,IP,netmask,MTXNum,SorD,pathToSave):
 
 
 
-
-
-
-
-
-
-
-
-
-
     script.close()
