@@ -165,7 +165,7 @@ def openCorpMenu():
     lb4.config(font=("Calibri", 12, 'bold'), fg='black')
 
     # Dictionary with options
-    choices1 = {'Internet APN', 'PC Connectivity', '3G WIc', 'Whitelisting APN' }
+    choices1 = {'Internet APN', 'PC Connectivity', '3G WIc'}
     buttonsFn.tkvar1.set('Internet APN')  # set the default option
 
     popupMenu1 = tkinter.OptionMenu(buttonsFn.top, buttonsFn.tkvar1, *choices1)

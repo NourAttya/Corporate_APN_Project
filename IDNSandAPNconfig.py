@@ -55,15 +55,8 @@ def IDNSandAPNConfigCorp(APNname,IPpool,MTX,XLSXsheet,TypeOfAPN,SorD,VRFDest):
         PCconnectivity_APN_script.PCconnectivityScript(APNname,IP,netmask,MTX,MTXNum,SecMTX,secMTXnum,SorD,pathToSave,VRFDest)
     elif(TypeOfAPN== '3G WIc'):
         WIc3G_APN_script.WIc3GScript(APNname, IP,netmask,MTX, MTXNum,SecMTX,secMTXnum,SorD,pathToSave)
-    elif(TypeOfAPN=='Whitelisting APN'):
-        whitelisting_APN_script.WhitelistingScript(APNname, IP,netmask, MTXNum,SorD,pathToSave)
     else:
         return
-
-
-
-
-
 
 
 
