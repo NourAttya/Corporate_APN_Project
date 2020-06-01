@@ -14,9 +14,10 @@ def CorpConfigRun():
 
 #Nour Attyia
 #Ahmed Ayman
+choices3=[]
 
-MTXs=[]
 def UpdateDropDownFromExcel():
+    MTXs = []
     buttonsFn.file1_browser()
     # open the excel sheet and get the corresponding number to MTX name
     wb = xlrd.open_workbook(buttonsFn.file1_path.get())
@@ -36,14 +37,17 @@ def UpdateDropDownFromExcel():
     popupMenu3 = tkinter.OptionMenu(buttonsFn.top, buttonsFn.tkvar3, *choices3)
     popupMenu3.place(x=300, y=245)
     popupMenu3.config(height=1, width=4, fg='black')
-    buttonsFn.tkvar3.set(MTXs[0])  # set the default option
+    buttonsFn.tkvar3.set(choices3[0])  # set the default option
 
     choices4=MTXs
     popupMenu4 = tkinter.OptionMenu(buttonsFn.top, buttonsFn.tkvar4, *choices4)
     popupMenu4.place(x=300, y=300)
     popupMenu4.config(height=1, width=4, fg='black')
-    buttonsFn.tkvar4.set(MTXs[0])  # set the default option
-
+    buttonsFn.tkvar4.set(choices3[0])  # set the default option
+def TypeOfAPNrun(popupMenu2):
+    buttonsFn.change_dropdown1()
+    if (buttonsFn.tkvar1.get() == '3G WIc'):
+        popupMenu2.menu.configure(state="disabled")
 
 def openTestMenu():
     # define font
@@ -147,15 +151,6 @@ def openCorpMenu():
     # link function to change dropdown
     buttonsFn.tkvar3.trace('w', buttonsFn.change_dropdown3)
 
-    buttonRun = tkinter.Button(buttonsFn.top, text="Run", command=CorpConfigRun)
-    buttonRun.place(x=330, y=460)
-    buttonRun.config(height=1, width=10)
-    buttonRun['font'] = myFont2
-
-    buttonBack = tkinter.Button(buttonsFn.top, text="Back", command=openMainMenu)
-    buttonBack.place(x=20, y=20)
-    buttonBack.config(height=2, width=8, fg='black')
-    buttonBack['font'] = myFont
 
     # 1
     lb1 = tkinter.Label(buttonsFn.top, text="Select Excel Sheet")
@@ -170,6 +165,12 @@ def openCorpMenu():
     buttonBrowse1.place(x=670, y=200)
     buttonBrowse1['font'] = myFont
 
+
+    # Dictionary with options
+    choices1 = {'Internet APN', 'PC Connectivity', '3G WIc'}
+    buttonsFn.tkvar1.set('3G WIc')  # set the default option
+
+
     lb4 = tkinter.Label(buttonsFn.top, text="Choose Primary MTX")
     lb4.place(x=100, y=250)
     lb4.config(font=("Calibri", 12, 'bold'), fg='black')
@@ -178,22 +179,24 @@ def openCorpMenu():
     lb5.place(x=100, y=300)
     lb5.config(font=("Calibri", 12, 'bold'), fg='black')
 
-    # Dictionary with options
-    choices1 = {'Internet APN', 'PC Connectivity', '3G WIc'}
-    buttonsFn.tkvar1.set('Internet APN')  # set the default option
+
+    popupMenu3 = tkinter.OptionMenu(buttonsFn.top, buttonsFn.tkvar3, [""])
+    popupMenu3.place(x=300, y=245)
+    popupMenu3.config(height=1, width=4, fg='black')
+    buttonsFn.tkvar3.set("")  # set the default option
+
+    popupMenu4 = tkinter.OptionMenu(buttonsFn.top, buttonsFn.tkvar4, [""])
+    popupMenu4.place(x=300, y=300)
+    popupMenu4.config(height=1, width=4, fg='black')
+    buttonsFn.tkvar4.set("")  # set the default option
 
     popupMenu1 = tkinter.OptionMenu(buttonsFn.top, buttonsFn.tkvar1, *choices1)
-    lb2=tkinter.Label(buttonsFn.top, text="Choose APN Type")
+    lb2 = tkinter.Label(buttonsFn.top, text="Choose APN Type")
     lb2.place(x=100, y=345)
     lb2.config(font=("Calibri", 12, 'bold'), fg='black')
     popupMenu1.place(x=250, y=345)
-
     # link function to change dropdown
     buttonsFn.tkvar1.trace('w', buttonsFn.change_dropdown1)
-
-    # Dictionary with options
-    choices2 = {'Static', 'Dynamic'}
-    buttonsFn.tkvar2.set('Static')  # set the default option
 
     lb3 = tkinter.Label(buttonsFn.top, text="VRF Tunnel\nDestination IP")
     lb3.place(x=400, y=345)
@@ -203,16 +206,28 @@ def openCorpMenu():
     filepathText1.place(x=520, y=355, width=200, height=25)
     filepathText1.delete(0, 'end')
 
-
-    popupMenu2 = tkinter.OptionMenu(buttonsFn.top, buttonsFn.tkvar2, *choices2)
     lb2 = tkinter.Label(buttonsFn.top, text="Choose Static\n or Dynamic")
     lb2.place(x=100, y=400)
     lb2.config(font=("Calibri", 12, 'bold'), fg='black')
-    popupMenu2.place(x=250, y=400)
 
+    buttonsFn.tkvar2.set("")  # set the default option
+    popupMenu2 = tkinter.OptionMenu(buttonsFn.top, buttonsFn.tkvar2, [""])
+    popupMenu2.place(x=250, y=400)
     # link function to change dropdown
     buttonsFn.tkvar2.trace('w', buttonsFn.change_dropdown2)
 
+    buttonRun = tkinter.Button(buttonsFn.top, text="Run", command=CorpConfigRun)
+    buttonRun.place(x=330, y=460)
+    buttonRun.config(height=1, width=10)
+    buttonRun['font'] = myFont2
+
+    buttonBack = tkinter.Button(buttonsFn.top, text="Back", command=openMainMenu)
+    buttonBack.place(x=20, y=20)
+    buttonBack.config(height=2, width=8, fg='black')
+    buttonBack['font'] = myFont
+
+    e = tkinter.Text(buttonsFn.top, width=75, height=10)
+    e.bind("<Tab>", buttonsFn.focus_next_widget)
     # Appearnce Title
 
     lb = tkinter.Label(buttonsFn.top, text="Corporate APN Configuration")
@@ -224,6 +239,8 @@ def openCorpMenu():
     buttonsFn.top.title("Corporate APN Configuration")
     buttonsFn.top.mainloop()
     # New_Window.configure(background='white')
+def TypeRun():
+    buttonsFn.change_dropdown1()
 
 def openMainMenu():
 

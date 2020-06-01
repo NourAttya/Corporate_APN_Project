@@ -165,6 +165,17 @@ tkvar4= tkinter.StringVar(top)
 # on change dropdown value
 def change_dropdown1(*args):
     print(tkvar1.get())
+    # Dictionary with options
+    choices2 = {'Static', 'Dynamic'}
+    tkvar2.set('Static')  # set the default option
+    popupMenu2 = tkinter.OptionMenu(top, tkvar2, *choices2)
+    popupMenu2.place(x=250, y=400)
+    if (tkvar1.get() == '3G WIc'):
+        popupMenu2.configure(state="disabled")
+
+
+
+
 
 # on change dropdown value
 def change_dropdown2(*args):
@@ -177,3 +188,7 @@ def change_dropdown3(*args):
 # on change dropdown value
 def change_dropdown4(*args):
     print(tkvar4.get())
+
+def focus_next_widget(event):
+    event.widget.tk_focusNext().focus()
+    return("break")
