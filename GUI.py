@@ -167,7 +167,7 @@ def openCorpMenu():
 
 
     # Dictionary with options
-    choices1 = {'Internet APN', 'PC Connectivity', '3G WIc'}
+    choices1 = {'Internet APN', 'PC Connectivity', '3G WIc', 'Sim2Sim'}
     buttonsFn.tkvar1.set('3G WIc')  # set the default option
 
 

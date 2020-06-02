@@ -1,5 +1,5 @@
 import ipaddress
-from Corporate_APNs import Internet_APN_script, PCconnectivity_APN_script, WIc3G_APN_script
+from Corporate_APNs import Internet_APN_script, PCconnectivity_APN_script, WIc3G_APN_script, Sim2Sim_script
 import xlrd
 
 
@@ -52,6 +52,8 @@ def IDNSandAPNConfigCorp(APNname,IPpool,MTX,XLSXsheet,TypeOfAPN,SorD,VRFDest,Sec
         PCconnectivity_APN_script.PCconnectivityScript(APNname, IP, netmask, MTX, MTXNum, SecMTX, secMTXnum, SorD, pathToSave, VRFDest)
     elif(TypeOfAPN== '3G WIc'):
         WIc3G_APN_script.WIc3GScript(APNname, IP, netmask, MTX, MTXNum, SecMTX, secMTXnum, SorD, pathToSave)
+    elif (TypeOfAPN == 'Sim2Sim'):
+        Sim2Sim_script.Sim2Sim_script(APNname, IP, netmask, MTX, MTXNum, SecMTX, secMTXnum, SorD, pathToSave)
     else:
         return
 
