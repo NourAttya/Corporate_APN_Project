@@ -1,0 +1,161 @@
+TG1-GGSN07:
+-----------
+save configuration /flash/configfiles/Before_tTest.cfg -redundant
+config
+ context aaa 
+   apn tTest
+      accounting-mode none
+      gtpp group PGW07 accounting-context gn
+      ip hide-service-address
+      aaa group Corporate-radgom 
+      ip address alloc-method no-dynamic allow-user-specified
+      ip access-group Corporate.vodafone.net-acl.in in
+      ip access-group Corporate.vodafone.net-acl.out out
+      mediation-device no-interims
+       ip context-name Gi-Corp
+      ip address pool name tTest_pool
+      active-charging rulebase corporate-mbc-rs
+      ims-auth-service corporate-mbc-pool
+      credit-control-group corporate-mbc-cc
+     exit
+   context Gi-Corp
+      ip pool tTest_pool.0 10.0.0.0 255.255.255.192 static group-name tTest_pool advertise-if-used
+     exit
+    end
+save configuration /flash/configfiles/TG1-GGSN-running.cfg -redundant
+-----------------------------------------------
+BS-GGSN-08:
+---------
+save configuration /flash/configfiles/Before_tTest.cfg -redundant
+config
+ context aaa
+   apn tTest 
+      accounting-mode none
+      gtpp group PGW08 accounting-context gn
+      ip hide-service-address
+      aaa group Corporate-radgom
+      ip address alloc-method no-dynamic allow-user-specified
+      ip access-group Corporate.vodafone.net-acl.in in
+      ip access-group Corporate.vodafone.net-acl.out out
+      mediation-device no-interims 
+      ip context-name Gi-Corp
+      ip address pool name tTest_pool
+      active-charging rulebase corporate-mbc-rs
+      ims-auth-service corporate-mbc-pool
+      credit-control-group corporate-mbc-cc
+     exit
+
+  context Gi-Corp
+      ip pool tTest_pool.0 10.0.0.0 255.255.255.192 static group-name tTest_pool advertise-if-used
+     exit
+    end  
+
+save configuration /flash/configfiles/BS-GGSN-config.cfg -redundant
+
+---------------------------------------------------------------
+
+Rollback
+=========
+
+config
+    context aaa
+       no apn tTest 
+end 
+
+Add the below entries On All IDNSs:
+----------------------------------------
+
+ 
+create naptrrecord tTest.apn.epc.mnc002.mcc602.3gppnetwork.org. -set order=100;preference=10;flags=a;service=x-3gpp-pgw:x-s5-gtp:x-gn;replacement=topoff.pgws5gn.tg1gw.nodes.epc.mnc002.mcc602.3gppnetwork.org.
+
+update dnsserver
+
+Rollback on All iDNSs
+======================
+
+delete naptrrecord tTest.apn.epc.mnc002.mcc602.3gppnetwork.org.
+
+update dnsserver
+TG1-GGSN07:
+-----------
+save configuration /flash/configfiles/Before_tTest.cfg -redundant
+config
+ context aaa 
+   apn tTest
+   accounting-mode none
+      gtpp group PGW07 accounting-context gn
+      aaa group Corporate-radgom 
+      dns primary 62.240.110.197
+      dns secondary 62.240.110.198
+      ip hide-service-address
+      ip address alloc-method local
+      ip access-group Corporate.vodafone.net-acl.in in
+      ip access-group Corporate.vodafone.net-acl.out out 
+      ip source-violation ignore 
+      mediation-device no-interims
+      ip context-name VAS-Corp
+      ip address pool name tTest_pool
+      active-charging rulebase corporate-mbc-rs  
+      ims-auth-service corporate-mbc-pool
+      credit-control-group corporate-mbc-cc
+   exit
+context VAS-Corp
+      ip pool tTest_pool.0 10.0.0.0 255.255.255.192 static group-name tTest_pool advertise-if-used
+  exit
+    end
+save configuration /flash/configfiles/TG1-GGSN-running.cfg -redundant
+-----------------------------------------------
+BS-GGSN-08:
+---------
+save configuration /flash/configfiles/Before_tTest.cfg -redundant
+config
+ context aaa 
+   apn tTest 
+   accounting-mode none
+      gtpp group PGW08 accounting-context gn
+      aaa group Corporate-radgom 
+      dns primary 62.240.110.197
+      dns secondary 62.240.110.198
+      ip hide-service-address
+      ip address alloc-method local
+      ip access-group Corporate.vodafone.net-acl.in in
+      ip access-group Corporate.vodafone.net-acl.out out 
+      ip source-violation ignore 
+      mediation-device no-interims
+      ip context-name VAS-Corp
+      ip address pool name tTest_pool
+      active-charging rulebase corporate-mbc-rs   
+      ims-auth-service corporate-mbc-pool
+      credit-control-group corporate-mbc-cc
+   exit
+context VAS-Corp
+      ip pool tTest_pool.0 10.0.0.0 255.255.255.192 static group-name tTest_pool advertise-if-used
+  exit
+    end
+
+save configuration /flash/configfiles/BS-GGSN-config.cfg -redundant
+
+---------------------------------------------------------------
+
+Rollback
+=========
+
+config
+    context aaa
+       no apn tTest 
+end 
+
+Add the below entries On All IDNSs:
+----------------------------------------
+
+ 
+create naptrrecord tTest.apn.epc.mnc002.mcc602.3gppnetwork.org. -set order=100;preference=10;flags=a;service=x-3gpp-pgw:x-s5-gtp:x-gn;replacement=topoff.pgws5gn.tg1gw.nodes.epc.mnc002.mcc602.3gppnetwork.org.
+
+update dnsserver
+
+Rollback on All iDNSs
+======================
+
+delete naptrrecord tTest.apn.epc.mnc002.mcc602.3gppnetwork.org.
+
+update dnsserver
