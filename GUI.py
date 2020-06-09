@@ -10,7 +10,8 @@ def TestConfigRun():
 
 
 def CorpConfigRun():
-    IDNSandAPNconfig.IDNSandAPNConfigCorp(buttonsFn.file3_path.get(), buttonsFn.file2_path.get(), buttonsFn.tkvar3.get(), buttonsFn.file1_path.get(), buttonsFn.tkvar1.get(), buttonsFn.tkvar2.get(), buttonsFn.file6_path.get(),buttonsFn.tkvar4.get())
+
+    IDNSandAPNconfig.IDNSandAPNConfigCorp(buttonsFn.file3_path.get(), buttonsFn.file2_path.get(), buttonsFn.tkvar3.get(), buttonsFn.file1_path.get(), buttonsFn.tkvar1.get(), buttonsFn.tkvar2.get(), buttonsFn.file6_path.get(),buttonsFn.tkvar4.get(),buttonsFn.file7_path.get())
 
 #Nour Attyia
 #Ahmed Ayman
@@ -187,7 +188,7 @@ def openCorpMenu():
 
     # Dictionary with options
     choices1 = {'Internet APN', 'PC Connectivity', '3G WIc', 'Sim2Sim'}
-    buttonsFn.tkvar1.set('3G WIc')  # set the default option
+    buttonsFn.tkvar1.set('Internet APN')  # set the default option
 
 
     lb4 = tkinter.Label(buttonsFn.top, text="Choose Primary MTX")
@@ -214,26 +215,44 @@ def openCorpMenu():
     lb2.place(x=100, y=345)
     lb2.config(font=("Calibri", 12, 'bold'), fg='black')
     popupMenu1.place(x=250, y=345)
-    # link function to change dropdown
-    buttonsFn.tkvar1.trace('w', buttonsFn.change_dropdown1)
 
     lb3 = tkinter.Label(buttonsFn.top, text="VRF Tunnel\nDestination IP")
     lb3.place(x=400, y=345)
     lb3.config(font=("Calibri", 12, 'bold'), fg='black')
+    lb3.configure(state="disabled")
 
     filepathText1 = tkinter.Entry(buttonsFn.top, textvariable=buttonsFn.file6_path)
     filepathText1.place(x=520, y=355, width=200, height=25)
     filepathText1.delete(0, 'end')
+    filepathText1.configure(state="disabled")
+
+    lb4 = tkinter.Label(buttonsFn.top, text="IP Range")
+    lb4.place(x=400, y=400)
+    lb4.config(font=("Calibri", 12, 'bold'), fg='black')
+    lb4.configure(state="disabled")
+
+    filepathText2 = tkinter.Entry(buttonsFn.top, textvariable=buttonsFn.file7_path)
+    filepathText2.place(x=520, y=400, width=200, height=25)
+    filepathText2.delete(0, 'end')
+    filepathText2.configure(state="disabled")
 
     lb2 = tkinter.Label(buttonsFn.top, text="Choose Static\n or Dynamic")
     lb2.place(x=100, y=400)
     lb2.config(font=("Calibri", 12, 'bold'), fg='black')
 
-    buttonsFn.tkvar2.set("")  # set the default option
-    popupMenu2 = tkinter.OptionMenu(buttonsFn.top, buttonsFn.tkvar2, [""])
+
+
+    # link function to change dropdown
+    buttonsFn.tkvar1.trace('w', buttonsFn.change_dropdown1)
+
+    choices2 = {'Static', 'Dynamic'}
+    buttonsFn.tkvar2.set('Static')  # set the default option
+    popupMenu2 = tkinter.OptionMenu(buttonsFn.top, buttonsFn.tkvar2, *choices2)
     popupMenu2.place(x=250, y=400)
     # link function to change dropdown
     buttonsFn.tkvar2.trace('w', buttonsFn.change_dropdown2)
+
+
 
     buttonRun = tkinter.Button(buttonsFn.top, text="Run", command=CorpConfigRun)
     buttonRun.place(x=330, y=460)
@@ -370,7 +389,7 @@ def openDataMenu():
 
     buttonBack = tkinter.Button(buttonsFn.top, text="Back", command=openMainMenu)
     buttonBack.place(x=20, y=20)
-    buttonBack.config(height=2, width=8, fg='black', bg='white')
+    buttonBack.config(height=1, width=8, fg='black', bg='white')
     buttonBack['font'] = myFont
 
     # Define the size of the main window

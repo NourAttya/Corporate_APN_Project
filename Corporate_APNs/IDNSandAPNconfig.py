@@ -4,7 +4,7 @@ import xlrd
 
 
 
-def IDNSandAPNConfigCorp(APNname,IPpool,MTX,XLSXsheet,TypeOfAPN,SorD,VRFDest,SecMTX):
+def IDNSandAPNConfigCorp(APNname,IPpool,MTX,XLSXsheet,TypeOfAPN,SorD,VRFDest,SecMTX,IPrange):
 
     #resolving IP(getting netmask)
     net= ipaddress.ip_network(IPpool)
@@ -49,7 +49,7 @@ def IDNSandAPNConfigCorp(APNname,IPpool,MTX,XLSXsheet,TypeOfAPN,SorD,VRFDest,Sec
     if(TypeOfAPN=='Internet APN'):
         Internet_APN_script.InternetAPNScript(APNname, IP, netmask, MTX, MTXNum, SecMTX, secMTXnum, SorD, pathToSave)
     elif(TypeOfAPN=='PC Connectivity'):
-        PCconnectivity_APN_script.PCconnectivityScript(APNname, IP, netmask, MTX, MTXNum, SecMTX, secMTXnum, SorD, pathToSave, VRFDest)
+        PCconnectivity_APN_script.PCconnectivityScript(APNname, IP, netmask, MTX, MTXNum, SecMTX, secMTXnum, SorD, pathToSave, VRFDest,IPrange)
     elif(TypeOfAPN== '3G WIc'):
         WIc3G_APN_script.WIc3GScript(APNname, IP, netmask, MTX, MTXNum, SecMTX, secMTXnum, SorD, pathToSave)
     elif (TypeOfAPN == 'Sim2Sim'):
