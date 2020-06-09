@@ -3,7 +3,7 @@ import tkinter
 import tkinter.font as font
 import buttonsFn
 from Corporate_APNs import IDNSandAPNconfig
-import xlrd
+import xlrd  ##Not needed
 
 def TestConfigRun():
     IDNSandAPNconfig.IDNSandAPNConfigTest(buttonsFn.file3_path.get(), buttonsFn.file2_path.get(), buttonsFn.file4_path.get(), buttonsFn.file1_path.get())
@@ -80,14 +80,13 @@ def openTestMenu():
     lb4.config(font=("Calibri", 12, 'bold'), fg='black',background = 'red')
 
 
-
     filepathText1 = tkinter.Entry(buttonsFn.top, textvariable=buttonsFn.file4_path)
     filepathText1.place(x=250, y=200, width=200, height=25)
-    filepathText1.delete(0, 'end')
+    filepathText1.de00, y=340)
+    buttonRun.config(heilete(0, 'end')
 
     buttonRun = tkinter.Button(buttonsFn.top, text="Run", command=TestConfigRun)
-    buttonRun.place(x=300, y=340)
-    buttonRun.config(height=2, width=16, fg='black')
+    buttonRun.place(x=3ght=2, width=16, fg='black')
     buttonRun['font'] = myFont2
 
     buttonBack = tkinter.Button(buttonsFn.top, text="Back", command=openMainMenu)
