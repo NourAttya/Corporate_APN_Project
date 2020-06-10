@@ -14,7 +14,7 @@ import xlrd
 def CorpConfigRun():
 
     IDNSandAPNconfig.IDNSandAPNConfigCorp(buttonsFn.file3_path.get(), buttonsFn.file2_path.get(), buttonsFn.tkvar3.get(), buttonsFn.file1_path.get(), buttonsFn.tkvar1.get(), buttonsFn.tkvar2.get(), buttonsFn.file6_path.get(),buttonsFn.tkvar4.get(),buttonsFn.file7_path.get())
-choices3=[]
+
 
 def UpdateDropDownFromExcelForCorporateAPN():
     MTXs = []
@@ -33,17 +33,17 @@ def UpdateDropDownFromExcelForCorporateAPN():
         else:
             MTXs.append( str(row[MTXindex]))
     print(MTXs)
-    choices3 = MTXs
-    popupMenu3 = tkinter.OptionMenu(buttonsFn.top, buttonsFn.tkvar3, *choices3)
-    popupMenu3.place(x=300, y=245)
-    popupMenu3.config(height=1, width=4, fg='black')
-    buttonsFn.tkvar3.set(choices3[0])  # set the default option
 
-    choices4=MTXs
-    popupMenu4 = tkinter.OptionMenu(buttonsFn.top, buttonsFn.tkvar4, *choices4)
-    popupMenu4.place(x=300, y=300)
-    popupMenu4.config(height=1, width=4, fg='black')
-    buttonsFn.tkvar4.set(choices3[0])  # set the default option
+    MTXMenu = tkinter.OptionMenu(buttonsFn.top, buttonsFn.tkvar3, *MTXs)
+    MTXMenu.place(x=300, y=245)
+    MTXMenu.config(height=1, width=4, fg='black')
+    buttonsFn.tkvar3.set(MTXs[0])  # set the default option
+
+
+    SecMTXMenu = tkinter.OptionMenu(buttonsFn.top, buttonsFn.tkvar4, *MTXs)
+    SecMTXMenu.place(x=300, y=300)
+    SecMTXMenu.config(height=1, width=4, fg='black')
+    buttonsFn.tkvar4.set(MTXs[0])  # set the default option
 
 
 def openCorpMenu():
@@ -59,104 +59,108 @@ def openCorpMenu():
     #background_label.configure(background='red')
     # Define Buttons of the main window
 
-    lb1 = tkinter.Label(buttonsFn.top, text="APN Name")
-    lb1.place(x=100, y=100)
-    lb1.config(font=("Calibri", 12, 'bold'), fg='black')
+    lbAPNName = tkinter.Label(buttonsFn.top, text="APN Name")
+    lbAPNName.place(x=100, y=100)
+    lbAPNName.config(font=("Calibri", 12, 'bold'), fg='black')
 
-    filepathText1 = tkinter.Entry(buttonsFn.top, textvariable=buttonsFn.file3_path)
-    filepathText1.place(x=250, y=100, width=200, height=25)
-    filepathText1.delete(0, 'end')
+    entryAPNName = tkinter.Entry(buttonsFn.top, textvariable=buttonsFn.file3_path)
+    entryAPNName.place(x=250, y=100, width=200, height=25)
+    entryAPNName.delete(0, 'end')
 
-    lb2 = tkinter.Label(buttonsFn.top, text="IP Pool")
-    lb2.place(x=100, y=150)
-    lb2.config(font=("Calibri", 12, 'bold'), fg='black')
+    lbIPPool = tkinter.Label(buttonsFn.top, text="IP Pool")
+    lbIPPool.place(x=100, y=150)
+    lbIPPool.config(font=("Calibri", 12, 'bold'), fg='black')
 
-    filepathText1 = tkinter.Entry(buttonsFn.top, textvariable=buttonsFn.file2_path)
-    filepathText1.place(x=250, y=150, width=200, height=25)
-    filepathText1.delete(0, 'end')
+    entryIPPool = tkinter.Entry(buttonsFn.top, textvariable=buttonsFn.file2_path)
+    entryIPPool.place(x=250, y=150, width=200, height=25)
+    entryIPPool.delete(0, 'end')
 
 
-    # link function to change dropdown
-    buttonsFn.tkvar3.trace('w', buttonsFn.change_dropdown3)
+
 
 
     # 1
-    lb1 = tkinter.Label(buttonsFn.top, text="Select Excel Sheet")
-    lb1.place(x=100, y=205)
-    lb1.config(font=("Calibri", 12, 'bold'), fg='black')
+    lbExcel = tkinter.Label(buttonsFn.top, text="Select Excel Sheet")
+    lbExcel.place(x=100, y=205)
+    lbExcel.config(font=("Calibri", 12, 'bold'), fg='black')
 
-    filepathText1 = tkinter.Entry(buttonsFn.top, textvariable=buttonsFn.file1_path)
-    filepathText1.place(x=250, y=205, width=400, height=25)
-    filepathText1.delete(0, 'end')
+    entryExcelPath = tkinter.Entry(buttonsFn.top, textvariable=buttonsFn.file1_path)
+    entryExcelPath.place(x=250, y=205, width=400, height=25)
+    entryExcelPath.delete(0, 'end')
 
-    buttonBrowse1 = tkinter.Button(buttonsFn.top, text="Browse", command=UpdateDropDownFromExcelForCorporateAPN)
-    buttonBrowse1.place(x=670, y=200)
-    buttonBrowse1['font'] = myFont
+    buttonBrowse = tkinter.Button(buttonsFn.top, text="Browse", command=UpdateDropDownFromExcelForCorporateAPN)
+    buttonBrowse.place(x=670, y=200)
+    buttonBrowse['font'] = myFont
+
+    # link function to change dropdown
+    #this is for MTX dropdown list
+    buttonsFn.tkvar3.trace('w', buttonsFn.change_dropdown3)
+
+
+    lbPrimaryMTX = tkinter.Label(buttonsFn.top, text="Choose Primary MTX")
+    lbPrimaryMTX.place(x=100, y=250)
+    lbPrimaryMTX.config(font=("Calibri", 12, 'bold'), fg='black')
+
+    lbSecMTX= tkinter.Label(buttonsFn.top, text="Choose Secondary MTX")
+    lbSecMTX.place(x=100, y=300)
+    lbSecMTX.config(font=("Calibri", 12, 'bold'), fg='black')
+
+
+    PrimaryMTXMenu = tkinter.OptionMenu(buttonsFn.top, buttonsFn.tkvar3, [""])
+    PrimaryMTXMenu.place(x=300, y=245)
+    PrimaryMTXMenu.config(height=1, width=4, fg='black')
+    buttonsFn.tkvar3.set("")  # set the default option
+
+    SecMTXMenu = tkinter.OptionMenu(buttonsFn.top, buttonsFn.tkvar4, [""])
+    SecMTXMenu.place(x=300, y=300)
+    SecMTXMenu.config(height=1, width=4, fg='black')
+    buttonsFn.tkvar4.set("")  # set the default option
 
 
     # Dictionary with options
-    choices1 = {'Internet APN', 'PC Connectivity', '3G WIc', 'Sim2Sim'}
+    APNTypeChoices = {'Internet APN', 'PC Connectivity', '3G WIc', 'Sim2Sim'}
     buttonsFn.tkvar1.set('Internet APN')  # set the default option
 
 
-    lb4 = tkinter.Label(buttonsFn.top, text="Choose Primary MTX")
-    lb4.place(x=100, y=250)
-    lb4.config(font=("Calibri", 12, 'bold'), fg='black')
-
-    lb5 = tkinter.Label(buttonsFn.top, text="Choose Secondary MTX")
-    lb5.place(x=100, y=300)
-    lb5.config(font=("Calibri", 12, 'bold'), fg='black')
-
-
-    popupMenu3 = tkinter.OptionMenu(buttonsFn.top, buttonsFn.tkvar3, [""])
-    popupMenu3.place(x=300, y=245)
-    popupMenu3.config(height=1, width=4, fg='black')
-    buttonsFn.tkvar3.set("")  # set the default option
-
-    popupMenu4 = tkinter.OptionMenu(buttonsFn.top, buttonsFn.tkvar4, [""])
-    popupMenu4.place(x=300, y=300)
-    popupMenu4.config(height=1, width=4, fg='black')
-    buttonsFn.tkvar4.set("")  # set the default option
-
-    popupMenu1 = tkinter.OptionMenu(buttonsFn.top, buttonsFn.tkvar1, *choices1)
-    lb2 = tkinter.Label(buttonsFn.top, text="Choose APN Type")
-    lb2.place(x=100, y=345)
-    lb2.config(font=("Calibri", 12, 'bold'), fg='black')
-    popupMenu1.place(x=250, y=345)
-
-    lb3 = tkinter.Label(buttonsFn.top, text="VRF Tunnel\nDestination IP")
-    lb3.place(x=400, y=345)
-    lb3.config(font=("Calibri", 12, 'bold'), fg='black')
-    lb3.configure(state="disabled")
-
-    filepathText1 = tkinter.Entry(buttonsFn.top, textvariable=buttonsFn.file6_path)
-    filepathText1.place(x=520, y=355, width=200, height=25)
-    filepathText1.delete(0, 'end')
-    filepathText1.configure(state="disabled")
-
-    lb4 = tkinter.Label(buttonsFn.top, text="IP Range")
-    lb4.place(x=400, y=400)
-    lb4.config(font=("Calibri", 12, 'bold'), fg='black')
-    lb4.configure(state="disabled")
-
-    filepathText2 = tkinter.Entry(buttonsFn.top, textvariable=buttonsFn.file7_path)
-    filepathText2.place(x=520, y=400, width=200, height=25)
-    filepathText2.delete(0, 'end')
-    filepathText2.configure(state="disabled")
-
-    lb2 = tkinter.Label(buttonsFn.top, text="Choose Static\n or Dynamic")
-    lb2.place(x=100, y=400)
-    lb2.config(font=("Calibri", 12, 'bold'), fg='black')
-
-
+    lbAPNType = tkinter.Label(buttonsFn.top, text="Choose APN Type")
+    lbAPNType.place(x=100, y=345)
+    lbAPNType.config(font=("Calibri", 12, 'bold'), fg='black')
+    APNTypeMenu = tkinter.OptionMenu(buttonsFn.top, buttonsFn.tkvar1, *APNTypeChoices)
+    APNTypeMenu.place(x=250, y=345)
 
     # link function to change dropdown
     buttonsFn.tkvar1.trace('w', buttonsFn.change_dropdown1)
 
-    choices2 = {'Static', 'Dynamic'}
+    lbVRF= tkinter.Label(buttonsFn.top, text="VRF Tunnel\nDestination IP")
+    lbVRF.place(x=400, y=345)
+    lbVRF.config(font=("Calibri", 12, 'bold'), fg='black')
+    lbVRF.configure(state="disabled")
+
+    entryVRF = tkinter.Entry(buttonsFn.top, textvariable=buttonsFn.file6_path)
+    entryVRF.place(x=520, y=355, width=200, height=25)
+    entryVRF.delete(0, 'end')
+    entryVRF.configure(state="disabled")
+
+    lbIPRange = tkinter.Label(buttonsFn.top, text="IP Range")
+    lbIPRange.place(x=400, y=400)
+    lbIPRange.config(font=("Calibri", 12, 'bold'), fg='black')
+    lbIPRange.configure(state="disabled")
+
+    entryIPRange = tkinter.Entry(buttonsFn.top, textvariable=buttonsFn.file7_path)
+    entryIPRange.place(x=520, y=400, width=200, height=25)
+    entryIPRange.delete(0, 'end')
+    entryIPRange.configure(state="disabled")
+
+    lbStatOrDyn = tkinter.Label(buttonsFn.top, text="Choose Static\n or Dynamic")
+    lbStatOrDyn.place(x=100, y=400)
+    lbStatOrDyn.config(font=("Calibri", 12, 'bold'), fg='black')
+
+
+
+    StatOrDynChoices = {'Static', 'Dynamic'}
     buttonsFn.tkvar2.set('Static')  # set the default option
-    popupMenu2 = tkinter.OptionMenu(buttonsFn.top, buttonsFn.tkvar2, *choices2)
-    popupMenu2.place(x=250, y=400)
+    StatOrDynMenu = tkinter.OptionMenu(buttonsFn.top, buttonsFn.tkvar2, *StatOrDynChoices)
+    StatOrDynMenu.place(x=250, y=400)
     # link function to change dropdown
     buttonsFn.tkvar2.trace('w', buttonsFn.change_dropdown2)
 
@@ -176,9 +180,9 @@ def openCorpMenu():
     e.bind("<Tab>", buttonsFn.focus_next_widget)
     # Appearnce Title
 
-    lb = tkinter.Label(buttonsFn.top, text="Corporate APN Configuration")
-    lb.config(font=("Calibri", 28), foreground="black")
-    lb.place(x=200, y=20)
+    Title = tkinter.Label(buttonsFn.top, text="Corporate APN Configuration")
+    Title.config(font=("Calibri", 28), foreground="black")
+    Title.place(x=200, y=20)
 
     # Define the size of the main window
     buttonsFn.top.geometry("800x520")  # Width x Height
@@ -235,6 +239,7 @@ def UpdateDropDownFromExcelForIPpoolExpansion():
     buttonsFn.tkvar4.set(choices1[0])  # set the default option
 
 
+#to add another subnets and pool names in the gui
 numOfSubnet=1
 def AddSubnet():
 
@@ -385,9 +390,9 @@ def openIpPoolExpansionMenu():
     e.bind("<Tab>", buttonsFn.focus_next_widget)
     # Appearnce Title
 
-    lb = tkinter.Label(buttonsFn.top, text="IP Pool Expansion")
-    lb.config(font=("Calibri", 30), foreground="black")
-    lb.place(x=260, y=20)
+    Title = tkinter.Label(buttonsFn.top, text="IP Pool Expansion")
+    Title.config(font=("Calibri", 30), foreground="black")
+    Title.place(x=260, y=20)
 
     # Define the size of the main window
     buttonsFn.top.geometry("800x560")  # Width x Height
@@ -403,8 +408,8 @@ def openDataMenu():
     myFont = font.Font(family='Calibri', size= 15)
 
     Imgname = tkinter.PhotoImage(file="Vodafone.png")
-    background_label = tkinter.Label(buttonsFn.top,image=Imgname)
-    background_label.place(x=0, y=0, relwidth=1, relheight=1)
+    background_labe = tkinter.Label(buttonsFn.top,image=Imgname)
+    background_labe.place(x=0, y=0, relwidth=1, relheight=1)
 
     # Define Buttons of the main window
     # 1
