@@ -213,9 +213,9 @@ def IPPoolExpanRun():
 
 def UpdateDropDownFromExcelForIPpoolExpansion():
     MTXs = []
-    buttonsFn.file3_browser()
+    buttonsFn.file1_browser()
     # open the excel sheet and get the corresponding number to MTX name
-    wb = xlrd.open_workbook(buttonsFn.file3_path.get())
+    wb = xlrd.open_workbook(buttonsFn.file1_path.get())
     sheet = wb.sheet_by_index(0)
     firstRow = 0
     for j in range(sheet.nrows):
@@ -230,7 +230,7 @@ def UpdateDropDownFromExcelForIPpoolExpansion():
     print(MTXs)
     choices1 = MTXs
     popupMenu1 = tkinter.OptionMenu(buttonsFn.top, buttonsFn.tkvar4, *choices1)
-    popupMenu1.place(x=250, y=200)
+    popupMenu1.place(x=250, y=150)
     popupMenu1.config(height=1, width=4, fg='black')
     buttonsFn.tkvar4.set(choices1[0])  # set the default option
 
@@ -242,55 +242,55 @@ def AddSubnet():
     if(numOfSubnet ==1):
 
         lbPoolName = tkinter.Label(buttonsFn.top, text="Pool Name 2")
-        lbPoolName.place(x=400, y=250)
+        lbPoolName.place(x=400, y=300)
         lbPoolName.config(font=("Calibri", 12, 'bold'), fg='black')
 
         entryPoolName = tkinter.Entry(buttonsFn.top, textvariable=buttonsFn.file4_path)
-        entryPoolName.place(x=550, y=250, width=120, height=25)
+        entryPoolName.place(x=550, y=300, width=120, height=25)
         entryPoolName.delete(0, 'end')
 
         lbSubnet = tkinter.Label(buttonsFn.top, text="Subnet 2")
-        lbSubnet.place(x=400, y=300)
+        lbSubnet.place(x=400, y=350)
         lbSubnet.config(font=("Calibri", 12, 'bold'), fg='black')
 
         entrySubnet = tkinter.Entry(buttonsFn.top, textvariable=buttonsFn.file5_path)
-        entrySubnet.place(x=550, y=300, width=120, height=25)
+        entrySubnet.place(x=550, y=350, width=120, height=25)
         entrySubnet.delete(0, 'end')
 
 
 
     elif(numOfSubnet==2):
         lbPoolName = tkinter.Label(buttonsFn.top, text="Pool Name 3")
-        lbPoolName.place(x=100, y=350)
+        lbPoolName.place(x=100, y=400)
         lbPoolName.config(font=("Calibri", 12, 'bold'), fg='black')
 
         entryPoolName = tkinter.Entry(buttonsFn.top, textvariable=buttonsFn.file6_path)
-        entryPoolName.place(x=250, y=350, width=120, height=25)
+        entryPoolName.place(x=250, y=400, width=120, height=25)
         entryPoolName.delete(0, 'end')
 
         lbSubnet = tkinter.Label(buttonsFn.top, text="Subnet 3")
-        lbSubnet.place(x=100, y=400)
+        lbSubnet.place(x=100, y=450)
         lbSubnet.config(font=("Calibri", 12, 'bold'), fg='black')
 
         entrySubnet = tkinter.Entry(buttonsFn.top, textvariable=buttonsFn.file7_path)
-        entrySubnet.place(x=250, y=400, width=120, height=25)
+        entrySubnet.place(x=250, y=450, width=120, height=25)
         entrySubnet.delete(0, 'end')
 
     elif(numOfSubnet==3):
         lbPoolName = tkinter.Label(buttonsFn.top, text="Pool Name 4")
-        lbPoolName.place(x=400, y=350)
+        lbPoolName.place(x=400, y=400)
         lbPoolName.config(font=("Calibri", 12, 'bold'), fg='black')
 
         entryPoolName = tkinter.Entry(buttonsFn.top, textvariable=buttonsFn.file8_path)
-        entryPoolName.place(x=550, y=350, width=120, height=25)
+        entryPoolName.place(x=550, y=400, width=120, height=25)
         entryPoolName.delete(0, 'end')
 
         lbSubnet = tkinter.Label(buttonsFn.top, text="Subnet 4")
-        lbSubnet.place(x=400, y=400)
+        lbSubnet.place(x=400, y=450)
         lbSubnet.config(font=("Calibri", 12, 'bold'), fg='black')
 
         entrySubnet = tkinter.Entry(buttonsFn.top, textvariable=buttonsFn.file9_path)
-        entrySubnet.place(x=550, y=400, width=120, height=25)
+        entrySubnet.place(x=550, y=450, width=120, height=25)
         entrySubnet.delete(0, 'end')
     else:
         messagebox.showinfo("Error", "Maximum Number Of subnets is 4")
@@ -328,51 +328,51 @@ def openIpPoolExpansionMenu():
     lbMTX.config(font=("Calibri", 12, 'bold'), fg='black')
 
     lbContextName = tkinter.Label(buttonsFn.top, text="Context Name")
-    lbContextName.place(x=100, y=150)
+    lbContextName.place(x=100, y=200)
     lbContextName.config(font=("Calibri", 12, 'bold'), fg='black')
 
     contextChoices = {'Gi-IMS', 'Gi-DPI','Gi-Corp2','Gi-Corp','VAS-Corp'}
     buttonsFn.tkvar2.set('Gi-DPI')  # set the default option
     ContextNameMenu = tkinter.OptionMenu(buttonsFn.top, buttonsFn.tkvar2, *contextChoices)
-    ContextNameMenu.place(x=250, y=150)
+    ContextNameMenu.place(x=250, y=200)
     # link function to change dropdown
     buttonsFn.tkvar2.trace('w', buttonsFn.change_dropdown2)
 
 
     lbNodeVendor = tkinter.Label(buttonsFn.top, text="Node Vendor")
-    lbNodeVendor.place(x=100, y=200)
+    lbNodeVendor.place(x=100, y=250)
     lbNodeVendor.config(font=("Calibri", 12, 'bold'), fg='black')
 
     contextChoices = {'Cisco', 'Huawei', 'Ericsson'}
     buttonsFn.tkvar3.set('Cisco')  # set the default option
     ContextNameMenu = tkinter.OptionMenu(buttonsFn.top, buttonsFn.tkvar3, *contextChoices)
-    ContextNameMenu.place(x=250, y=200)
+    ContextNameMenu.place(x=250, y=250)
     # link function to change dropdown
     buttonsFn.tkvar3.trace('w', buttonsFn.change_dropdown3)
 
     lbPoolName = tkinter.Label(buttonsFn.top, text="Pool Name")
-    lbPoolName.place(x=100, y=250)
+    lbPoolName.place(x=100, y=300)
     lbPoolName.config(font=("Calibri", 12, 'bold'), fg='black')
 
     entryPoolName = tkinter.Entry(buttonsFn.top, textvariable=buttonsFn.file2_path)
-    entryPoolName.place(x=250, y=250, width=120, height=25)
+    entryPoolName.place(x=250, y=300, width=120, height=25)
     entryPoolName.delete(0, 'end')
 
     lbSubnet = tkinter.Label(buttonsFn.top, text="Subnet")
-    lbSubnet.place(x=100, y=300)
+    lbSubnet.place(x=100, y=350)
     lbSubnet.config(font=("Calibri", 12, 'bold'), fg='black')
 
     entrySubnet = tkinter.Entry(buttonsFn.top, textvariable=buttonsFn.file3_path)
-    entrySubnet.place(x=250, y=300, width=120, height=25)
+    entrySubnet.place(x=250, y=350, width=120, height=25)
     entrySubnet.delete(0, 'end')
 
     buttonAddSubnet = tkinter.Button(buttonsFn.top, text="Add Subnet", command=AddSubnet)
-    buttonAddSubnet.place(x=200, y=470)
+    buttonAddSubnet.place(x=200, y=500)
     buttonAddSubnet.config(height=1, width=12)
     buttonAddSubnet['font'] = myFont2
 
     buttonRun = tkinter.Button(buttonsFn.top, text="Run", command=IPPoolExpanRun)
-    buttonRun.place(x=400, y=470)
+    buttonRun.place(x=400, y=500)
     buttonRun.config(height=1, width=12)
     buttonRun['font'] = myFont2
 
@@ -390,7 +390,7 @@ def openIpPoolExpansionMenu():
     lb.place(x=260, y=20)
 
     # Define the size of the main window
-    buttonsFn.top.geometry("800x540")  # Width x Height
+    buttonsFn.top.geometry("800x560")  # Width x Height
     buttonsFn.top.title("IP Pool Expansion")
     buttonsFn.top.mainloop()
     # New_Window.configure(background='white')
