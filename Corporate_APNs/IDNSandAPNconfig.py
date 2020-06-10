@@ -11,8 +11,8 @@ def IDNSandAPNConfigCorp(APNname,IPpool,MTX,XLSXsheet,TypeOfAPN,SorD,VRFDest,Sec
     netmask=net.netmask
     IP=IPpool.split("/")[0]
     print(netmask)
-    print(IP)
-    print(SorD)
+    print("IP", IP)
+    print("SorD", SorD)
     print("VRF Dest: ",VRFDest)
 
     #get path to save output script(in the same folder of excel sheet)
