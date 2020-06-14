@@ -114,8 +114,7 @@ def file5_browser():
 file6_path = tkinter.StringVar()
 file7_path= tkinter.StringVar()
 file8_path= tkinter.StringVar()
-
-
+file9_path= tkinter.StringVar()
 # For Files On Hold
 
 def browse_multiple_files_button():
