@@ -2,6 +2,7 @@ import tkinter
 import tkinter.font as font
 import buttonsFn
 from Corporate_APNs import IDNSandAPNconfig
+from IP_Pool_Expansion import IPPoolExpansion
 from tkinter import messagebox
 import xlrd
 from IP_Pool_Expansion import IPPoolExpansion
@@ -218,6 +219,8 @@ def IPPoolExpanRun():
     fileNameToRemove = buttonsFn.file1_path.get().split('/')[-1]
     pathToSave = buttonsFn.file1_path.get().replace(fileNameToRemove, "")
     IPPoolExpansion.IPPoolExpansionConfig(buttonsFn.tkvar2.get(),IPpools,Subnetnames,buttonsFn.tkvar4.get(),buttonsFn.tkvar5.get(),buttonsFn.tkvar3.get(),buttonsFn.tkvar1.get(),buttonsFn.file10_path.get(),pathToSave)
+
+    IPPoolExpansion.IPPoolExpansionConfig()
 
 def UpdateDropDownFromExcelForIPpoolExpansion():
     MTXs = []

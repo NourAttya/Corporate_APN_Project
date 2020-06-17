@@ -231,7 +231,10 @@ def change_dropdownAPNType(*args):
     StatOrDynMenu = tkinter.OptionMenu(top, tkvar5, *StatOrDynChoices)
     StatOrDynMenu.place(x=580, y=270)
 
-    if (tkvar1.get() == '3G WIC'):
+    if (tkvar1.get() == 'Internet'):
+        StatOrDynMenu.configure(state="disabled")
+        tkvar5.set('Dynamic')
+    elif (tkvar1.get() == '3G WIC'):
         StatOrDynMenu.configure(state="disabled")
         tkvar5.set('Static')
     elif (tkvar1.get() == 'Sim2Sim'):

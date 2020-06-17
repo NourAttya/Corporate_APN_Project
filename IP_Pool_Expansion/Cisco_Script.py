@@ -2,7 +2,7 @@
 def Cisco_Script (Contextname,Ippoolarray,netmaskpoolarray,Subnetnames,MTX,SorD,pathToSave,TypeOfAPN,APNname):
 
     script = open(pathToSave + Contextname + "_Script.txt", "a")
-    script.write('On ' + MTX + '-GGSN'  + ':\n')
+    script.write('On' + MTX + '-GGSN'  + ':\n')
     script.write(' Configure\n')
     script.write( Contextname + '\n')
 
@@ -46,4 +46,3 @@ def Cisco_Script (Contextname,Ippoolarray,netmaskpoolarray,Subnetnames,MTX,SorD,
         return
     script.write('  exit\n')
     script.write('    end\n')
-    script.close()
