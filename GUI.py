@@ -4,7 +4,7 @@ import buttonsFn
 from Corporate_APNs import IDNSandAPNconfig
 from tkinter import messagebox
 import xlrd
-
+from IP_Pool_Expansion import IPPoolExpansion
 #Nour Attyia
 #Ahmed Ayman
 
@@ -194,26 +194,30 @@ def openCorpMenu():
 #IP_Pool_Expansion GUI
 
 def IPPoolExpanRun():
-    Subnets = []
-    PoolNames = []
+    IPpools = []
+    Subnetnames = []
     if buttonsFn.file3_path.get()!="":
-        Subnets.append(buttonsFn.file3_path.get())
+        IPpools.append(buttonsFn.file3_path.get())
     if buttonsFn.file5_path.get() != "":
-        Subnets.append(buttonsFn.file5_path.get())
+        IPpools.append(buttonsFn.file5_path.get())
     if buttonsFn.file7_path.get() != "":
-        Subnets.append(buttonsFn.file7_path.get())
+        IPpools.append(buttonsFn.file7_path.get())
     if buttonsFn.file9_path.get() != "":
-        Subnets.append(buttonsFn.file9_path.get())
+        IPpools.append(buttonsFn.file9_path.get())
     if buttonsFn.file2_path.get() != "":
-        PoolNames.append(buttonsFn.file2_path.get())
+        Subnetnames.append(buttonsFn.file2_path.get())
     if buttonsFn.file4_path.get() != "":
-        PoolNames.append(buttonsFn.file4_path.get())
+        Subnetnames.append(buttonsFn.file4_path.get())
     if buttonsFn.file6_path.get() != "":
-        PoolNames.append(buttonsFn.file6_path.get())
+        Subnetnames.append(buttonsFn.file6_path.get())
     if buttonsFn.file8_path.get() != "":
-        PoolNames.append(buttonsFn.file8_path.get())
-    print(Subnets)
-    print(PoolNames)
+        Subnetnames.append(buttonsFn.file8_path.get())
+    print(IPpools)
+    print(Subnetnames)
+    # get path to save output script(in the same folder of excel sheet)
+    fileNameToRemove = buttonsFn.file1_path.get().split('/')[-1]
+    pathToSave = buttonsFn.file1_path.get().replace(fileNameToRemove, "")
+    IPPoolExpansion.IPPoolExpansionConfig(buttonsFn.tkvar2.get(),IPpools,Subnetnames,buttonsFn.tkvar4.get(),buttonsFn.tkvar5.get(),buttonsFn.tkvar3.get(),buttonsFn.tkvar1.get(),buttonsFn.file10_path.get(),pathToSave)
 
 def UpdateDropDownFromExcelForIPpoolExpansion():
     MTXs = []
@@ -358,7 +362,7 @@ def openIpPoolExpansionMenu():
 
     # Dictionary with options
     APNTypeChoices = {'Internet', 'PC Connectivity', '3G WIC', 'Sim2Sim','Commerical_main_APN'}
-    buttonsFn.tkvar1.set('Internet APN')  # set the default option
+    buttonsFn.tkvar1.set('Commerical_main_APN')  # set the default option
 
     lbAPNType = tkinter.Label(buttonsFn.top, text="Choose APN Type")
     lbAPNType.place(x=430, y=220)
@@ -375,8 +379,8 @@ def openIpPoolExpansionMenu():
 
     NodeVendorChoices = {'Cisco', 'Huawei', 'Ericsson'}
     buttonsFn.tkvar3.set('Cisco')  # set the default option
-    ContextNameMenu = tkinter.OptionMenu(buttonsFn.top, buttonsFn.tkvar3, *NodeVendorChoices)
-    ContextNameMenu.place(x=250, y=270)
+    NodeVendorMenu = tkinter.OptionMenu(buttonsFn.top, buttonsFn.tkvar3, *NodeVendorChoices)
+    NodeVendorMenu.place(x=250, y=270)
     # link function to change dropdown
     buttonsFn.tkvar3.trace('w', buttonsFn.change_dropdown3)
 

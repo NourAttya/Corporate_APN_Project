@@ -6,15 +6,15 @@ from IP_Pool_Expansion import Cisco_Script
 def IPPoolExpansionConfig(Contextname,IPpools,Subnetnames,MTX,SorD,vendorname,TypeOfAPN,APNname,pathToSave):
 
    ##For loop for IP in one array
-
+    print(IPpools)
     #resolving IP(getting netmask)
     netmaskpoolarray= []
     Ippoolarray =[]
     for i in range (len (IPpools)) :
         netpool= ipaddress.ip_network(IPpools[i],False)
         netmaskpool=netpool.netmask
-        IPpools=IPpools[i].split("/")[0]
-        Ippoolarray.append(IPpools)
+        IPpool=IPpools[i].split("/")[0]
+        Ippoolarray.append(IPpool)
         netmaskpoolarray.append(netmaskpool)
 
 
