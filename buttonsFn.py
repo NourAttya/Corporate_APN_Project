@@ -115,6 +115,8 @@ file6_path = tkinter.StringVar()
 file7_path= tkinter.StringVar()
 file8_path= tkinter.StringVar()
 file9_path= tkinter.StringVar()
+file10_path= tkinter.StringVar()
+
 # For Files On Hold
 
 def browse_multiple_files_button():
@@ -163,38 +165,42 @@ tkvar3= tkinter.StringVar(top)
 tkvar4= tkinter.StringVar(top)
 # on change dropdown value
 
+# Create a Tkinter variable
+tkvar5= tkinter.StringVar(top)
+# on change dropdown value
+
 def change_dropdown1(*args):
     print(tkvar1.get())
     # Dictionary with options
-    choices2 = {'Static', 'Dynamic'}
+    StatOrDynChoices = {'Static', 'Dynamic'}
     tkvar2.set('Static')  # set the default option
-    popupMenu2 = tkinter.OptionMenu(top,tkvar2, *choices2)
-    popupMenu2.place(x=250, y=400)
+    StatOrDynMenu = tkinter.OptionMenu(top,tkvar2, *StatOrDynChoices)
+    StatOrDynMenu.place(x=250, y=400)
     # link function to change dropdown
 
-    lb3 = tkinter.Label(top, text="VRF Tunnel\nDestination IP")
-    lb3.place(x=400, y=345)
-    lb3.config(font=("Calibri", 12, 'bold'), fg='black')
+    lbVRF = tkinter.Label(top, text="VRF Tunnel\nDestination IP")
+    lbVRF.place(x=400, y=345)
+    lbVRF.config(font=("Calibri", 12, 'bold'), fg='black')
 
-    filepathText1 = tkinter.Entry(top, textvariable=file6_path)
-    filepathText1.place(x=520, y=355, width=200, height=25)
-    filepathText1.delete(0, 'end')
+    entryVRF = tkinter.Entry(top, textvariable=file6_path)
+    entryVRF.place(x=520, y=355, width=200, height=25)
+    entryVRF.delete(0, 'end')
 
-    lb4 = tkinter.Label(top, text="IP Range")
-    lb4.place(x=400, y=400)
-    lb4.config(font=("Calibri", 12, 'bold'), fg='black')
+    lbIPRange = tkinter.Label(top, text="IP Range")
+    lbIPRange.place(x=400, y=400)
+    lbIPRange.config(font=("Calibri", 12, 'bold'), fg='black')
 
-    filepathText2 = tkinter.Entry(top, textvariable=file7_path)
-    filepathText2.place(x=520, y=400, width=200, height=25)
-    filepathText2.delete(0, 'end')
+    entryIPRange = tkinter.Entry(top, textvariable=file7_path)
+    entryIPRange.place(x=520, y=400, width=200, height=25)
+    entryIPRange.delete(0, 'end')
 
-    if (tkvar1.get() == '3G WIc'):
-        popupMenu2.configure(state="disabled")
+    if (tkvar1.get() == '3G WIc' or tkvar1.get() == 'Sim2Sim'):
+        StatOrDynMenu.configure(state="disabled")
     if(tkvar1.get() != 'PC Connectivity'):
-        lb3.configure(state="disabled")
-        filepathText1.configure(state="disabled")
-        lb4.configure(state="disabled")
-        filepathText2.configure(state="disabled")
+        lbVRF.configure(state="disabled")
+        entryVRF.configure(state="disabled")
+        lbIPRange.configure(state="disabled")
+        entryIPRange.configure(state="disabled")
 
 
 
@@ -216,3 +222,24 @@ def change_dropdown4(*args):
 def focus_next_widget(event):
     event.widget.tk_focusNext().focus()
     return("break")
+
+def change_dropdownAPNType(*args):
+    print(tkvar1.get())
+    # Dictionary with options
+    StatOrDynChoices = {'Static', 'Dynamic'}
+     # set the default option
+    StatOrDynMenu = tkinter.OptionMenu(top, tkvar5, *StatOrDynChoices)
+    StatOrDynMenu.place(x=580, y=270)
+
+    if (tkvar1.get() == 'Internet'):
+        StatOrDynMenu.configure(state="disabled")
+        tkvar5.set('Dynamic')
+    elif (tkvar1.get() == '3G WIC'):
+        StatOrDynMenu.configure(state="disabled")
+        tkvar5.set('Static')
+    elif (tkvar1.get() == 'Sim2Sim'):
+        StatOrDynMenu.configure(state="disabled")
+        tkvar5.set('Static')
+    elif (tkvar1.get() == 'Commerical_main_APN'):
+        StatOrDynMenu.configure(state="disabled")
+        tkvar5.set('Dynamic')
