@@ -3,17 +3,22 @@ from Corporate_APNs import Internet_APN_script, PCconnectivity_APN_script, WIc3G
 import xlrd
 
 
-
 def IDNSandAPNConfigCorp(APNname,IPpool,MTX,XLSXsheet,TypeOfAPN,SorD,VRFDest,SecMTX,IPrange):
 
     #resolving IP(getting netmask)
-    net= ipaddress.ip_network(IPpool)
+    net= ipaddress.ip_network(IPpool,False)
     netmask=net.netmask
     IP=IPpool.split("/")[0]
     print(netmask)
     print("IP", IP)
     print("SorD", SorD)
     print("VRF Dest: ",VRFDest)
+
+    #For IP Range in PC_Connectivity
+    if TypeOfAPN == 'PC Connectivity':
+        net1 = ipaddress.ip_network(IPrange,False)
+        netmask1 = net1.netmask
+        IP1 = IPrange.split("/")[0]
 
     #get path to save output script(in the same folder of excel sheet)
     fileNameToRemove = XLSXsheet.split('/')[-1]
@@ -49,7 +54,7 @@ def IDNSandAPNConfigCorp(APNname,IPpool,MTX,XLSXsheet,TypeOfAPN,SorD,VRFDest,Sec
     if(TypeOfAPN=='Internet APN'):
         Internet_APN_script.InternetAPNScript(APNname, IP, netmask, MTX, MTXNum, SecMTX, secMTXnum, SorD, pathToSave)
     elif(TypeOfAPN=='PC Connectivity'):
-        PCconnectivity_APN_script.PCconnectivityScript(APNname, IP, netmask, MTX, MTXNum, SecMTX, secMTXnum, SorD, pathToSave, VRFDest,IPrange)
+        PCconnectivity_APN_script.PCconnectivityScript(APNname, IP, netmask, MTX, MTXNum, SecMTX, secMTXnum, SorD, pathToSave, VRFDest, IP1, netmask1)
     elif(TypeOfAPN== '3G WIc'):
         WIc3G_APN_script.WIc3GScript(APNname, IP, netmask, MTX, MTXNum, SecMTX, secMTXnum, SorD, pathToSave)
     elif (TypeOfAPN == 'Sim2Sim'):
@@ -60,6 +65,7 @@ def IDNSandAPNConfigCorp(APNname,IPpool,MTX,XLSXsheet,TypeOfAPN,SorD,VRFDest,Sec
 
 
 
+#IDNSandAPNConfigCorp("Test", "10.0.0.0/26","HQ","D:/EPC/Automation/Corporate APNs App/Test excel.xlsx","Internet APN","Static","","HQ","")
 
 
 

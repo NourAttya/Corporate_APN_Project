@@ -1,5 +1,5 @@
 
-def PCconnectivityScript(APNname,IP,netmask,MTX,MTXNum,SecMTX,secMTXnum,SorD,pathToSave,VRFDest):
+def PCconnectivityScript(APNname,IP,netmask,MTX,MTXNum,SecMTX,secMTXnum,SorD,pathToSave,VRFDest,IP1, netmask1):
     # open output text file
     script = open(pathToSave + APNname + "_Script.txt", "a")
 
@@ -40,7 +40,7 @@ def PCconnectivityScript(APNname,IP,netmask,MTX,MTXNum,SecMTX,secMTXnum,SorD,pat
             'ip pool '+APNname+'_pool.0 '+str(IP)+" "+str(netmask)+' private 0 group-name '+APNname+'_pool advertise-if-used vrf '+APNname+'_vrf \n')
     script.write('interface '+APNname+' tunnel\n')
     script.write('      ip vrf forwarding '+APNname+'_vrf\n')
-    script.write('      ip address '+str(IP)+" "+str(netmask)+'\n')
+    script.write('      ip address '+str(IP1)+" "+str(netmask1)+'\n')
     script.write('      tunnel-mode gre\n')
     script.write('        source interface gi-corp-lb2\n')
     script.write('        destination address '+VRFDest+'\n')
@@ -88,7 +88,7 @@ def PCconnectivityScript(APNname,IP,netmask,MTX,MTXNum,SecMTX,secMTXnum,SorD,pat
             'ip pool '+APNname+'_pool.0 '+str(IP)+" "+str(netmask)+' private 0 group-name '+APNname+'_pool advertise-if-used vrf asecauto-s-pc_vrf  \n')
     script.write('interface '+APNname+' tunnel\n')
     script.write('      ip vrf forwarding '+APNname+'_vrf\n')
-    script.write('      ip address '+str(IP)+" "+str(netmask)+'\n')
+    script.write('      ip address '+str(IP1)+" "+str(netmask1)+'\n')
     script.write('      tunnel-mode gre\n')
     script.write('        source interface gi-corp-lb2-TG2\n')
     script.write('        destination address '+VRFDest+'\n')
