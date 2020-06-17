@@ -30,7 +30,7 @@ def IPPoolExpansionConfig(Contextname,IPpools,Subnetnames,MTX,SorD,vendorname,Ty
 
 
 
-IPPoolExpansionConfig("Gi-DPI",["10.0.0.0/26"],["internet.1"],"HQ","Dynamic","Cisco","Commerical_main_APN","internet.vodafone.net","Desktop")
+IPPoolExpansionConfig("Gi-DPI",["10.0.0.0/26"],["internet.1"],"HQ","Dynamic","Cisco","Commerical_main_APN","internet.vodafone.net","D:/Automation Team/Corporate APN Project/")
 
 #IDNSandAPNConfigCorp("Test", "10.0.0.0/26","HQ","D:/EPC/Automation/Corporate APNs App/Test excel.xlsx","Internet APN","Static","","HQ","")
 
