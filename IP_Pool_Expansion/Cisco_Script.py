@@ -66,7 +66,8 @@ def Cisco_Script (Contextname,Ippoolarray,netmaskpoolarray,Subnetnames,MTX,SorD,
     script.write('\n')
     script.write('config\n')
     script.write(Contextname + '\n')
-    script.write(' no ip pool' + Subnetnames[i] + '\n')
+    for i in range(len(Subnetnames)):
+        script.write(' no ip pool' + Subnetnames[i] + '\n')
     script.write('  exit\n')
     script.write('    end\n')
     script.write('save configuration /flash/configfiles/After_Rollback_' + Contextname + '.cfg -redundant\n')
