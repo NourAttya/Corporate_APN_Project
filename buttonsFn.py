@@ -168,6 +168,9 @@ tkvar4= tkinter.StringVar(top)
 # Create a Tkinter variable
 tkvar5= tkinter.StringVar(top)
 # on change dropdown value
+# Create a Tkinter variable
+tkvar6= tkinter.StringVar(top)
+# on change dropdown value
 
 def change_dropdown1(*args):
     print(tkvar1.get())
@@ -224,22 +227,22 @@ def focus_next_widget(event):
     return("break")
 
 def change_dropdownAPNType(*args):
-    print(tkvar1.get())
+    print(tkvar6.get())
     # Dictionary with options
     StatOrDynChoices = {'Static', 'Dynamic'}
      # set the default option
     StatOrDynMenu = tkinter.OptionMenu(top, tkvar5, *StatOrDynChoices)
     StatOrDynMenu.place(x=580, y=270)
 
-    if (tkvar1.get() == 'Internet'):
+    if (tkvar6.get() == 'Internet'):
         StatOrDynMenu.configure(state="disabled")
         tkvar5.set('Dynamic')
-    elif (tkvar1.get() == '3G WIC'):
+    elif (tkvar6.get() == '3G WIC'):
         StatOrDynMenu.configure(state="disabled")
         tkvar5.set('Static')
-    elif (tkvar1.get() == 'Sim2Sim'):
+    elif (tkvar6.get() == 'Sim2Sim'):
         StatOrDynMenu.configure(state="disabled")
         tkvar5.set('Static')
-    elif (tkvar1.get() == 'Commerical_main_APN'):
+    elif (tkvar6.get() == 'Commerical_main_APN'):
         StatOrDynMenu.configure(state="disabled")
         tkvar5.set('Dynamic')

@@ -48,6 +48,7 @@ def UpdateDropDownFromExcelForCorporateAPN():
 
 
 def openCorpMenu():
+    buttonsFn.top.grid_slaves()
     # define font
     myFont = font.Font(family='Calibri', size=12)
     myFont2 = font.Font(family='Calibri', size=15)
@@ -365,16 +366,16 @@ def openIpPoolExpansionMenu():
 
     # Dictionary with options
     APNTypeChoices = {'Internet', 'PC Connectivity', '3G WIC', 'Sim2Sim','Commerical_main_APN'}
-    buttonsFn.tkvar1.set('Commerical_main_APN')  # set the default option
+    buttonsFn.tkvar6.set('Commerical_main_APN')  # set the default option
 
     lbAPNType = tkinter.Label(buttonsFn.top, text="Choose APN Type")
     lbAPNType.place(x=430, y=220)
     lbAPNType.config(font=("Calibri", 12, 'bold'), fg='black')
-    APNTypeMenu = tkinter.OptionMenu(buttonsFn.top, buttonsFn.tkvar1, *APNTypeChoices)
+    APNTypeMenu = tkinter.OptionMenu(buttonsFn.top, buttonsFn.tkvar6, *APNTypeChoices)
     APNTypeMenu.place(x=580, y=220)
 
     # link function to change dropdown
-    buttonsFn.tkvar1.trace('w', buttonsFn.change_dropdownAPNType)
+    buttonsFn.tkvar6.trace('w', buttonsFn.change_dropdownAPNType)
 
     lbNodeVendor = tkinter.Label(buttonsFn.top, text="Node Vendor")
     lbNodeVendor.place(x=100, y=270)
@@ -396,12 +397,14 @@ def openIpPoolExpansionMenu():
     StatOrDynMenu = tkinter.OptionMenu(buttonsFn.top, buttonsFn.tkvar5, *StatOrDynChoices)
     StatOrDynMenu.place(x=580, y=270)
     StatOrDynMenu.configure(state="disabled")
+
     # link function to change dropdown
     buttonsFn.tkvar5.trace('w', buttonsFn.change_dropdown4)
 
     lbPoolName = tkinter.Label(buttonsFn.top, text="Pool Name")
     lbPoolName.place(x=100, y=320)
     lbPoolName.config(font=("Calibri", 12, 'bold'), fg='black')
+
 
     entryPoolName = tkinter.Entry(buttonsFn.top, textvariable=buttonsFn.file2_path)
     entryPoolName.place(x=250, y=320, width=120, height=25)
@@ -410,6 +413,7 @@ def openIpPoolExpansionMenu():
     lbSubnet = tkinter.Label(buttonsFn.top, text="Subnet")
     lbSubnet.place(x=100, y=370)
     lbSubnet.config(font=("Calibri", 12, 'bold'), fg='black')
+
 
     entrySubnet = tkinter.Entry(buttonsFn.top, textvariable=buttonsFn.file3_path)
     entrySubnet.place(x=250, y=370, width=120, height=25)
