@@ -220,7 +220,7 @@ def IPPoolExpanRun():
     pathToSave = buttonsFn.file1_path.get().replace(fileNameToRemove, "")
     IPPoolExpansion.IPPoolExpansionConfig(buttonsFn.tkvar2.get(),IPpools,Subnetnames,buttonsFn.tkvar4.get(),buttonsFn.tkvar5.get(),buttonsFn.tkvar3.get(),buttonsFn.tkvar1.get(),buttonsFn.file10_path.get(),pathToSave)
 
-    IPPoolExpansion.IPPoolExpansionConfig()
+
 
 def UpdateDropDownFromExcelForIPpoolExpansion():
     MTXs = []

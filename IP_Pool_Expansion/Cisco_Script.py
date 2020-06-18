@@ -2,15 +2,12 @@
 def Cisco_Script (Contextname,Ippoolarray,netmaskpoolarray,Subnetnames,MTX,SorD,pathToSave,TypeOfAPN,APNname):
 
     script = open(pathToSave + Contextname + "_Script.txt", "a")
-<<<<<<< Updated upstream
     script.write('On ' + MTX + '-GGSN'  + ':\n')
     script.write(' Configure\n')
-=======
     script.write('On  ' + MTX + '-GGSN'  + ':\n')
     script.write('==============\n \n')
     script.write('save configuration /flash/configfiles/Before_' + Contextname + '.cfg -redundant\n')
     script.write(' Configure\n ')
->>>>>>> Stashed changes
     script.write( Contextname + '\n')
 
     if (TypeOfAPN == 'PC Connectivity'):
@@ -59,9 +56,6 @@ def Cisco_Script (Contextname,Ippoolarray,netmaskpoolarray,Subnetnames,MTX,SorD,
         return
     script.write('  exit\n')
     script.write('    end\n')
-<<<<<<< Updated upstream
-    script.close()
-=======
     script.write('\n')
     script.write('\n')
     script.write('save configuration /flash/configfiles/After_' + Contextname + '.cfg -redundant\n')
@@ -76,4 +70,4 @@ def Cisco_Script (Contextname,Ippoolarray,netmaskpoolarray,Subnetnames,MTX,SorD,
     script.write('  exit\n')
     script.write('    end\n')
     script.write('save configuration /flash/configfiles/After_Rollback_' + Contextname + '.cfg -redundant\n')
->>>>>>> Stashed changes
+    script.close()
