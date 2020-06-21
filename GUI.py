@@ -449,6 +449,89 @@ def openIpPoolExpansionMenu():
     # New_Window.configure(background='white')
 
 
+
+def openBuildDBMenu():
+    # define font
+    myFont = font.Font(family='Calibri', size=12)
+    myFont2 = font.Font(family='Calibri', size=15)
+
+    # Imgname2 = tkinter.PhotoImage(file="Vodafone2.png")
+
+    background_label = tkinter.Label(buttonsFn.top)
+    background_label.place(x=0, y=0, relwidth=1, relheight=1)
+
+    # background_label.configure(background='red')
+    # Define Buttons of the main window
+
+    lbExcel = tkinter.Label(buttonsFn.top, text="Select Excel Sheet")
+    lbExcel.place(x=100, y=100)
+    lbExcel.config(font=("Calibri", 12, 'bold'), fg='black')
+
+    entryExcel = tkinter.Entry(buttonsFn.top, textvariable=buttonsFn.file1_path)
+    entryExcel.place(x=250, y=100, width=400, height=25)
+    entryExcel.delete(0, 'end')
+
+    buttonBrowse = tkinter.Button(buttonsFn.top, text="Browse", command=UpdateDropDownFromExcelForIPpoolExpansion)
+    buttonBrowse.place(x=670, y=100)
+    buttonBrowse['font'] = myFont
+
+    buttonRun = tkinter.Button(buttonsFn.top, text="Run", command=IPPoolExpanRun)
+    buttonRun.place(x=450, y=530)
+    buttonRun.config(height=1, width=12)
+    buttonRun['font'] = myFont2
+
+    buttonBack = tkinter.Button(buttonsFn.top, text="Back", command=openDataMenu)
+    buttonBack.place(x=20, y=20)
+    buttonBack.config(height=2, width=8, fg='black')
+    buttonBack['font'] = myFont
+
+    e = tkinter.Text(buttonsFn.top, width=75, height=10)
+    e.bind("<Tab>", buttonsFn.focus_next_widget)
+    # Appearnce Title
+
+    Title = tkinter.Label(buttonsFn.top, text="Build Corporate APNs DB")
+    Title.config(font=("Calibri", 24), foreground="black")
+    Title.place(x=260, y=20)
+
+    # Define the size of the main window
+    buttonsFn.top.geometry("800x400")  # Width x Height
+    buttonsFn.top.title("Build Corporate APNs DB")
+    buttonsFn.top.mainloop()
+    # New_Window.configure(background='white')
+
+
+def openCorporateAPNDBMenu():
+    # Main menu
+    # define font
+    myFont = font.Font(family='Calibri', size= 15)
+
+    Imgname = tkinter.PhotoImage(file="Vodafone.png")
+    background_label = tkinter.Label(buttonsFn.top,image=Imgname)
+    background_label.place(x=0, y=0, relwidth=1, relheight=1)
+
+    # Define Buttons of the main window
+    # 1
+    buttonBuildDB = tkinter.Button(buttonsFn.top, text="Build Corporate\nAPNs DB",command=openBuildDBMenu)
+    buttonBuildDB.place(x=170, y=70)
+    buttonBuildDB.config(height=3, width=20,  fg='black', background = 'white')
+    buttonBuildDB['font'] = myFont
+    # 2
+    buttonUpdateDB= tkinter.Button(buttonsFn.top, text="Update Corporate\nAPNs DB", command=openDataMenu)
+    buttonUpdateDB.place(x=170, y=180)
+    buttonUpdateDB.config(height=3, width=20,  fg='black', background = 'white')
+    buttonUpdateDB['font'] = myFont
+
+    buttonBack = tkinter.Button(buttonsFn.top, text="Back", command=openDataMenu)
+    buttonBack.place(x=20, y=20)
+    buttonBack.config(height=1, width=8, fg='black', bg='white')
+    buttonBack['font'] = myFont
+
+    # Define the size of the main window
+    buttonsFn.top.geometry("550x350")  # Width x Height
+    buttonsFn.top.title("Corporate APNs DB")
+    #top.configure(background = 'sky blue')
+    buttonsFn.top.mainloop()
+
 def openDataMenu():
 
     # Main menu
@@ -462,20 +545,26 @@ def openDataMenu():
     # Define Buttons of the main window
     # 1
     button_Corporate_APN = tkinter.Button(buttonsFn.top, text="Corporate APN", command=openCorpMenu)
-    button_Corporate_APN.place(x=240, y=70)
+    button_Corporate_APN.place(x=100, y=100)
     button_Corporate_APN.config(height=3, width=20,  fg='black', background = 'white')
     button_Corporate_APN['font'] = myFont
     # 2
     button_Test_APN = tkinter.Button(buttonsFn.top, text="Test APN")
-    button_Test_APN.place(x=240, y=200)
+    button_Test_APN.place(x=100, y=220)
     button_Test_APN.config(height=3, width=20,  fg='black', background = 'white')
     button_Test_APN['font'] = myFont
 
     # 3
     button_IP_Pool_Expansion = tkinter.Button(buttonsFn.top, text="IP Pool Expansion", command=openIpPoolExpansionMenu)
-    button_IP_Pool_Expansion.place(x=240, y=330)
+    button_IP_Pool_Expansion.place(x=350 ,y=100)
     button_IP_Pool_Expansion.config(height=3, width=20, fg='black', background='white')
     button_IP_Pool_Expansion['font'] = myFont
+
+    # 4
+    button_Corporate_APN_DB = tkinter.Button(buttonsFn.top, text="Corporate APNs DB", command=openCorporateAPNDBMenu)
+    button_Corporate_APN_DB.place(x=350, y=220)
+    button_Corporate_APN_DB.config(height=3, width=20, fg='black', background='white')
+    button_Corporate_APN_DB['font'] = myFont
 
     buttonBack = tkinter.Button(buttonsFn.top, text="Back", command=openMainMenu)
     buttonBack.place(x=20, y=20)
@@ -483,7 +572,7 @@ def openDataMenu():
     buttonBack['font'] = myFont
 
     # Define the size of the main window
-    buttonsFn.top.geometry("700x500")  # Width x Height
+    buttonsFn.top.geometry("700x400")  # Width x Height
     buttonsFn.top.title("Data Tool")
     #top.configure(background = 'sky blue')
 
