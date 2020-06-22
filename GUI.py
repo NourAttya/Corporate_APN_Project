@@ -480,7 +480,7 @@ def openBuildDBMenu():
     buttonRun.config(height=1, width=12)
     buttonRun['font'] = myFont2
 
-    buttonBack = tkinter.Button(buttonsFn.top, text="Back", command=openDataMenu)
+    buttonBack = tkinter.Button(buttonsFn.top, text="Back", command=openCorporateAPNAuditMenu)
     buttonBack.place(x=20, y=20)
     buttonBack.config(height=2, width=8, fg='black')
     buttonBack['font'] = myFont
@@ -500,7 +500,7 @@ def openBuildDBMenu():
     # New_Window.configure(background='white')
 
 
-def openCorporateAPNDBMenu():
+def openCorporateAPNAuditMenu():
     # Main menu
     # define font
     myFont = font.Font(family='Calibri', size= 15)
@@ -516,10 +516,41 @@ def openCorporateAPNDBMenu():
     buttonBuildDB.config(height=3, width=20,  fg='black', background = 'white')
     buttonBuildDB['font'] = myFont
     # 2
-    buttonUpdateDB= tkinter.Button(buttonsFn.top, text="Update Corporate\nAPNs DB", command=openDataMenu)
+    buttonUpdateDB= tkinter.Button(buttonsFn.top, text="Update Corporate\nAPNs DB")
     buttonUpdateDB.place(x=170, y=180)
     buttonUpdateDB.config(height=3, width=20,  fg='black', background = 'white')
     buttonUpdateDB['font'] = myFont
+
+    buttonBack = tkinter.Button(buttonsFn.top, text="Back", command=openPacketAuditMenu)
+    buttonBack.place(x=20, y=20)
+    buttonBack.config(height=1, width=8, fg='black', bg='white')
+    buttonBack['font'] = myFont
+
+    # Define the size of the main window
+    buttonsFn.top.geometry("550x350")  # Width x Height
+    buttonsFn.top.title("Corporate APNs Audit")
+    #top.configure(background = 'sky blue')
+    buttonsFn.top.mainloop()
+def openPacketAuditMenu():
+    # Main menu
+    # define font
+    myFont = font.Font(family='Calibri', size=15)
+
+    Imgname = tkinter.PhotoImage(file="Vodafone.png")
+    background_label = tkinter.Label(buttonsFn.top, image=Imgname)
+    background_label.place(x=0, y=0, relwidth=1, relheight=1)
+
+    # Define Buttons of the main window
+    # 1
+    buttonCorpAPNAudit = tkinter.Button(buttonsFn.top, text="Corporate APN Audit", command=openCorporateAPNAuditMenu)
+    buttonCorpAPNAudit.place(x=170, y=70)
+    buttonCorpAPNAudit.config(height=3, width=20, fg='black', background='white')
+    buttonCorpAPNAudit['font'] = myFont
+    # 2
+    buttonIDNSAudit = tkinter.Button(buttonsFn.top, text="IDNS Audit")
+    buttonIDNSAudit.place(x=170, y=180)
+    buttonIDNSAudit.config(height=3, width=20, fg='black', background='white')
+    buttonIDNSAudit['font'] = myFont
 
     buttonBack = tkinter.Button(buttonsFn.top, text="Back", command=openDataMenu)
     buttonBack.place(x=20, y=20)
@@ -528,8 +559,8 @@ def openCorporateAPNDBMenu():
 
     # Define the size of the main window
     buttonsFn.top.geometry("550x350")  # Width x Height
-    buttonsFn.top.title("Corporate APNs DB")
-    #top.configure(background = 'sky blue')
+    buttonsFn.top.title("Packet Audit")
+    # top.configure(background = 'sky blue')
     buttonsFn.top.mainloop()
 
 def openDataMenu():
@@ -561,7 +592,7 @@ def openDataMenu():
     button_IP_Pool_Expansion['font'] = myFont
 
     # 4
-    button_Corporate_APN_DB = tkinter.Button(buttonsFn.top, text="Corporate APNs DB", command=openCorporateAPNDBMenu)
+    button_Corporate_APN_DB = tkinter.Button(buttonsFn.top, text="Packet Audit", command=openPacketAuditMenu)
     button_Corporate_APN_DB.place(x=350, y=220)
     button_Corporate_APN_DB.config(height=3, width=20, fg='black', background='white')
     button_Corporate_APN_DB['font'] = myFont
@@ -573,7 +604,7 @@ def openDataMenu():
 
     # Define the size of the main window
     buttonsFn.top.geometry("700x400")  # Width x Height
-    buttonsFn.top.title("Data Tool")
+    buttonsFn.top.title("Packet Tool")
     #top.configure(background = 'sky blue')
 
     buttonsFn.top.mainloop()
