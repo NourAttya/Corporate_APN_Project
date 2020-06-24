@@ -82,10 +82,10 @@ def PCconnectivityScript(APNname,IP,netmask,MTX,MTXNum,SecMTX,secMTXnum,SorD,pat
     script.write('exit\n')
     if (SorD == "Static"):
       script.write(
-        '      ip pool '+APNname+'_pool.0 '+str(IP)+" "+str(netmask)+' static group-name '+APNname+'_pool advertise-if-used vrf asecauto-s-pc_vrf \n')
+        '      ip pool '+APNname+'_pool.0 '+str(IP)+" "+str(netmask)+' static group-name '+APNname+'_pool advertise-if-used vrf '+APNname+'_vrf \n')
     else:
         script.write(
-            'ip pool '+APNname+'_pool.0 '+str(IP)+" "+str(netmask)+' private 0 group-name '+APNname+'_pool advertise-if-used vrf asecauto-s-pc_vrf  \n')
+            'ip pool '+APNname+'_pool.0 '+str(IP)+" "+str(netmask)+' private 0 group-name '+APNname+'_pool advertise-if-used vrf '+APNname+'_vrf  \n')
     script.write('interface '+APNname+' tunnel\n')
     script.write('      ip vrf forwarding '+APNname+'_vrf\n')
     script.write('      ip address '+str(IP1)+" "+str(netmask1)+'\n')

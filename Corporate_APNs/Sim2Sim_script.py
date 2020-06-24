@@ -29,7 +29,7 @@ def Sim2Sim_script(APNname,IP,netmask,MTX,MTXNum,SecMTX,secMTXnum,SorD,pathToSav
     script.write('\n')
     script.write('config\n')
     script.write('context Gi-Corp2\n')
-    script.write('    ip vrf '+APNname+'\n')
+    script.write('    ip vrf '+APNname+'_vrf''\n')
     script.write('exit\n') #to be tested on node whether it could be exit or end and re-enter under corp2 context
     if (SorD == "Static"):
       script.write(
@@ -73,10 +73,10 @@ def Sim2Sim_script(APNname,IP,netmask,MTX,MTXNum,SecMTX,secMTXnum,SorD,pathToSav
     script.write('exit\n')
     if (SorD == "Static"):
       script.write(
-        '      ip pool '+APNname+'_pool.0 '+str(IP)+" "+str(netmask)+' static group-name '+APNname+'_pool advertise-if-used vrf asecauto-s-pc_vrf \n')
+        '      ip pool '+APNname+'_pool.0 '+str(IP)+" "+str(netmask)+' static group-name '+APNname+'_pool advertise-if-used vrf '+APNname+'_vrf \n')
     else:
         script.write(
-            'ip pool '+APNname+'_pool.0 '+str(IP)+" "+str(netmask)+' private 0 group-name '+APNname+'_pool advertise-if-used vrf asecauto-s-pc_vrf  \n')
+            'ip pool '+APNname+'_pool.0 '+str(IP)+" "+str(netmask)+' private 0 group-name '+APNname+'_pool advertise-if-used vrf '+APNname+'_vrf  \n')
     script.write('\n')
     script.write('end\n')
     script.write('\n')
