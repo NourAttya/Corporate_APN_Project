@@ -107,3 +107,4 @@ def Sim2Sim_script(APNname,IP,netmask,MTX,MTXNum,SecMTX,secMTXnum,SorD,pathToSav
     script.write('\n')
     script.write('update dnsserver\n')
     script.close()
+    #Ayman
