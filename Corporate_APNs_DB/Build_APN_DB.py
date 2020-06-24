@@ -1,4 +1,6 @@
 
+
+
 def getAllAPNS(configPath):
 #input : GGSN Configuration file
 #output : 4 Lists with the same length
@@ -52,8 +54,12 @@ def getAllAPNS(configPath):
 
 
 
+def writeInCSV(APNName,APNType,pathToSave):
 
-
-
+    with open(pathToSave + 'Corporate APNs' + '.csv', 'w') as out_file:
+        out_file.write('{0},{1}\n'.format("APN Name", "APN Type"))
+        for i in range(len(APNName)):
+            out_file.write('{0},{1}\n'.format(APNName[i],APNType[i]))
 
 getAllAPNS("D:\\Automation Team\\Corporate APN Project\\config files\\TG2 GGSN 21 6 2020")
+writeInCSV(["Test1","Test2","Test3"],["3GWIc","PC Connectivity","Internet"],"D:\\Automation Team\\Corporate APN Project\\")
