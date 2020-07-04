@@ -2,10 +2,11 @@ import tkinter
 import tkinter.font as font
 import buttonsFn
 from Corporate_APNs import IDNSandAPNconfig
-from IP_Pool_Expansion import IPPoolExpansion
+from Corporate_APNs_DB import  Build_APN_DB
 from tkinter import messagebox
 import xlrd
 from IP_Pool_Expansion import IPPoolExpansion
+
 #Nour Attyia
 #Ahmed Ayman
 
@@ -310,6 +311,8 @@ def AddSubnet():
     numOfSubnet += 1
 
 def openIpPoolExpansionMenu():
+    global numOfSubnet
+    numOfSubnet = 1
     # define font
     myFont = font.Font(family='Calibri', size=12)
     myFont2 = font.Font(family='Calibri', size=15)
@@ -448,7 +451,9 @@ def openIpPoolExpansionMenu():
     buttonsFn.top.mainloop()
     # New_Window.configure(background='white')
 
+def BuildDBRun():
 
+    Build_APN_DB.APNDB(buttonsFn.folder_path.get())
 
 def openBuildDBMenu():
     # define font
@@ -463,20 +468,20 @@ def openBuildDBMenu():
     # background_label.configure(background='red')
     # Define Buttons of the main window
 
-    lbExcel = tkinter.Label(buttonsFn.top, text="Select Excel Sheet")
-    lbExcel.place(x=100, y=100)
-    lbExcel.config(font=("Calibri", 12, 'bold'), fg='black')
+    lbConfigFile = tkinter.Label(buttonsFn.top, text="Select GGSN\nConfigurations Folder")
+    lbConfigFile.place(x=70, y=200)
+    lbConfigFile.config(font=("Calibri", 12, 'bold'), fg='black')
 
-    entryExcel = tkinter.Entry(buttonsFn.top, textvariable=buttonsFn.file1_path)
-    entryExcel.place(x=250, y=100, width=400, height=25)
-    entryExcel.delete(0, 'end')
+    entryConfigFile = tkinter.Entry(buttonsFn.top, textvariable=buttonsFn.folder_path)
+    entryConfigFile.place(x=250, y=200, width=400, height=25)
+    entryConfigFile.delete(0, 'end')
 
-    buttonBrowse = tkinter.Button(buttonsFn.top, text="Browse", command=UpdateDropDownFromExcelForIPpoolExpansion)
-    buttonBrowse.place(x=670, y=100)
+    buttonBrowse = tkinter.Button(buttonsFn.top, text="Browse", command=buttonsFn.first_browser)
+    buttonBrowse.place(x=670, y=190)
     buttonBrowse['font'] = myFont
 
-    buttonRun = tkinter.Button(buttonsFn.top, text="Run", command=IPPoolExpanRun)
-    buttonRun.place(x=450, y=530)
+    buttonRun = tkinter.Button(buttonsFn.top, text="Run", command=BuildDBRun)
+    buttonRun.place(x=330, y=330)
     buttonRun.config(height=1, width=12)
     buttonRun['font'] = myFont2
 
@@ -491,7 +496,7 @@ def openBuildDBMenu():
 
     Title = tkinter.Label(buttonsFn.top, text="Build Corporate APNs DB")
     Title.config(font=("Calibri", 24), foreground="black")
-    Title.place(x=260, y=20)
+    Title.place(x=260, y=40)
 
     # Define the size of the main window
     buttonsFn.top.geometry("800x400")  # Width x Height
