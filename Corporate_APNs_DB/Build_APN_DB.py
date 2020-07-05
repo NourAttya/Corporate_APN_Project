@@ -18,7 +18,7 @@ def getAllAPNS(configPath):
             line=line.lstrip()
             if (line.startswith("apn ") and not line.startswith("apn schema")):
                 reading=1
-                if(len(APNName)!=len(contextName)):
+                if(len(APNName)!=len(contextName)): #Why this?
                     contextName.append(None)
 
                 VRF.append(0)
@@ -29,7 +29,7 @@ def getAllAPNS(configPath):
                 if(line.startswith("ip context-name")):
                     contextName.append(line.split(" ")[2].replace("\n",""))
                 if("vrf" in line):
-                    name=line.split(" ")[2]
+                    name=line.split(" ")[2] #[2]to be revised
                     check = [name.find(i) for i in APNName]
                     if(check.count(0)!=0):
                         index=check.index(0)
