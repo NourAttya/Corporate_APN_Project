@@ -45,7 +45,7 @@ def getAllAPNS(configPath):
                             for i in range(len(check)):
                                 if(check[i]==0):
                                     interface[i] = 1
-        print("APNName",len(APNName)APNName)
+        print("APNName",len(APNName))
         print("contextName",len(contextName))
         print("VRF",len(VRF))
         print("interface",len(interface))
