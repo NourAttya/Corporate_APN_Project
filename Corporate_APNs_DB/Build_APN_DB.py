@@ -1,4 +1,4 @@
-
+#Nour Attya
 def getAllAPNS(configPath):
 #input : GGSN Configuration file
 #output : 4 Lists with the same length
