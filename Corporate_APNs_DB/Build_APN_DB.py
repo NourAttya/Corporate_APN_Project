@@ -12,7 +12,6 @@ def getAllAPNS(configPath):
     contextName=[]
     VRF=[]
     interface=[]
-
     for filename in os.listdir(configPath):
         fullnameConfigFile = os.path.join(configPath, filename)
         with open(fullnameConfigFile) as f:
@@ -33,10 +32,10 @@ def getAllAPNS(configPath):
                 if(reading==1):
                     if(line.startswith("ip context-name")):
                         contextName.append(line.split(" ")[2].replace("\n",""))
-                    if("ip pool" in line):
+                    if("vrf" in line):
                         name=line.split(" ")[2]
                         check = [name.find(i) for i in APNName]
-                        if(check.count(0)!=0 and "vrf" in line):
+                        if(check.count(0)!=0):
                             index=check.index(0)
                             VRF[index]=1
                     if ("interface" in line):
@@ -46,10 +45,10 @@ def getAllAPNS(configPath):
                             for i in range(len(check)):
                                 if(check[i]==0):
                                     interface[i] = 1
-        print("APNName",APNName)
-        print("contextName",contextName)
-        print("VRF",VRF)
-        print("interface",interface)
+        print("APNName",len(APNName))
+        print("contextName",len(contextName))
+        print("VRF",len(VRF))
+        print("interface",len(interface))
 
 
     return APNName,contextName,VRF,interface
@@ -63,12 +62,12 @@ def getAPNType(APNName,contextName,VRF,interface):
             APNType.append("sim2sim")
         elif(VRF[i]==1 and interface[i]==1):
             APNType.append("PC Connectivity")
-        elif(VRF[i]==0 and (contextName[i]=="Gi-Corp" or contextName[i]=="Gi-Corp2")):
+        elif(VRF[i]==0 and contextName[i]=="Gi-Corp"): #To be checked if there is a VRF for 3WIC or not
             APNType.append("3G WIC")
         elif (VRF[i]==0 and contextName[i]=="VAS-Corp"):
             APNType.append("Internet")
         else:
-            APNType.append(None)
+            APNType.append(str(contextName[i])+" "+str(VRF[i])+" "+str(interface[i]))
 
     return APNType
 
@@ -78,7 +77,6 @@ def writeInCSV(APNName,APNType,pathToSave):
     with open(pathToSave + '\\Corporate APNs' + '.csv', 'w') as out_file:
         out_file.write('{0},{1}\n'.format("APN Name", "APN Type"))
         for i in range(len(APNName)):
-            if APNType[i]==None:continue
             out_file.write('{0},{1}\n'.format(APNName[i],APNType[i]))
 
 
@@ -90,4 +88,4 @@ def APNDB(configPath):
 
 # # getAllAPNS("D:\\Automation Team\\Corporate APN Project\\config files\\TG2 GGSN 21 6 2020")
 # # # writeInCSV(["Test1","Test2","Test3"],["3GWIc","PC Connectivity","Internet"],"D:\\Automation Team\\Corporate APN Project\\")
-#APNDB("D:\\Automation Team\\Corporate APN Project\\GGSN Config Files")
+# # APNDB("D:\\Automation Team\\Corporate APN Project\\config files\\TG2 GGSN 21 6 2020","D:\\Automation Team\\Corporate APN Project\\")
