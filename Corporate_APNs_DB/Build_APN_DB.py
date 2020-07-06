@@ -1,4 +1,4 @@
-#Nour Attya
+
 import os
 
 def getAllAPNS(configPath):
