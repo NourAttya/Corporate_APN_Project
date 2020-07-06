@@ -89,3 +89,4 @@ def APNDB(configPath):
 # # getAllAPNS("D:\\Automation Team\\Corporate APN Project\\config files\\TG2 GGSN 21 6 2020")
 # # # writeInCSV(["Test1","Test2","Test3"],["3GWIc","PC Connectivity","Internet"],"D:\\Automation Team\\Corporate APN Project\\")
 # # APNDB("D:\\Automation Team\\Corporate APN Project\\config files\\TG2 GGSN 21 6 2020","D:\\Automation Team\\Corporate APN Project\\")
+#Nour Attya
