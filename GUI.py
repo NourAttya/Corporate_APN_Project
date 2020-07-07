@@ -48,7 +48,7 @@ def UpdateDropDownFromExcelForCorporateAPN():
     buttonsFn.tkvar4.set(MTXs[0])  # set the default option
 
 
-def openCorpMenu():
+def openPacketCorpMenu():
     buttonsFn.top.grid_slaves()
     # define font
     myFont = font.Font(family='Calibri', size=12)
@@ -174,7 +174,7 @@ def openCorpMenu():
     buttonRun.config(height=1, width=10)
     buttonRun['font'] = myFont2
 
-    buttonBack = tkinter.Button(buttonsFn.top, text="Back", command=openDataMenu)
+    buttonBack = tkinter.Button(buttonsFn.top, text="Back", command=openCorpMenu)
     buttonBack.place(x=20, y=20)
     buttonBack.config(height=2, width=8, fg='black')
     buttonBack['font'] = myFont
@@ -183,15 +183,147 @@ def openCorpMenu():
     e.bind("<Tab>", buttonsFn.focus_next_widget)
     # Appearnce Title
 
-    Title = tkinter.Label(buttonsFn.top, text="Corporate APN Configuration")
+    Title = tkinter.Label(buttonsFn.top, text="Packet Corporate APN Configuration")
     Title.config(font=("Calibri", 28), foreground="black")
-    Title.place(x=200, y=20)
+    Title.place(x=150, y=20)
 
     # Define the size of the main window
     buttonsFn.top.geometry("800x520")  # Width x Height
-    buttonsFn.top.title("Corporate APN Configuration")
+    buttonsFn.top.title("Packet Corporate APN Configuration")
     buttonsFn.top.mainloop()
     # New_Window.configure(background='white')
+
+
+def openSecurityCorpMenu():
+    buttonsFn.top.grid_slaves()
+    # define font
+    myFont = font.Font(family='Calibri', size=12)
+    myFont2 = font.Font(family='Calibri', size=15)
+
+    # Imgname2 = tkinter.PhotoImage(file="Vodafone2.png")
+
+    background_label = tkinter.Label(buttonsFn.top)
+    background_label.place(x=0, y=0, relwidth=1, relheight=1)
+
+    # background_label.configure(background='red')
+    # Define Buttons of the main window
+
+    lbAPNName = tkinter.Label(buttonsFn.top, text="APN Name")
+    lbAPNName.place(x=100, y=100)
+    lbAPNName.config(font=("Calibri", 12, 'bold'), fg='black')
+
+    entryAPNName = tkinter.Entry(buttonsFn.top, textvariable=buttonsFn.file1_path)
+    entryAPNName.place(x=250, y=100, width=200, height=25)
+    entryAPNName.delete(0, 'end')
+
+    lbSimRange = tkinter.Label(buttonsFn.top, text="Sim Range")
+    lbSimRange.place(x=100, y=150)
+    lbSimRange.config(font=("Calibri", 12, 'bold'), fg='black')
+
+    entrySimRange = tkinter.Entry(buttonsFn.top, textvariable=buttonsFn.file2_path)
+    entrySimRange.place(x=250, y=150, width=200, height=25)
+    entrySimRange.delete(0, 'end')
+
+    lbLoopbackIP = tkinter.Label(buttonsFn.top, text="Loopback IP")
+    lbLoopbackIP.place(x=100, y=200)
+    lbLoopbackIP.config(font=("Calibri", 12, 'bold'), fg='black')
+    lbLoopbackIP.configure(state="active")
+
+    entryLoopbackIP = tkinter.Entry(buttonsFn.top, textvariable=buttonsFn.file3_path)
+    entryLoopbackIP.place(x=250, y=200, width=200, height=25)
+    entryLoopbackIP.delete(0, 'end')
+    entryLoopbackIP.configure(state="normal")
+
+    # Dictionary with options
+    APNTypeChoices = {'Internet APN', 'PC Connectivity', '3G WIc'}
+    buttonsFn.tkvar1.set('3G WIc')  # set the default option
+
+    lbAPNType = tkinter.Label(buttonsFn.top, text="Choose APN Type")
+    lbAPNType.place(x=100, y=250)
+    lbAPNType.config(font=("Calibri", 12, 'bold'), fg='black')
+    APNTypeMenu = tkinter.OptionMenu(buttonsFn.top, buttonsFn.tkvar1, *APNTypeChoices)
+    APNTypeMenu.place(x=250, y=250)
+
+    # link function to change dropdown
+    buttonsFn.tkvar1.trace('w', buttonsFn.change_dropdownSecurityApnType)
+
+    lbSrcTunnel = tkinter.Label(buttonsFn.top, text="Src Tunnel\nFixed")
+    lbSrcTunnel.place(x=100, y=300)
+    lbSrcTunnel.config(font=("Calibri", 12, 'bold'), fg='black')
+    lbSrcTunnel.configure(state="disabled")
+
+    entrySrcTunnel = tkinter.Entry(buttonsFn.top, textvariable=buttonsFn.file4_path)
+    entrySrcTunnel.place(x=250, y=300, width=200, height=25)
+    entrySrcTunnel.delete(0, 'end')
+    entrySrcTunnel.configure(state="disabled")
+
+    lbPublicIP= tkinter.Label(buttonsFn.top, text="Public IP")
+    lbPublicIP.place(x=100, y=350)
+    lbPublicIP.config(font=("Calibri", 12, 'bold'), fg='black')
+    lbPublicIP.configure(state="disabled")
+
+    entryPublicIP = tkinter.Entry(buttonsFn.top, textvariable=buttonsFn.file5_path)
+    entryPublicIP.place(x=250, y=350, width=200, height=25)
+    entryPublicIP.delete(0, 'end')
+    entryPublicIP.configure(state="disabled")
+
+
+    buttonRun = tkinter.Button(buttonsFn.top, text="Run")
+    buttonRun.place(x=330, y=415)
+    buttonRun.config(height=1, width=10)
+    buttonRun['font'] = myFont2
+
+    buttonBack = tkinter.Button(buttonsFn.top, text="Back", command=openCorpMenu)
+    buttonBack.place(x=20, y=20)
+    buttonBack.config(height=2, width=8, fg='black')
+    buttonBack['font'] = myFont
+
+    e = tkinter.Text(buttonsFn.top, width=75, height=10)
+    e.bind("<Tab>", buttonsFn.focus_next_widget)
+    # Appearnce Title
+
+    Title = tkinter.Label(buttonsFn.top, text="Security Corporate APN Configuration")
+    Title.config(font=("Calibri", 28), foreground="black")
+    Title.place(x=150, y=20)
+
+    # Define the size of the main window
+    buttonsFn.top.geometry("800x470")  # Width x Height
+    buttonsFn.top.title("Security Corporate APN Configuration")
+    buttonsFn.top.mainloop()
+    # New_Window.configure(background='white')
+
+
+def openCorpMenu():
+    # Main menu
+    # define font
+    myFont = font.Font(family='Calibri', size=15)
+
+    Imgname = tkinter.PhotoImage(file="Vodafone.png")
+    background_label = tkinter.Label(buttonsFn.top, image=Imgname)
+    background_label.place(x=0, y=0, relwidth=1, relheight=1)
+
+    # Define Buttons of the main window
+    # 1
+    buttonCorpAPNAudit = tkinter.Button(buttonsFn.top, text="Packet Corporate\n APN Creation", command=openPacketCorpMenu)
+    buttonCorpAPNAudit.place(x=170, y=70)
+    buttonCorpAPNAudit.config(height=3, width=20, fg='black', background='white')
+    buttonCorpAPNAudit['font'] = myFont
+    # 2
+    buttonIDNSAudit = tkinter.Button(buttonsFn.top, text="Security Corporate\n APN Creation",command=openSecurityCorpMenu)
+    buttonIDNSAudit.place(x=170, y=180)
+    buttonIDNSAudit.config(height=3, width=20, fg='black', background='white')
+    buttonIDNSAudit['font'] = myFont
+
+    buttonBack = tkinter.Button(buttonsFn.top, text="Back", command=openDataMenu)
+    buttonBack.place(x=20, y=20)
+    buttonBack.config(height=1, width=8, fg='black', bg='white')
+    buttonBack['font'] = myFont
+
+    # Define the size of the main window
+    buttonsFn.top.geometry("550x350")  # Width x Height
+    buttonsFn.top.title("Corporate APN Creation")
+    # top.configure(background = 'sky blue')
+    buttonsFn.top.mainloop()
 
 
 #IP_Pool_Expansion GUI
@@ -520,7 +652,7 @@ def openCorporateAPNAuditMenu():
     buttonBuildDB.config(height=3, width=20,  fg='black', background = 'white')
     buttonBuildDB['font'] = myFont
     # 2
-    buttonUpdateDB= tkinter.Button(buttonsFn.top, text="Update Corporate\nAPNs DB")
+    buttonUpdateDB= tkinter.Button(buttonsFn.top, text="APNs Cleanup\nAPNs")
     buttonUpdateDB.place(x=170, y=180)
     buttonUpdateDB.config(height=3, width=20,  fg='black', background = 'white')
     buttonUpdateDB['font'] = myFont
