@@ -310,6 +310,16 @@ def change_dropdownSecurityApnType(*args):
         entryLoopbackIP.delete(0, 'end')
         entryLoopbackIP.configure(state="normal")
 
+        lbLoopbackIP = tkinter.Label(top, text="Loopback IP")
+        lbLoopbackIP.place(x=100, y=200)
+        lbLoopbackIP.config(font=("Calibri", 12, 'bold'), fg='black')
+        lbLoopbackIP.configure(state="disabled")
+
+        entryLoopbackIP = tkinter.Entry(top, textvariable=file3_path)
+        entryLoopbackIP.place(x=250, y=200, width=200, height=25)
+        entryLoopbackIP.delete(0, 'end')
+        entryLoopbackIP.configure(state="disabled")
+
     elif(tkvar1.get()=="3G WIc"):
         lbLoopbackIP = tkinter.Label(top, text="Loopback IP")
         lbLoopbackIP.place(x=100, y=200)
