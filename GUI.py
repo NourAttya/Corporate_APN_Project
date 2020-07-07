@@ -635,6 +635,70 @@ def openBuildDBMenu():
     buttonsFn.top.mainloop()
     # New_Window.configure(background='white')
 
+def openAPNsCleanupMenu():
+    # define font
+    myFont = font.Font(family='Calibri', size=12)
+    myFont2 = font.Font(family='Calibri', size=15)
+
+    # Imgname2 = tkinter.PhotoImage(file="Vodafone2.png")
+
+    background_label = tkinter.Label(buttonsFn.top)
+    background_label.place(x=0, y=0, relwidth=1, relheight=1)
+
+    # background_label.configure(background='red')
+    # Define Buttons of the main window
+
+    lbExcel = tkinter.Label(buttonsFn.top, text="Select APNs \nExcel Sheet")
+    lbExcel.place(x=150, y=130)
+    lbExcel.config(font=("Calibri", 12, 'bold'), fg='black')
+
+    entryExcel = tkinter.Entry(buttonsFn.top, textvariable=buttonsFn.file1_path)
+    entryExcel.place(x=250, y=130, width=400, height=25)
+    entryExcel.delete(0, 'end')
+
+    buttonBrowse = tkinter.Button(buttonsFn.top, text="Browse", command=buttonsFn.file1_browser)
+    buttonBrowse.place(x=670, y=130)
+    buttonBrowse['font'] = myFont
+
+    lbFrom= tkinter.Label(buttonsFn.top, text="From")
+    lbFrom.place(x=150, y=230)
+    lbFrom.config(font=("Calibri", 12, 'bold'), fg='black')
+
+    entryFrom = tkinter.Entry(buttonsFn.top, textvariable=buttonsFn.file1_path)
+    entryFrom.place(x=250, y=230, width=120, height=25)
+    entryFrom.delete(0, 'end')
+
+    lbTo = tkinter.Label(buttonsFn.top, text="To")
+    lbTo.place(x=400, y=230)
+    lbTo.config(font=("Calibri", 12, 'bold'), fg='black')
+
+    entryTo = tkinter.Entry(buttonsFn.top, textvariable=buttonsFn.file2_path)
+    entryTo.place(x=450, y=230, width=120, height=25)
+    entryTo.delete(0, 'end')
+
+    buttonRun = tkinter.Button(buttonsFn.top, text="Run")
+    buttonRun.place(x=330, y=330)
+    buttonRun.config(height=1, width=12)
+    buttonRun['font'] = myFont2
+
+    buttonBack = tkinter.Button(buttonsFn.top, text="Back", command=openCorporateAPNAuditMenu)
+    buttonBack.place(x=20, y=20)
+    buttonBack.config(height=2, width=8, fg='black')
+    buttonBack['font'] = myFont
+
+    e = tkinter.Text(buttonsFn.top, width=75, height=10)
+    e.bind("<Tab>", buttonsFn.focus_next_widget)
+    # Appearnce Title
+
+    Title = tkinter.Label(buttonsFn.top, text="APNs Cleanup")
+    Title.config(font=("Calibri", 24), foreground="black")
+    Title.place(x=300, y=40)
+
+    # Define the size of the main window
+    buttonsFn.top.geometry("800x400")  # Width x Height
+    buttonsFn.top.title("APNs Cleanup")
+    buttonsFn.top.mainloop()
+    # New_Window.configure(background='white')
 
 def openCorporateAPNAuditMenu():
     # Main menu
@@ -652,7 +716,7 @@ def openCorporateAPNAuditMenu():
     buttonBuildDB.config(height=3, width=20,  fg='black', background = 'white')
     buttonBuildDB['font'] = myFont
     # 2
-    buttonUpdateDB= tkinter.Button(buttonsFn.top, text="APNs Cleanup\nAPNs")
+    buttonUpdateDB= tkinter.Button(buttonsFn.top, text="APNs Cleanup",command=openAPNsCleanupMenu)
     buttonUpdateDB.place(x=170, y=180)
     buttonUpdateDB.config(height=3, width=20,  fg='black', background = 'white')
     buttonUpdateDB['font'] = myFont
