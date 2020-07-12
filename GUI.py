@@ -584,7 +584,34 @@ def openIpPoolExpansionMenu():
     # New_Window.configure(background='white')
 
 def BuildDBRun():
-    Build_APN_DB.APNDB(buttonsFn.folder_path.get())
+    fileNameToRemove = buttonsFn.file1_path.get().split('/')[-1]
+    pathToSave = buttonsFn.file1_path.get().replace(fileNameToRemove, "")
+    Build_APN_DB.APNDB(buttonsFn.file1_path.get(),buttonsFn.tkvar1.get(),pathToSave,buttonsFn.file2_path.get(),buttonsFn.file3_path.get())
+
+
+def UpdateDropDownFromExcelForAPNDB():
+    MTXs = []
+    buttonsFn.file1_browser()
+    # open the excel sheet and get the corresponding number to MTX name
+    wb = xlrd.open_workbook(buttonsFn.file1_path.get())
+    sheet = wb.sheet_by_index(0)
+    firstRow = 0
+    for j in range(sheet.nrows):
+        row = sheet.row_values(j)
+        if firstRow == 0:
+            for i in range(len(row)):
+                if (row[i] == "MTX Name"):
+                    MTXindex = i
+            firstRow = 1
+        else:
+            MTXs.append( str(row[MTXindex]))
+    print(MTXs)
+
+    MTXMenu = tkinter.OptionMenu(buttonsFn.top, buttonsFn.tkvar1, *MTXs)
+    MTXMenu.place(x=250, y=200)
+    MTXMenu.config(height=1, width=4, fg='black')
+    buttonsFn.tkvar1.set(MTXs[0])  # set the default option
+
 
 def openBuildDBMenu():
     # define font
@@ -599,20 +626,46 @@ def openBuildDBMenu():
     # background_label.configure(background='red')
     # Define Buttons of the main window
 
-    lbConfigFile = tkinter.Label(buttonsFn.top, text="Select GGSN\nConfigurations Folder")
-    lbConfigFile.place(x=70, y=200)
-    lbConfigFile.config(font=("Calibri", 12, 'bold'), fg='black')
+    # 1
+    lbExcel = tkinter.Label(buttonsFn.top, text="Select Excel Sheet")
+    lbExcel.place(x=100, y=150)
+    lbExcel.config(font=("Calibri", 12, 'bold'), fg='black')
 
-    entryConfigFile = tkinter.Entry(buttonsFn.top, textvariable=buttonsFn.folder_path)
-    entryConfigFile.place(x=250, y=200, width=400, height=25)
-    entryConfigFile.delete(0, 'end')
+    entryExcelPath = tkinter.Entry(buttonsFn.top, textvariable=buttonsFn.file1_path)
+    entryExcelPath.place(x=250, y=150, width=400, height=25)
+    entryExcelPath.delete(0, 'end')
 
-    buttonBrowse = tkinter.Button(buttonsFn.top, text="Browse", command=buttonsFn.first_browser)
-    buttonBrowse.place(x=670, y=190)
+    buttonBrowse = tkinter.Button(buttonsFn.top, text="Browse", command=UpdateDropDownFromExcelForAPNDB)
+    buttonBrowse.place(x=670, y=145)
     buttonBrowse['font'] = myFont
 
+    lbMTX = tkinter.Label(buttonsFn.top, text="Choose MTX")
+    lbMTX.place(x=100, y=200)
+    lbMTX.config(font=("Calibri", 12, 'bold'), fg='black')
+    MTXMenu = tkinter.OptionMenu(buttonsFn.top, buttonsFn.tkvar1, [""])
+
+    MTXMenu.place(x=250, y=200)
+    MTXMenu.config(height=1, width=4, fg='black')
+    buttonsFn.tkvar1.set("")  # set the default option
+
+    lbUsername = tkinter.Label(buttonsFn.top, text="Username")
+    lbUsername.place(x=100, y=250)
+    lbUsername.config(font=("Calibri", 12, 'bold'), fg='black')
+
+    entryUsername = tkinter.Entry(buttonsFn.top, textvariable=buttonsFn.file2_path)
+    entryUsername.place(x=250, y=250, width=120, height=25)
+    entryUsername.delete(0, 'end')
+
+    lbPassword = tkinter.Label(buttonsFn.top, text="Password")
+    lbPassword.place(x=100, y=300)
+    lbPassword.config(font=("Calibri", 12, 'bold'), fg='black')
+
+    entryPassword = tkinter.Entry(buttonsFn.top, textvariable=buttonsFn.file3_path)
+    entryPassword.place(x=250, y=300, width=120, height=25)
+    entryPassword.delete(0, 'end')
+
     buttonRun = tkinter.Button(buttonsFn.top, text="Run", command=BuildDBRun)
-    buttonRun.place(x=330, y=330)
+    buttonRun.place(x=330, y=350)
     buttonRun.config(height=1, width=12)
     buttonRun['font'] = myFont2
 
@@ -630,7 +683,7 @@ def openBuildDBMenu():
     Title.place(x=260, y=40)
 
     # Define the size of the main window
-    buttonsFn.top.geometry("800x400")  # Width x Height
+    buttonsFn.top.geometry("800x420")  # Width x Height
     buttonsFn.top.title("Build Corporate APNs DB")
     buttonsFn.top.mainloop()
     # New_Window.configure(background='white')
@@ -660,20 +713,24 @@ def openAPNsCleanupMenu():
     buttonBrowse.place(x=670, y=130)
     buttonBrowse['font'] = myFont
 
+    lbSectionName= tkinter.Label(buttonsFn.top, text="APN Index :")
+    lbSectionName.place(x=150, y=205)
+    lbSectionName.config(font=("Calibri", 16, 'bold'), fg='black')
+
     lbFrom= tkinter.Label(buttonsFn.top, text="From")
-    lbFrom.place(x=150, y=230)
+    lbFrom.place(x=150, y=250)
     lbFrom.config(font=("Calibri", 12, 'bold'), fg='black')
 
     entryFrom = tkinter.Entry(buttonsFn.top, textvariable=buttonsFn.file1_path)
-    entryFrom.place(x=250, y=230, width=120, height=25)
+    entryFrom.place(x=250, y=250, width=120, height=25)
     entryFrom.delete(0, 'end')
 
     lbTo = tkinter.Label(buttonsFn.top, text="To")
-    lbTo.place(x=400, y=230)
+    lbTo.place(x=400, y=250)
     lbTo.config(font=("Calibri", 12, 'bold'), fg='black')
 
     entryTo = tkinter.Entry(buttonsFn.top, textvariable=buttonsFn.file2_path)
-    entryTo.place(x=450, y=230, width=120, height=25)
+    entryTo.place(x=450, y=250, width=120, height=25)
     entryTo.delete(0, 'end')
 
     buttonRun = tkinter.Button(buttonsFn.top, text="Run")

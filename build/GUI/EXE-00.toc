@@ -2,7 +2,7 @@
  False,
  False,
  True,
- 'Vod_Icon.ico',
+ None,
  None,
  False,
  False,
@@ -35,7 +35,7 @@
  [],
  False,
  False,
- 1591087577,
+ 1594567403,
  [('runw.exe',
    'D:\\Libraries\\ASART\\lib\\site-packages\\PyInstaller\\bootloader\\Windows-64bit\\runw.exe',
    'EXECUTABLE')])

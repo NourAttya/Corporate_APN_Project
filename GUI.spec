@@ -26,7 +26,7 @@ exe = EXE(pyz,
           bootloader_ignore_signals=False,
           strip=False,
           upx=True,
-          console=False , icon='Vod_Icon.ico')
+          console=False )
 coll = COLLECT(exe,
                a.binaries,
                a.zipfiles,
