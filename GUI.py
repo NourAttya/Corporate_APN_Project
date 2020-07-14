@@ -6,7 +6,7 @@ from Corporate_APNs_DB import  Build_APN_DB
 from tkinter import messagebox
 import xlrd
 from IP_Pool_Expansion import IPPoolExpansion
-
+from Security_Corp_APN import Sec3GWIC_Script,SecInternet_script,SecPC_Connectivity_Script
 #Nour Attyia
 #Ahmed Ayman
 
@@ -195,6 +195,15 @@ def openPacketCorpMenu():
     buttonsFn.top.mainloop()
     # New_Window.configure(background='white')
 
+def securityCorpRun():
+    if(buttonsFn.tkvar1.get()=="PC Connectivity"):
+        SecPC_Connectivity_Script.SecPC_Connectivity_Script(buttonsFn.file1_path.get(), buttonsFn.file4_path.get())
+    elif (buttonsFn.tkvar1.get() == "3G WIc"):
+        Sec3GWIC_Script.Sec3GWIC_Script(buttonsFn.file1_path.get(),buttonsFn.file2_path.get(),buttonsFn.file3_path.get())
+
+    elif (buttonsFn.tkvar1.get() == "Internet APN"):
+     SecInternet_script.SecInternet_Script(buttonsFn.file1_path.get(), buttonsFn.file2_path.get(), buttonsFn.file5_path.get())
+
 
 def openSecurityCorpMenu():
 
@@ -268,7 +277,7 @@ def openSecurityCorpMenu():
     entryPublicIP.configure(state="disabled")
     entryPublicIP.delete(0, 'end')
 
-    buttonRun = tkinter.Button(buttonsFn.top, text="Run")
+    buttonRun = tkinter.Button(buttonsFn.top, text="Run", command= securityCorpRun)
     buttonRun.place(x=330, y=415)
     buttonRun.config(height=1, width=10)
     buttonRun['font'] = myFont2

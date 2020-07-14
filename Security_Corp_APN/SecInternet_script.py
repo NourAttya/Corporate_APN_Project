@@ -1,11 +1,10 @@
-def SecInternet_Script (APN_Name, Sim_Range, Public_IP, pathToSave ):
+def SecInternet_Script (APN_Name, Sim_Range, Public_IP ):
 
-    script = open(pathToSave + APN_Name + "_Script.txt", "w")
-    script.write('APN' + APN_Name + '\n')
+    script = open(APN_Name + "_Script.txt", "w")
     script.write('On Gi-HQ firewall'  + ':\n')
     script.write('---------------' + '\n')
-    script.write('set security nat source pool'+APN_Name+'-APN-Pool address' +Public_IP+ 'to' +Public_IP+ '\n')
-    script.write('set security nat source rule-set VAS-Corporate-to-Internet rule' +APN_Name+'-APN match source-address' +Sim_Range+ '\n')
+    script.write('set security nat source pool '+APN_Name+'-APN-Pool address ' +Public_IP+ ' to ' +Public_IP+ '\n')
+    script.write('set security nat source rule-set VAS-Corporate-to-Internet rule ' +APN_Name+'-APN match source-address ' +Sim_Range+ '\n')
     script.write('set security nat source rule-set VAS-Corporate-to-Internet rule ' +APN_Name+'-APN match destination-address 0.0.0.0/0 \n')
     script.write('set security nat source rule-set VAS-Corporate-to-Internet rule ' +APN_Name+'-APN then source-nat pool ' +APN_Name+'-APN-Pool \n')
     script.write('set security zones security-zone VAS-Corporate address-book address ' +APN_Name+'-APN ' +Sim_Range+ ' \n')
@@ -18,9 +17,11 @@ def SecInternet_Script (APN_Name, Sim_Range, Public_IP, pathToSave ):
     script.write('On Gi-HQ firewall\n')
     script.write('=========\n')
     script.write('\n \n')
-    script.write('delete security nat source pool ' + APN_Name + '-APN-Pool address' + Public_IP + 'to' + Public_IP + '\n')
+    script.write('delete security nat source pool ' + APN_Name + '-APN-Pool address ' + Public_IP + ' to ' + Public_IP + '\n')
     script.write(
-        'delete security nat source rule-set VAS-Corporate-to-Internet rule' + APN_Name + '\n')
+        'delete security nat source rule-set VAS-Corporate-to-Internet rule ' + APN_Name + '\n')
     script.write(
         'delete security zones security-zone VAS-Corporate address-book address ' + APN_Name + '-APN ' + Sim_Range + ' \n')
     script.write('delete routing-options static route ' + Sim_Range + ' next-hop 10.222.7.139  \n')
+    script.close()
+    print('Nour')

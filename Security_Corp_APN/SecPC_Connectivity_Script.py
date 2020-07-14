@@ -1,10 +1,9 @@
-def SecPC_Connectivity_Script (APN_Name, Src_Tunnel_Fixed, pathToSave ):
+def SecPC_Connectivity_Script (APN_Name, Src_Tunnel_Fixed ):
 
-    script = open(pathToSave + APN_Name + "_Script.txt", "w")
-    script.write('APN' + APN_Name + '\n')
+    script = open(APN_Name + "_Script.txt", "w")
     script.write('On PIX firewall'  + ':\n')
     script.write('---------------' + '\n')
-    script.write('set address "outside" " '+APN_Name+ ' APN Tunnel-End"' +Src_Tunnel_Fixed+ '\n')
+    script.write('set address "outside" " '+APN_Name+ ' APN Tunnel-End" ' +Src_Tunnel_Fixed+ '\n')
     script.write('set policy top name "' +APN_Name+ 'APN" from "outside" to "Corp_GPRS"  "'+APN_Name+' APN Tunnel-End" "NEW_TGGGSN12_Loopback" "GRE" permit log  \n')
     script.write('set policy id  \n')
     script.write('set service "PING"  \n')
@@ -13,7 +12,7 @@ def SecPC_Connectivity_Script (APN_Name, Src_Tunnel_Fixed, pathToSave ):
     script.write('set policy id  \n')
     script.write('set service "PING"  \n')
     script.write('exit \n')
-    script.write('set route' +Src_Tunnel_Fixed+ 'interface ethernet3/2 gateway 192.168.151.200 \n')
+    script.write('set route ' +Src_Tunnel_Fixed+ ' interface ethernet3/2 gateway 192.168.151.200 \n')
     script.write('save \n')
     script.write('---------------------------------------------------------------\n')
     script.write('\n \n')
@@ -25,4 +24,6 @@ def SecPC_Connectivity_Script (APN_Name, Src_Tunnel_Fixed, pathToSave ):
     script.write('unset address "outside" "'+APN_Name+' APN Tunnel-End" 10.215.122.112/32 \n')
     script.write('unset policy id  \n')
     script.write('unset policy id  \n')
-    script.write('unset route' +Src_Tunnel_Fixed+ 'interface ethernet3/2 gateway 192.168.151.200 \n')
+    script.write('unset route ' +Src_Tunnel_Fixed+ ' interface ethernet3/2 gateway 192.168.151.200 \n')
+    script.close()
+    print('Nour')
