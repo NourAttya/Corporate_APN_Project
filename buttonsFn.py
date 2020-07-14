@@ -1,6 +1,16 @@
 import tkinter
 from tkinter import filedialog
 
+
+def all_children (window) :
+    _list = window.winfo_children()
+
+    for item in _list :
+        if item.winfo_children() :
+            _list.extend(item.winfo_children())
+
+    return _list
+
 top=tkinter.Tk()
 
 folder_path = tkinter.StringVar()
@@ -247,106 +257,3 @@ def change_dropdownAPNType(*args):
         StatOrDynMenu.configure(state="disabled")
         tkvar5.set('Dynamic')
 
-def change_dropdownSecurityApnType(*args):
-    if(tkvar1.get()=="PC Connectivity"):
-        lbSrcTunnel = tkinter.Label(top, text="Src Tunnel\nFixed")
-        lbSrcTunnel.place(x=100, y=300)
-        lbSrcTunnel.config(font=("Calibri", 12, 'bold'), fg='black')
-        lbSrcTunnel.configure(state="active")
-
-        entrySrcTunnel = tkinter.Entry(top, textvariable=file4_path)
-        entrySrcTunnel.place(x=250, y=300, width=200, height=25)
-        entrySrcTunnel.configure(state="normal")
-        entrySrcTunnel.delete(0, 'end')
-
-        lbLoopbackIP = tkinter.Label(top, text="Loopback IP")
-        lbLoopbackIP.place(x=100, y=200)
-        lbLoopbackIP.config(font=("Calibri", 12, 'bold'), fg='black')
-        lbLoopbackIP.configure(state="disabled")
-
-        entryLoopbackIP = tkinter.Entry(top, textvariable=file3_path)
-        entryLoopbackIP.place(x=250, y=200, width=200, height=25)
-        entryLoopbackIP.configure(state="disabled")
-        entryLoopbackIP.delete(0, 'end')
-
-        lbPublicIP = tkinter.Label(top, text="Public IP")
-        lbPublicIP.place(x=100, y=350)
-        lbPublicIP.config(font=("Calibri", 12, 'bold'), fg='black')
-        lbPublicIP.configure(state="disabled")
-
-        entryPublicIP = tkinter.Entry(top, textvariable=file5_path)
-        entryPublicIP.place(x=250, y=350, width=200, height=25)
-        entryPublicIP.configure(state="disabled")
-        entryPublicIP.delete(0, 'end')
-
-    elif (tkvar1.get()=="Internet APN"):
-        lbSrcTunnel = tkinter.Label(top, text="Src Tunnel\nFixed")
-        lbSrcTunnel.place(x=100, y=300)
-        lbSrcTunnel.config(font=("Calibri", 12, 'bold'), fg='black')
-        lbSrcTunnel.configure(state="disabled")
-
-        entrySrcTunnel = tkinter.Entry(top, textvariable=file4_path)
-        entrySrcTunnel.place(x=250, y=300, width=200, height=25)
-        entrySrcTunnel.configure(state="disabled")
-        entrySrcTunnel.delete(0, 'end')
-
-        lbPublicIP = tkinter.Label(top, text="Public IP")
-        lbPublicIP.place(x=100, y=350)
-        lbPublicIP.config(font=("Calibri", 12, 'bold'), fg='black')
-        lbPublicIP.configure(state="active")
-
-        entryPublicIP = tkinter.Entry(top, textvariable=file5_path)
-        entryPublicIP.place(x=250, y=350, width=200, height=25)
-        entryPublicIP.configure(state="normal")
-        entryPublicIP.delete(0, 'end')
-
-        lbLoopbackIP = tkinter.Label(top, text="Loopback IP")
-        lbLoopbackIP.place(x=100, y=200)
-        lbLoopbackIP.config(font=("Calibri", 12, 'bold'), fg='black')
-        lbLoopbackIP.configure(state="active")
-
-        entryLoopbackIP = tkinter.Entry(top, textvariable=file3_path)
-        entryLoopbackIP.place(x=250, y=200, width=200, height=25)
-        entryLoopbackIP.configure(state="normal")
-        entryLoopbackIP.delete(0, 'end')
-
-        lbLoopbackIP = tkinter.Label(top, text="Loopback IP")
-        lbLoopbackIP.place(x=100, y=200)
-        lbLoopbackIP.config(font=("Calibri", 12, 'bold'), fg='black')
-        lbLoopbackIP.configure(state="disabled")
-
-        entryLoopbackIP = tkinter.Entry(top, textvariable=file3_path)
-        entryLoopbackIP.place(x=250, y=200, width=200, height=25)
-        entryLoopbackIP.configure(state="disabled")
-        entryLoopbackIP.delete(0, 'end')
-
-    elif(tkvar1.get()=="3G WIc"):
-        lbLoopbackIP = tkinter.Label(top, text="Loopback IP")
-        lbLoopbackIP.place(x=100, y=200)
-        lbLoopbackIP.config(font=("Calibri", 12, 'bold'), fg='black')
-        lbLoopbackIP.configure(state="active")
-
-        entryLoopbackIP = tkinter.Entry(top, textvariable=file3_path)
-        entryLoopbackIP.place(x=250, y=200, width=200, height=25)
-        entryLoopbackIP.configure(state="normal")
-        entryLoopbackIP.delete(0, 'end')
-
-        lbSrcTunnel = tkinter.Label(top, text="Src Tunnel\nFixed")
-        lbSrcTunnel.place(x=100, y=300)
-        lbSrcTunnel.config(font=("Calibri", 12, 'bold'), fg='black')
-        lbSrcTunnel.configure(state="disabled")
-
-        entrySrcTunnel = tkinter.Entry(top, textvariable=file4_path)
-        entrySrcTunnel.place(x=250, y=300, width=200, height=25)
-        entrySrcTunnel.configure(state="disabled")
-        entrySrcTunnel.delete(0, 'end')
-
-        lbPublicIP = tkinter.Label(top, text="Public IP")
-        lbPublicIP.place(x=100, y=350)
-        lbPublicIP.config(font=("Calibri", 12, 'bold'), fg='black')
-        lbPublicIP.configure(state="disabled")
-
-        entryPublicIP = tkinter.Entry(top, textvariable=file5_path)
-        entryPublicIP.place(x=250, y=350, width=200, height=25)
-        entryPublicIP.configure(state="disabled")
-        entryPublicIP.delete(0, 'end')

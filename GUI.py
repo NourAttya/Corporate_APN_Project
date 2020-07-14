@@ -81,9 +81,6 @@ def openPacketCorpMenu():
     entryIPPool.delete(0, 'end')
 
 
-
-
-
     # 1
     lbExcel = tkinter.Label(buttonsFn.top, text="Select Excel Sheet")
     lbExcel.place(x=100, y=205)
@@ -192,6 +189,7 @@ def openPacketCorpMenu():
     # Define the size of the main window
     buttonsFn.top.geometry("800x520")  # Width x Height
     buttonsFn.top.title("Packet Corporate APN Configuration")
+
     buttonsFn.top.mainloop()
     # New_Window.configure(background='white')
 
@@ -204,6 +202,126 @@ def securityCorpRun():
     elif (buttonsFn.tkvar1.get() == "Internet APN"):
      SecInternet_script.SecInternet_Script(buttonsFn.file1_path.get(), buttonsFn.file2_path.get(), buttonsFn.file5_path.get())
 
+def change_dropdownSecurityApnType(*args):
+    if(buttonsFn.tkvar1.get()=="PC Connectivity"):
+
+        lbSimRange = tkinter.Label(buttonsFn.top, text="Sim Range")
+        lbSimRange.place(x=100, y=150)
+        lbSimRange.config(font=("Calibri", 12, 'bold'), fg='black')
+        lbSimRange.configure(state="disabled")
+
+        entrySimRange = tkinter.Entry(buttonsFn.top, textvariable=buttonsFn.file2_path)
+        entrySimRange.place(x=250, y=150, width=200, height=25)
+        entrySimRange.configure(state="disabled")
+        entrySimRange.delete(0, 'end')
+
+        lbSrcTunnel = tkinter.Label(buttonsFn.top, text="Src Tunnel\nFixed")
+        lbSrcTunnel.place(x=100, y=300)
+        lbSrcTunnel.config(font=("Calibri", 12, 'bold'), fg='black')
+        lbSrcTunnel.configure(state="active")
+
+        entrySrcTunnel = tkinter.Entry(buttonsFn.top, textvariable=buttonsFn.file4_path)
+        entrySrcTunnel.place(x=250, y=300, width=200, height=25)
+        entrySrcTunnel.configure(state="normal")
+        entrySrcTunnel.delete(0, 'end')
+
+        lbLoopbackIP = tkinter.Label(buttonsFn.top, text="Loopback IP")
+        lbLoopbackIP.place(x=100, y=200)
+        lbLoopbackIP.config(font=("Calibri", 12, 'bold'), fg='black')
+        lbLoopbackIP.configure(state="disabled")
+
+        entryLoopbackIP = tkinter.Entry(buttonsFn.top, textvariable=buttonsFn.file3_path)
+        entryLoopbackIP.place(x=250, y=200, width=200, height=25)
+        entryLoopbackIP.configure(state="disabled")
+        entryLoopbackIP.delete(0, 'end')
+
+        lbPublicIP = tkinter.Label(buttonsFn.top, text="Public IP")
+        lbPublicIP.place(x=100, y=350)
+        lbPublicIP.config(font=("Calibri", 12, 'bold'), fg='black')
+        lbPublicIP.configure(state="disabled")
+
+        entryPublicIP = tkinter.Entry(buttonsFn.top, textvariable=buttonsFn.file5_path)
+        entryPublicIP.place(x=250, y=350, width=200, height=25)
+        entryPublicIP.configure(state="disabled")
+        entryPublicIP.delete(0, 'end')
+
+    elif (buttonsFn.tkvar1.get()=="Internet APN"):
+        lbSimRange = tkinter.Label(buttonsFn.top, text="Sim Range")
+        lbSimRange.place(x=100, y=150)
+        lbSimRange.config(font=("Calibri", 12, 'bold'), fg='black')
+
+        entrySimRange = tkinter.Entry(buttonsFn.top, textvariable=buttonsFn.file2_path)
+        entrySimRange.place(x=250, y=150, width=200, height=25)
+        entrySimRange.delete(0, 'end')
+
+        lbSrcTunnel = tkinter.Label(buttonsFn.top, text="Src Tunnel\nFixed")
+        lbSrcTunnel.place(x=100, y=300)
+        lbSrcTunnel.config(font=("Calibri", 12, 'bold'), fg='black')
+        lbSrcTunnel.configure(state="disabled")
+
+        entrySrcTunnel = tkinter.Entry(buttonsFn.top, textvariable=buttonsFn.file4_path)
+        entrySrcTunnel.place(x=250, y=300, width=200, height=25)
+        entrySrcTunnel.configure(state="disabled")
+        entrySrcTunnel.delete(0, 'end')
+
+        lbPublicIP = tkinter.Label(buttonsFn.top, text="Public IP")
+        lbPublicIP.place(x=100, y=350)
+        lbPublicIP.config(font=("Calibri", 12, 'bold'), fg='black')
+        lbPublicIP.configure(state="active")
+
+        entryPublicIP = tkinter.Entry(buttonsFn.top, textvariable=buttonsFn.file5_path)
+        entryPublicIP.place(x=250, y=350, width=200, height=25)
+        entryPublicIP.configure(state="normal")
+        entryPublicIP.delete(0, 'end')
+
+        lbLoopbackIP = tkinter.Label(buttonsFn.top, text="Loopback IP")
+        lbLoopbackIP.place(x=100, y=200)
+        lbLoopbackIP.config(font=("Calibri", 12, 'bold'), fg='black')
+        lbLoopbackIP.configure(state="disabled")
+
+        entryLoopbackIP = tkinter.Entry(buttonsFn.top, textvariable=buttonsFn.file3_path)
+        entryLoopbackIP.place(x=250, y=200, width=200, height=25)
+        entryLoopbackIP.configure(state="disabled")
+        entryLoopbackIP.delete(0, 'end')
+
+    elif(buttonsFn.tkvar1.get()=="3G WIc"):
+        lbSimRange = tkinter.Label(buttonsFn.top, text="Sim Range")
+        lbSimRange.place(x=100, y=150)
+        lbSimRange.config(font=("Calibri", 12, 'bold'), fg='black')
+
+        entrySimRange = tkinter.Entry(buttonsFn.top, textvariable=buttonsFn.file2_path)
+        entrySimRange.place(x=250, y=150, width=200, height=25)
+        entrySimRange.delete(0, 'end')
+
+        lbLoopbackIP = tkinter.Label(buttonsFn.top, text="Loopback IP")
+        lbLoopbackIP.place(x=100, y=200)
+        lbLoopbackIP.config(font=("Calibri", 12, 'bold'), fg='black')
+        lbLoopbackIP.configure(state="active")
+
+        entryLoopbackIP = tkinter.Entry(buttonsFn.top, textvariable=buttonsFn.file3_path)
+        entryLoopbackIP.place(x=250, y=200, width=200, height=25)
+        entryLoopbackIP.configure(state="normal")
+        entryLoopbackIP.delete(0, 'end')
+
+        lbSrcTunnel = tkinter.Label(buttonsFn.top, text="Src Tunnel\nFixed")
+        lbSrcTunnel.place(x=100, y=300)
+        lbSrcTunnel.config(font=("Calibri", 12, 'bold'), fg='black')
+        lbSrcTunnel.configure(state="disabled")
+
+        entrySrcTunnel = tkinter.Entry(buttonsFn.top, textvariable=buttonsFn.file4_path)
+        entrySrcTunnel.place(x=250, y=300, width=200, height=25)
+        entrySrcTunnel.configure(state="disabled")
+        entrySrcTunnel.delete(0, 'end')
+
+        lbPublicIP = tkinter.Label(buttonsFn.top, text="Public IP")
+        lbPublicIP.place(x=100, y=350)
+        lbPublicIP.config(font=("Calibri", 12, 'bold'), fg='black')
+        lbPublicIP.configure(state="disabled")
+
+        entryPublicIP = tkinter.Entry(buttonsFn.top, textvariable=buttonsFn.file5_path)
+        entryPublicIP.place(x=250, y=350, width=200, height=25)
+        entryPublicIP.configure(state="disabled")
+        entryPublicIP.delete(0, 'end')
 
 def openSecurityCorpMenu():
 
@@ -255,7 +373,7 @@ def openSecurityCorpMenu():
     APNTypeMenu.place(x=250, y=250)
 
     # link function to change dropdown
-    buttonsFn.tkvar1.trace('w', buttonsFn.change_dropdownSecurityApnType)
+    buttonsFn.tkvar1.trace('w',change_dropdownSecurityApnType)
 
     lbSrcTunnel = tkinter.Label(buttonsFn.top, text="Src Tunnel\nFixed")
     lbSrcTunnel.place(x=100, y=300)
@@ -298,6 +416,7 @@ def openSecurityCorpMenu():
     # Define the size of the main window
     buttonsFn.top.geometry("800x470")  # Width x Height
     buttonsFn.top.title("Security Corporate APN Configuration")
+    buttonsFn.top.configure(bg='white')
     buttonsFn.top.mainloop()
     # New_Window.configure(background='white')
 
