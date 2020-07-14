@@ -31,6 +31,7 @@ def getAllAPNS(lines):
     VRF=[]
     interface=[]
     IPpoolCount=[]
+    reading=0
     for line in lines:
         line=line.lstrip()
         if (line.startswith("apn ") and not line.startswith("apn schema")):
@@ -96,11 +97,11 @@ def writeInCSV(APNName,APNType,contextName,IPpoolCount,MTX,pathToSave):
         for i in range(len(APNName)):
             if APNType[i]==None:continue
             if(IPpoolCount[i]==1):
-              out_file.write('{0},{1},{2}},{3},{4},{5}\n'.format(APNName[i],APNType[i],contextName[i],"1","0",MTX))
+              out_file.write('{0},{1},{2},{3},{4},{5}\n'.format(APNName[i],APNType[i],contextName[i],"1","0",MTX))
             elif(IPpoolCount[i]>1):
-              out_file.write('{0},{1},{2}},{3},{4},{5}\n'.format(APNName[i],APNType[i],contextName[i],"1","1",MTX))
+              out_file.write('{0},{1},{2},{3},{4},{5}\n'.format(APNName[i],APNType[i],contextName[i],"1","1",MTX))
             else:
-                out_file.write('{0},{1},{2}},{3},{4},{5}\n'.format(APNName[i], APNType[i], contextName[i], "0", "0",MTX))
+                out_file.write('{0},{1},{2},{3},{4},{5}\n'.format(APNName[i], APNType[i], contextName[i], "0", "0",MTX))
 
 def APNDB(excelPath,MTX,pathToSave,username,password):
 
@@ -119,6 +120,7 @@ def APNDB(excelPath,MTX,pathToSave,username,password):
         else:
             if(row[MTXindex]==MTX):
                 IP=row[IPindex]
+    print(IP)
     lines=readConfig(IP,username,password)
     APNName, contextName, VRF, interface,IPpoolCount=getAllAPNS(lines)
     APNType=getAPNType(APNName,contextName,VRF,interface)

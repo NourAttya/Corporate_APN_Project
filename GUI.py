@@ -49,7 +49,7 @@ def UpdateDropDownFromExcelForCorporateAPN():
 
 
 def openPacketCorpMenu():
-    buttonsFn.top.grid_slaves()
+
     # define font
     myFont = font.Font(family='Calibri', size=12)
     myFont2 = font.Font(family='Calibri', size=15)
@@ -66,9 +66,11 @@ def openPacketCorpMenu():
     lbAPNName.place(x=100, y=100)
     lbAPNName.config(font=("Calibri", 12, 'bold'), fg='black')
 
+
     entryAPNName = tkinter.Entry(buttonsFn.top, textvariable=buttonsFn.file3_path)
     entryAPNName.place(x=250, y=100, width=200, height=25)
     entryAPNName.delete(0, 'end')
+
 
     lbIPPool = tkinter.Label(buttonsFn.top, text="IP Pool")
     lbIPPool.place(x=100, y=150)
@@ -141,8 +143,8 @@ def openPacketCorpMenu():
 
     entryVRF = tkinter.Entry(buttonsFn.top, textvariable=buttonsFn.file6_path)
     entryVRF.place(x=520, y=355, width=200, height=25)
-    entryVRF.delete(0, 'end')
     entryVRF.configure(state="disabled")
+    entryVRF.delete(0, 'end')
 
     lbIPRange = tkinter.Label(buttonsFn.top, text="IP Range")
     lbIPRange.place(x=400, y=400)
@@ -151,8 +153,8 @@ def openPacketCorpMenu():
 
     entryIPRange = tkinter.Entry(buttonsFn.top, textvariable=buttonsFn.file7_path)
     entryIPRange.place(x=520, y=400, width=200, height=25)
-    entryIPRange.delete(0, 'end')
     entryIPRange.configure(state="disabled")
+    entryIPRange.delete(0, 'end')
 
     lbStatOrDyn = tkinter.Label(buttonsFn.top, text="Choose Static\n or Dynamic")
     lbStatOrDyn.place(x=100, y=400)
@@ -195,7 +197,7 @@ def openPacketCorpMenu():
 
 
 def openSecurityCorpMenu():
-    buttonsFn.top.grid_slaves()
+
     # define font
     myFont = font.Font(family='Calibri', size=12)
     myFont2 = font.Font(family='Calibri', size=15)
@@ -231,9 +233,8 @@ def openSecurityCorpMenu():
 
     entryLoopbackIP = tkinter.Entry(buttonsFn.top, textvariable=buttonsFn.file3_path)
     entryLoopbackIP.place(x=250, y=200, width=200, height=25)
-    entryLoopbackIP.delete(0, 'end')
     entryLoopbackIP.configure(state="normal")
-
+    entryLoopbackIP.delete(0, 'end')
     # Dictionary with options
     APNTypeChoices = {'Internet APN', 'PC Connectivity', '3G WIc'}
     buttonsFn.tkvar1.set('3G WIc')  # set the default option
@@ -254,8 +255,8 @@ def openSecurityCorpMenu():
 
     entrySrcTunnel = tkinter.Entry(buttonsFn.top, textvariable=buttonsFn.file4_path)
     entrySrcTunnel.place(x=250, y=300, width=200, height=25)
-    entrySrcTunnel.delete(0, 'end')
     entrySrcTunnel.configure(state="disabled")
+    entrySrcTunnel.delete(0, 'end')
 
     lbPublicIP= tkinter.Label(buttonsFn.top, text="Public IP")
     lbPublicIP.place(x=100, y=350)
@@ -264,9 +265,8 @@ def openSecurityCorpMenu():
 
     entryPublicIP = tkinter.Entry(buttonsFn.top, textvariable=buttonsFn.file5_path)
     entryPublicIP.place(x=250, y=350, width=200, height=25)
-    entryPublicIP.delete(0, 'end')
     entryPublicIP.configure(state="disabled")
-
+    entryPublicIP.delete(0, 'end')
 
     buttonRun = tkinter.Button(buttonsFn.top, text="Run")
     buttonRun.place(x=330, y=415)
