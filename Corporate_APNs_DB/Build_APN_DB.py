@@ -1,23 +1,23 @@
 #Nour Attya
 import os
-#import paramiko
+import paramiko
 import xlrd
-# def readConfig(IP,username,password):
-#
-#     host = IP
-#     port = 22
-#     command = "show config"
-#
-#     ssh = paramiko.SSHClient()
-#     ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-#     if not ssh.connect(host, port, username, password):
-#         print("SSH session failed on login.")
-#     else:
-#         print("SSH session login successful")
-#
-#     stdin, stdout, stderr = ssh.exec_command(command)
-#     lines = stdout.readlines()
-#     return lines
+def readConfig(IP,username,password):
+
+    host = IP
+    port = 22
+    command = "show config"
+
+    ssh = paramiko.SSHClient()
+    ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+    if not ssh.connect(host, port, username, password):
+        print("SSH session failed on login.")
+    else:
+        print("SSH session login successful")
+
+    stdin, stdout, stderr = ssh.exec_command(command)
+    lines = stdout.readlines()
+    return lines
 
 def getAllAPNS(lines):
 #input : configuration lines from node
@@ -136,10 +136,8 @@ def APNDB(excelPath,MTX,pathToSave,username,password):
             if(row[MTXindex]==MTX):
                 IP=row[IPindex]
     print(IP)
-    #lines=readConfig(IP,username,password)
-    with open("D:\\Automation Team\\Corporate APN Project\\GGSN Config Files\\TG2 GGSN 21 6 2020") as f:
-        lines = f.readlines()
-        APNName, contextName, VRF, interface,IPpoolCount=getAllAPNS(lines)
-        APNType=getAPNType(APNName,contextName,VRF,interface)
-        writeInCSV(APNName,APNType,contextName,IPpoolCount,MTX,pathToSave)
+    lines=readConfig(IP,username,password)
+    APNName, contextName, VRF, interface,IPpoolCount=getAllAPNS(lines)
+    APNType=getAPNType(APNName,contextName,VRF,interface)
+    writeInCSV(APNName,APNType,contextName,IPpoolCount,MTX,pathToSave)
 
