@@ -1,23 +1,23 @@
 #Nour Attya
 import os
-import paramiko
+#import paramiko
 import xlrd
-def readConfig(IP,username,password):
-
-    host = IP
-    port = 22
-    command = "show config"
-
-    ssh = paramiko.SSHClient()
-    ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-    if not ssh.connect(host, port, username, password):
-        print("SSH session failed on login.")
-    else:
-        print("SSH session login successful")
-
-    stdin, stdout, stderr = ssh.exec_command(command)
-    lines = stdout.readlines()
-    return lines
+# def readConfig(IP,username,password):
+#
+#     host = IP
+#     port = 22
+#     command = "show config"
+#
+#     ssh = paramiko.SSHClient()
+#     ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+#     if not ssh.connect(host, port, username, password):
+#         print("SSH session failed on login.")
+#     else:
+#         print("SSH session login successful")
+#
+#     stdin, stdout, stderr = ssh.exec_command(command)
+#     lines = stdout.readlines()
+#     return lines
 
 def getAllAPNS(lines):
 #input : configuration lines from node
@@ -28,6 +28,7 @@ def getAllAPNS(lines):
 #           interface -> (list of 0 or 1) for each apn if there's interface configured to it interface will be =1 else vrf =0
     APNName=[]
     contextName=[]
+    poolName=[]
     VRF=[]
     interface=[]
     IPpoolCount=[]
@@ -38,25 +39,37 @@ def getAllAPNS(lines):
             reading=1
             if(len(APNName)!=len(contextName)):
                 contextName.append(None)
+            if(len(APNName)>len(poolName)):
+                print("poolName",None)
+                poolName.append(None)
 
             VRF.append(0)
             interface.append(0)
             IPpoolCount.append(0)
+            print("APN Name",line.split(" ")[1].replace("\n",""))
             APNName.append(line.split(" ")[1].replace("\n",""))
             continue
+
         if(reading==1):
+            if (line.startswith("ip address pool name")):
+                if (len(APNName)>len(poolName)):
+                    print("pool Name",line.split(" ")[4].replace("\n", ""))
+                    poolName.append(line.split(" ")[4].replace("\n", ""))
+                else:
+                    print(APNName[-1])
+
             if(line.startswith("ip context-name")):
                 contextName.append(line.split(" ")[2].replace("\n",""))
             if("ip pool" in line):
-                name=line.split(" ")[2]
-                name=name.split(".")[0]
-                check = [name.find(i.lower()) for i in APNName]
-                if(check.count(0)!=0 ):
-                    index=check.index(0)
+                print("line",line)
+                toRemove=line.split(" ")[2].split(".")[-1]
+                name=line.split(" ")[2].replace("."+toRemove,"")
+                print("name",name)
+                if(name in poolName):
+                    index=poolName.index(name)
                     IPpoolCount[index]=IPpoolCount[index]+1
                     if( "vrf" in line):
                         VRF[index]=1
-
             if ("interface" in line):
                 name = line.split(" ")[1]
                 check = [name.find(i) for i in APNName]
@@ -64,11 +77,12 @@ def getAllAPNS(lines):
                     for i in range(len(check)):
                         if(check[i]==0):
                             interface[i] = 1
-    print("APNName",APNName)
-    print("contextName",contextName)
-    print("VRF",VRF)
-    print("interface",interface)
-    print("IPpoolCount",IPpoolCount)
+    print("APNName",len(APNName))
+    print("contextName",len(contextName))
+    print("VRF",len(VRF))
+    print("interface",len(interface))
+    print("IPpoolCount",len(IPpoolCount))
+    print("poolName",len(poolName))
 
     return APNName,contextName,VRF,interface,IPpoolCount
 
@@ -122,8 +136,10 @@ def APNDB(excelPath,MTX,pathToSave,username,password):
             if(row[MTXindex]==MTX):
                 IP=row[IPindex]
     print(IP)
-    lines=readConfig(IP,username,password)
-    APNName, contextName, VRF, interface,IPpoolCount=getAllAPNS(lines)
-    APNType=getAPNType(APNName,contextName,VRF,interface)
-    writeInCSV(APNName,APNType,contextName,IPpoolCount,MTX,pathToSave)
+    #lines=readConfig(IP,username,password)
+    with open("D:\\Automation Team\\Corporate APN Project\\GGSN Config Files\\TG2 GGSN 21 6 2020") as f:
+        lines = f.readlines()
+        APNName, contextName, VRF, interface,IPpoolCount=getAllAPNS(lines)
+        APNType=getAPNType(APNName,contextName,VRF,interface)
+        writeInCSV(APNName,APNType,contextName,IPpoolCount,MTX,pathToSave)
 
