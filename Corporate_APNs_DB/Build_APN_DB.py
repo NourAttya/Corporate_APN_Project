@@ -1,5 +1,5 @@
 #Nour Attya
-import os
+#import os
 import paramiko
 import xlrd
 def readConfig(IP,username,password):
@@ -28,7 +28,6 @@ def getAllAPNS(lines):
 #           interface -> (list of 0 or 1) for each apn if there's interface configured to it interface will be =1 else vrf =0
     APNName=[]
     contextName=[]
-    poolName=[]
     VRF=[]
     interface=[]
     IPpoolCount=[]
@@ -39,37 +38,25 @@ def getAllAPNS(lines):
             reading=1
             if(len(APNName)!=len(contextName)):
                 contextName.append(None)
-            if(len(APNName)>len(poolName)):
-                print("poolName",None)
-                poolName.append(None)
 
             VRF.append(0)
             interface.append(0)
             IPpoolCount.append(0)
-            print("APN Name",line.split(" ")[1].replace("\n",""))
             APNName.append(line.split(" ")[1].replace("\n",""))
             continue
-
         if(reading==1):
-            if (line.startswith("ip address pool name")):
-                if (len(APNName)>len(poolName)):
-                    print("pool Name",line.split(" ")[4].replace("\n", ""))
-                    poolName.append(line.split(" ")[4].replace("\n", ""))
-                else:
-                    print(APNName[-1])
-
             if(line.startswith("ip context-name")):
                 contextName.append(line.split(" ")[2].replace("\n",""))
             if("ip pool" in line):
-                print("line",line)
-                toRemove=line.split(" ")[2].split(".")[-1]
-                name=line.split(" ")[2].replace("."+toRemove,"")
-                print("name",name)
-                if(name in poolName):
-                    index=poolName.index(name)
+                name=line.split(" ")[2]
+                check = [name.find(i.split(".")[0])for i in APNName]
+                print (check.count(0))
+                if(check.count(0)!=0 ):
+                    index=check.index(0)
                     IPpoolCount[index]=IPpoolCount[index]+1
                     if( "vrf" in line):
                         VRF[index]=1
+
             if ("interface" in line):
                 name = line.split(" ")[1]
                 check = [name.find(i) for i in APNName]
@@ -77,12 +64,11 @@ def getAllAPNS(lines):
                     for i in range(len(check)):
                         if(check[i]==0):
                             interface[i] = 1
-    print("APNName",len(APNName))
-    print("contextName",len(contextName))
-    print("VRF",len(VRF))
-    print("interface",len(interface))
-    print("IPpoolCount",len(IPpoolCount))
-    print("poolName",len(poolName))
+    print("APNName",APNName)
+    print("contextName",contextName)
+    print("VRF",VRF)
+    print("interface",interface)
+    print("IPpoolCount",IPpoolCount)
 
     return APNName,contextName,VRF,interface,IPpoolCount
 
@@ -107,7 +93,7 @@ def getAPNType(APNName,contextName,VRF,interface):
 
 def writeInCSV(APNName,APNType,contextName,IPpoolCount,MTX,pathToSave):
 
-    with open(pathToSave + '\\Corporate APNs' + '.csv', 'w') as out_file:
+    with open(pathToSave + '\\ '+MTX+' Corporate APNs' + '.csv', 'w') as out_file:
         out_file.write('{0},{1},{2},{3},{4},{5}\n'.format("APN Name", "APN Type","Context Name","APNName_pool.0","APNName_pool.1","MTX"))
         for i in range(len(APNName)):
             if APNType[i]==None:continue
