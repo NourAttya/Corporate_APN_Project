@@ -1,4 +1,4 @@
-
+#Nour Attya
 import os
 import paramiko
 import xlrd
@@ -19,6 +19,13 @@ def readConfig(IP,username,password):
     lines = stdout.readlines()
     return lines
 
+def is_integer(value: str, *, base: int=10) -> bool:
+    try:
+        int(value, base=base)
+        return True
+    except ValueError:
+        return False
+
 def getAllAPNS(lines):
 #input : configuration lines from node
 #output : 4 Lists with the same length
@@ -29,6 +36,7 @@ def getAllAPNS(lines):
     APNName=[]
     contextName=[]
     poolName=[]
+    IPpoolLines=[]
     VRF=[]
     interface=[]
     IPpoolCount=[]
@@ -42,41 +50,48 @@ def getAllAPNS(lines):
             if(len(APNName)>len(poolName)):
                 print("poolName",None)
                 poolName.append(None)
-
             VRF.append(0)
             interface.append(0)
             IPpoolCount.append(0)
             print("APN Name",line.split(" ")[1].replace("\n",""))
-            APNName.append(line.split(" ")[1].replace("\n",""))
+            APNName.append(line.split(" ")[1].replace("\n","").lower())
             continue
-
+        if ("ip pool" in line):
+            IPpoolLines.append(line)
         if(reading==1):
             if (line.startswith("ip address pool name")):
                 if (len(APNName)>len(poolName)):
                     print("pool Name",line.split(" ")[4].replace("\n", ""))
-                    poolName.append(line.split(" ")[4].replace("\n", ""))
+                    poolName.append(line.split(" ")[4].replace("\n", "").lower())
                 else:
                     print(APNName[-1])
 
             if(line.startswith("ip context-name")):
                 contextName.append(line.split(" ")[2].replace("\n",""))
-            if("ip pool" in line):
-                print("line",line)
-                toRemove=line.split(" ")[2].split(".")[-1]
-                name=line.split(" ")[2].replace("."+toRemove,"")
-                print("name",name)
-                if(name in poolName):
-                    index=poolName.index(name)
-                    IPpoolCount[index]=IPpoolCount[index]+1
-                    if( "vrf" in line):
-                        VRF[index]=1
             if ("interface" in line):
-                name = line.split(" ")[1]
+                name = line.split(" ")[1].lower()
                 check = [name.find(i) for i in APNName]
                 if (check.count(0) != 0):
                     for i in range(len(check)):
                         if(check[i]==0):
                             interface[i] = 1
+
+    for line in IPpoolLines:
+
+        if ("ip pool" in line):
+            print("line", line)
+            toRemove = line.split(" ")[2].split(".")[-1]
+            if(is_integer(toRemove)):
+                name = line.split(" ")[2].replace("." + toRemove, "").lower()
+            else:
+                name = line.split(" ")[2].lower()
+            print("name", name)
+            if (name in poolName):
+                index = poolName.index(name)
+                IPpoolCount[index] = IPpoolCount[index] + 1
+                if ("vrf" in line):
+                    VRF[index] = 1
+
     print("APNName",len(APNName))
     print("contextName",len(contextName))
     print("VRF",len(VRF))
@@ -107,7 +122,7 @@ def getAPNType(APNName,contextName,VRF,interface):
 
 def writeInCSV(APNName,APNType,contextName,IPpoolCount,MTX,pathToSave):
 
-    with open(pathToSave + '\\Corporate APNs' + '.csv', 'w') as out_file:
+    with open(pathToSave + '\\'+MTX+' Corporate APNs' + '.csv', 'w') as out_file:
         out_file.write('{0},{1},{2},{3},{4},{5}\n'.format("APN Name", "APN Type","Context Name","APNName_pool.0","APNName_pool.1","MTX"))
         for i in range(len(APNName)):
             if APNType[i]==None:continue
@@ -137,6 +152,8 @@ def APNDB(excelPath,MTX,pathToSave,username,password):
                 IP=row[IPindex]
     print(IP)
     lines=readConfig(IP,username,password)
+
+    lines = f.readlines()
     APNName, contextName, VRF, interface,IPpoolCount=getAllAPNS(lines)
     APNType=getAPNType(APNName,contextName,VRF,interface)
     writeInCSV(APNName,APNType,contextName,IPpoolCount,MTX,pathToSave)
