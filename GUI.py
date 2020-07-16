@@ -788,7 +788,7 @@ def openBuildDBMenu():
     lbPassword.place(x=100, y=300)
     lbPassword.config(font=("Calibri", 12, 'bold'), fg='black')
 
-    entryPassword = tkinter.Entry(buttonsFn.top, textvariable=buttonsFn.file3_path)
+    entryPassword = tkinter.Entry(buttonsFn.top, show="*",textvariable=buttonsFn.file3_path)
     entryPassword.place(x=250, y=300, width=120, height=25)
     entryPassword.delete(0, 'end')
 
