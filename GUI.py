@@ -982,6 +982,59 @@ def openDataMenu():
     button_Corporate_APN_DB.config(height=3, width=20, fg='black', background='white')
     button_Corporate_APN_DB['font'] = myFont
 
+    # 5
+    button_Capacity_Moves = tkinter.Button(buttonsFn.top, text="Capacity Moves")
+    button_Capacity_Moves.place(x=100, y=340)
+    button_Capacity_Moves.config(height=3, width=20, fg='black', background='white')
+    button_Capacity_Moves['font'] = myFont
+
+    buttonBack = tkinter.Button(buttonsFn.top, text="Back", command=openMainMenu)
+    buttonBack.place(x=20, y=20)
+    buttonBack.config(height=1, width=8, fg='black', bg='white')
+    buttonBack['font'] = myFont
+
+    # Define the size of the main window
+    buttonsFn.top.geometry("700x500")  # Width x Height
+    buttonsFn.top.title("Packet Tool")
+    #top.configure(background = 'sky blue')
+
+    buttonsFn.top.mainloop()
+
+def openVoiceMenu():
+
+    # Main menu
+    # define font
+    myFont = font.Font(family='Calibri', size= 15)
+
+    Imgname = tkinter.PhotoImage(file="Vodafone.png")
+    background_labe = tkinter.Label(buttonsFn.top,image=Imgname)
+    background_labe.place(x=0, y=0, relwidth=1, relheight=1)
+
+    # Define Buttons of the main window
+    # 1
+    button_Short_Codes = tkinter.Button(buttonsFn.top, text="Short Codes")
+    button_Short_Codes.place(x=100, y=100)
+    button_Short_Codes.config(height=3, width=20,  fg='black', background = 'white')
+    button_Short_Codes['font'] = myFont
+    # 2
+    button_Interconnect = tkinter.Button(buttonsFn.top, text="Interconnect")
+    button_Interconnect.place(x=100, y=220)
+    button_Interconnect.config(height=3, width=20,  fg='black', background = 'white')
+    button_Interconnect['font'] = myFont
+
+    # 3
+    button_MGW = tkinter.Button(buttonsFn.top, text="MGW")
+    button_MGW.place(x=350 ,y=100)
+    button_MGW.config(height=3, width=20, fg='black', background='white')
+    button_MGW['font'] = myFont
+
+    # 4
+    button_B_Analysis = tkinter.Button(buttonsFn.top, text="B no. Analysis")
+    button_B_Analysis.place(x=350, y=220)
+    button_B_Analysis.config(height=3, width=20, fg='black', background='white')
+    button_B_Analysis['font'] = myFont
+
+
     buttonBack = tkinter.Button(buttonsFn.top, text="Back", command=openMainMenu)
     buttonBack.place(x=20, y=20)
     buttonBack.config(height=1, width=8, fg='black', bg='white')
@@ -989,10 +1042,57 @@ def openDataMenu():
 
     # Define the size of the main window
     buttonsFn.top.geometry("700x400")  # Width x Height
-    buttonsFn.top.title("Packet Tool")
+    buttonsFn.top.title("Voice Tool")
     #top.configure(background = 'sky blue')
 
     buttonsFn.top.mainloop()
+
+def openSecurityMenu():
+
+    # Main menu
+    # define font
+    myFont = font.Font(family='Calibri', size= 15)
+
+    Imgname = tkinter.PhotoImage(file="Vodafone.png")
+    background_labe = tkinter.Label(buttonsFn.top,image=Imgname)
+    background_labe.place(x=0, y=0, relwidth=1, relheight=1)
+
+    # Define Buttons of the main window
+    # 1
+    button_Test_APN = tkinter.Button(buttonsFn.top, text="Test APNs")
+    button_Test_APN.place(x=100, y=100)
+    button_Test_APN.config(height=3, width=20,  fg='black', background = 'white')
+    button_Test_APN['font'] = myFont
+    # 2
+    button_Users_Cleanup = tkinter.Button(buttonsFn.top, text="Users Cleanup")
+    button_Users_Cleanup.place(x=100, y=220)
+    button_Users_Cleanup.config(height=3, width=20,  fg='black', background = 'white')
+    button_Users_Cleanup['font'] = myFont
+
+    # 3
+    button_IPs_Blocking = tkinter.Button(buttonsFn.top, text="IPs Blocking")
+    button_IPs_Blocking.place(x=350 ,y=100)
+    button_IPs_Blocking.config(height=3, width=20, fg='black', background='white')
+    button_IPs_Blocking['font'] = myFont
+
+    # 4
+    button_IP_Pool_Expansion = tkinter.Button(buttonsFn.top, text="IP Pool Expansion")
+    button_IP_Pool_Expansion.place(x=350, y=220)
+    button_IP_Pool_Expansion.config(height=3, width=20, fg='black', background='white')
+    button_IP_Pool_Expansion['font'] = myFont
+
+    buttonBack = tkinter.Button(buttonsFn.top, text="Back", command=openMainMenu)
+    buttonBack.place(x=20, y=20)
+    buttonBack.config(height=1, width=8, fg='black', bg='white')
+    buttonBack['font'] = myFont
+
+    # Define the size of the main window
+    buttonsFn.top.geometry("700x400")  # Width x Height
+    buttonsFn.top.title("Security Tool")
+    #top.configure(background = 'sky blue')
+
+    buttonsFn.top.mainloop()
+
 def openMainMenu():
 
     # Main menu
@@ -1005,19 +1105,24 @@ def openMainMenu():
 
     # Define Buttons of the main window
     # 1
-    buttonIR21_Automations = tkinter.Button(buttonsFn.top, text="Voice Domain")
-    buttonIR21_Automations.place(x=170, y=70)
-    buttonIR21_Automations.config(height=3, width=20,  fg='black', background = 'white')
-    buttonIR21_Automations['font'] = myFont
+    buttonVoiceDomain = tkinter.Button(buttonsFn.top, text="Voice Domain",command=openVoiceMenu)
+    buttonVoiceDomain.place(x=170, y=70)
+    buttonVoiceDomain.config(height=3, width=20,  fg='black', background = 'white')
+    buttonVoiceDomain['font'] = myFont
     # 2
-    buttonRAPsAndDeductions = tkinter.Button(buttonsFn.top, text="Data Domain", command=openDataMenu)
-    buttonRAPsAndDeductions.place(x=170, y=180)
-    buttonRAPsAndDeductions.config(height=3, width=20,  fg='black', background = 'white')
-    buttonRAPsAndDeductions['font'] = myFont
+    buttonDataDomain = tkinter.Button(buttonsFn.top, text="Data Domain", command=openDataMenu)
+    buttonDataDomain.place(x=170, y=180)
+    buttonDataDomain.config(height=3, width=20,  fg='black', background = 'white')
+    buttonDataDomain['font'] = myFont
 
+    # 3
+    buttonSecurity = tkinter.Button(buttonsFn.top, text="Security", command=openSecurityMenu)
+    buttonSecurity.place(x=170, y=290)
+    buttonSecurity.config(height=3, width=20, fg='black', background='white')
+    buttonSecurity['font'] = myFont
 
     # Define the size of the main window
-    buttonsFn.top.geometry("550x350")  # Width x Height
+    buttonsFn.top.geometry("550x450")  # Width x Height
     buttonsFn.top.title("CN Planning & Configuration App")
     #top.configure(background = 'sky blue')
 
