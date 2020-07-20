@@ -1,5 +1,5 @@
 import xlrd
-def APN_DB_Logic(From, To, MTX):
+def APN_DB_Logic(From, To, MTX, IPpoolCount):
     APNs = []
 
     workbook = xlrd.open_workbook("D:\\EPC\\Automation\\Corporate_APN_Project_PullfromNour\\Corporate APNs.xlsx")
@@ -17,9 +17,8 @@ def APN_DB_Logic(From, To, MTX):
             script.write(' context aaa\n')
             script.write(' no ' + row[0] + ' \n')
             script.write(' exit \n')
-            script.write(' context' + row[2] + '\n') ##Context name should be printed
-            ##IF condition of row[4]==0
-            script.write(' ip pool ' + row[0] +'_pool.0 \n')
+            script.write(' context' + row[2] + '\n')
+            script.write(' no ip pool ' + IPpoolCount[i] '\n')
             script.write(' ip pool ' + row[4] + '_pool.1 \n')
 
 
