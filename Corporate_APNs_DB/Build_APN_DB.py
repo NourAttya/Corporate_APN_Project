@@ -74,7 +74,7 @@ def getAllAPNS(lines):
                 check2=[name.find(str(i).split("_")[0]) for i in poolName]
                 if (check1.count(0) != 0):
                     for i in range(len(check1)):
-                        if(check1[i]==1):
+                        if(check1[i]==0):
                             interface[i] = 1
                         ##Condition to be added using pool name and none condition to be counted
                 elif(check2.count(0)!=0):
