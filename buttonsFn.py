@@ -196,7 +196,7 @@ def change_dropdown1(*args):
     lbVRF.config(font=("Calibri", 12, 'bold'), fg='black')
 
     entryVRF = tkinter.Entry(top, textvariable=file6_path)
-    entryVRF.place(x=520, y=355, width=200, height=25)
+    entryVRF.place(x=550, y=355, width=200, height=25)
     entryVRF.delete(0, 'end')
 
     lbIPRange = tkinter.Label(top, text="IP Range")
@@ -204,7 +204,7 @@ def change_dropdown1(*args):
     lbIPRange.config(font=("Calibri", 12, 'bold'), fg='black')
 
     entryIPRange = tkinter.Entry(top, textvariable=file7_path)
-    entryIPRange.place(x=520, y=400, width=200, height=25)
+    entryIPRange.place(x=550, y=400, width=200, height=25)
     entryIPRange.delete(0, 'end')
 
     if (tkvar1.get() == '3G WIc' or tkvar1.get() == 'Sim2Sim'):

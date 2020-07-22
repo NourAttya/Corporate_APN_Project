@@ -1,9 +1,9 @@
 import ipaddress
 from Corporate_APNs import Internet_APN_script, PCconnectivity_APN_script, WIc3G_APN_script, Sim2Sim_script
 import xlrd
+from Corporate_APNs import CorporateAPNCreation_CRQ
 
-
-def IDNSandAPNConfigCorp(APNname,IPpool,MTX,XLSXsheet,TypeOfAPN,SorD,VRFDest,SecMTX,IPrange):
+def IDNSandAPNConfigCorp(APNname,IPpool,MTX,XLSXsheet,TypeOfAPN,SorD,VRFDest,SecMTX,IPrange,username,password):
 
     #resolving IP(getting netmask)
     net= ipaddress.ip_network(IPpool,False)
@@ -62,6 +62,7 @@ def IDNSandAPNConfigCorp(APNname,IPpool,MTX,XLSXsheet,TypeOfAPN,SorD,VRFDest,Sec
     else:
         return
 
+    CorporateAPNCreation_CRQ.CorporateAPNCreationCRQ(pathToSave + APNname + "_Script.txt", username, password)
 
 
 

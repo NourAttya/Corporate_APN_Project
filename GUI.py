@@ -15,7 +15,7 @@ from Security_Corp_APN import Sec3GWIC_Script,SecInternet_script,SecPC_Connectiv
 #Corporate_APNs
 def CorpConfigRun():
 
-    IDNSandAPNconfig.IDNSandAPNConfigCorp(buttonsFn.file3_path.get(), buttonsFn.file2_path.get(), buttonsFn.tkvar3.get(), buttonsFn.file1_path.get(), buttonsFn.tkvar1.get(), buttonsFn.tkvar2.get(), buttonsFn.file6_path.get(),buttonsFn.tkvar4.get(),buttonsFn.file7_path.get())
+    IDNSandAPNconfig.IDNSandAPNConfigCorp(buttonsFn.file3_path.get(), buttonsFn.file2_path.get(), buttonsFn.tkvar3.get(), buttonsFn.file1_path.get(), buttonsFn.tkvar1.get(), buttonsFn.tkvar2.get(), buttonsFn.file6_path.get(),buttonsFn.tkvar4.get(),buttonsFn.file7_path.get(),buttonsFn.file4_path.get(),buttonsFn.file5_path.get())
 
 
 def UpdateDropDownFromExcelForCorporateAPN():
@@ -139,7 +139,7 @@ def openPacketCorpMenu():
     lbVRF.configure(state="disabled")
 
     entryVRF = tkinter.Entry(buttonsFn.top, textvariable=buttonsFn.file6_path)
-    entryVRF.place(x=520, y=355, width=200, height=25)
+    entryVRF.place(x=550, y=355, width=200, height=25)
     entryVRF.configure(state="disabled")
     entryVRF.delete(0, 'end')
 
@@ -149,7 +149,7 @@ def openPacketCorpMenu():
     lbIPRange.configure(state="disabled")
 
     entryIPRange = tkinter.Entry(buttonsFn.top, textvariable=buttonsFn.file7_path)
-    entryIPRange.place(x=520, y=400, width=200, height=25)
+    entryIPRange.place(x=550, y=400, width=200, height=25)
     entryIPRange.configure(state="disabled")
     entryIPRange.delete(0, 'end')
 
@@ -166,10 +166,24 @@ def openPacketCorpMenu():
     # link function to change dropdown
     buttonsFn.tkvar2.trace('w', buttonsFn.change_dropdown2)
 
+    lbUsername = tkinter.Label(buttonsFn.top, text="Remedy's Username")
+    lbUsername.place(x=100, y=470)
+    lbUsername.config(font=("Calibri", 12, 'bold'), fg='black')
 
+    entryUsername = tkinter.Entry(buttonsFn.top, textvariable=buttonsFn.file4_path)
+    entryUsername.place(x=250, y=470, width=120, height=25)
+    entryUsername.delete(0, 'end')
+
+    lbPassword = tkinter.Label(buttonsFn.top, text="Remedy's Password")
+    lbPassword.place(x=400, y=470)
+    lbPassword.config(font=("Calibri", 12, 'bold'), fg='black')
+
+    entryPassword = tkinter.Entry(buttonsFn.top, show="*", textvariable=buttonsFn.file5_path)
+    entryPassword.place(x=550, y=470, width=120, height=25)
+    entryPassword.delete(0, 'end')
 
     buttonRun = tkinter.Button(buttonsFn.top, text="Run", command=CorpConfigRun)
-    buttonRun.place(x=330, y=460)
+    buttonRun.place(x=330, y=530)
     buttonRun.config(height=1, width=10)
     buttonRun['font'] = myFont2
 
@@ -187,7 +201,7 @@ def openPacketCorpMenu():
     Title.place(x=150, y=20)
 
     # Define the size of the main window
-    buttonsFn.top.geometry("800x520")  # Width x Height
+    buttonsFn.top.geometry("800x600")  # Width x Height
     buttonsFn.top.title("Packet Corporate APN Configuration")
 
     buttonsFn.top.mainloop()
@@ -928,14 +942,29 @@ def openPacketAuditMenu():
     # Define Buttons of the main window
     # 1
     buttonCorpAPNAudit = tkinter.Button(buttonsFn.top, text="Corporate APN Audit", command=openCorporateAPNAuditMenu)
-    buttonCorpAPNAudit.place(x=170, y=70)
+    buttonCorpAPNAudit.place(x=100, y=100)
     buttonCorpAPNAudit.config(height=3, width=20, fg='black', background='white')
     buttonCorpAPNAudit['font'] = myFont
     # 2
-    buttonIDNSAudit = tkinter.Button(buttonsFn.top, text="IDNS Audit")
-    buttonIDNSAudit.place(x=170, y=180)
+    buttonIDNSAudit = tkinter.Button(buttonsFn.top, text="iDNS Audit")
+    buttonIDNSAudit.place(x=100, y=220)
     buttonIDNSAudit.config(height=3, width=20, fg='black', background='white')
     buttonIDNSAudit['font'] = myFont
+    # 3
+    buttoneDNSAudit = tkinter.Button(buttonsFn.top, text="eDNS Audit")
+    buttoneDNSAudit.place(x=350, y=100)
+    buttoneDNSAudit.config(height=3, width=20, fg='black', background='white')
+    buttoneDNSAudit['font'] = myFont
+    # 4
+    buttonSGSNAudit = tkinter.Button(buttonsFn.top, text="SGSN Audit")
+    buttonSGSNAudit.place(x=350, y=220)
+    buttonSGSNAudit.config(height=3, width=20, fg='black', background='white')
+    buttonSGSNAudit['font'] = myFont
+    # 5
+    buttonGGSNAudit = tkinter.Button(buttonsFn.top, text="GGSN Audit")
+    buttonGGSNAudit.place(x=100, y=340)
+    buttonGGSNAudit.config(height=3, width=20, fg='black', background='white')
+    buttonGGSNAudit['font'] = myFont
 
     buttonBack = tkinter.Button(buttonsFn.top, text="Back", command=openDataMenu)
     buttonBack.place(x=20, y=20)
@@ -943,7 +972,7 @@ def openPacketAuditMenu():
     buttonBack['font'] = myFont
 
     # Define the size of the main window
-    buttonsFn.top.geometry("550x350")  # Width x Height
+    buttonsFn.top.geometry("700x500")  # Width x Height
     buttonsFn.top.title("Packet Audit")
     # top.configure(background = 'sky blue')
     buttonsFn.top.mainloop()
@@ -966,7 +995,7 @@ def openDataMenu():
     button_Corporate_APN['font'] = myFont
     # 2
     button_Test_APN = tkinter.Button(buttonsFn.top, text="Test APN")
-    button_Test_APN.place(x=100, y=220)
+    button_Test_APN.place(x=350, y=220)
     button_Test_APN.config(height=3, width=20,  fg='black', background = 'white')
     button_Test_APN['font'] = myFont
 
@@ -978,7 +1007,7 @@ def openDataMenu():
 
     # 4
     button_Corporate_APN_DB = tkinter.Button(buttonsFn.top, text="Packet Audit", command=openPacketAuditMenu)
-    button_Corporate_APN_DB.place(x=350, y=220)
+    button_Corporate_APN_DB.place(x=100, y=220)
     button_Corporate_APN_DB.config(height=3, width=20, fg='black', background='white')
     button_Corporate_APN_DB['font'] = myFont
 
@@ -999,6 +1028,54 @@ def openDataMenu():
     #top.configure(background = 'sky blue')
 
     buttonsFn.top.mainloop()
+
+def openVoiceAuditMenu():
+    # Main menu
+    # define font
+    myFont = font.Font(family='Calibri', size=15)
+
+    Imgname = tkinter.PhotoImage(file="Vodafone.png")
+    background_label = tkinter.Label(buttonsFn.top, image=Imgname)
+    background_label.place(x=0, y=0, relwidth=1, relheight=1)
+
+    # Define Buttons of the main window
+    # 1
+    buttonBSCAudit = tkinter.Button(buttonsFn.top, text="BSC Audit")
+    buttonBSCAudit.place(x=100, y=100)
+    buttonBSCAudit.config(height=3, width=20, fg='black', background='white')
+    buttonBSCAudit['font'] = myFont
+    # 2
+    buttonRNCAudit = tkinter.Button(buttonsFn.top, text="RNC Audit")
+    buttonRNCAudit.place(x=100, y=220)
+    buttonRNCAudit.config(height=3, width=20, fg='black', background='white')
+    buttonRNCAudit['font'] = myFont
+    # 3
+    buttonMSCAudit = tkinter.Button(buttonsFn.top, text="MSC Audit")
+    buttonMSCAudit.place(x=350, y=100)
+    buttonMSCAudit.config(height=3, width=20, fg='black', background='white')
+    buttonMSCAudit['font'] = myFont
+    # 4
+    buttonIMSAudit = tkinter.Button(buttonsFn.top, text="IMS Audit")
+    buttonIMSAudit.place(x=350, y=220)
+    buttonIMSAudit.config(height=3, width=20, fg='black', background='white')
+    buttonIMSAudit['font'] = myFont
+    # 5
+    buttonIPSTPAudit = tkinter.Button(buttonsFn.top, text="IPSTP Audit")
+    buttonIPSTPAudit.place(x=100, y=340)
+    buttonIPSTPAudit.config(height=3, width=20, fg='black', background='white')
+    buttonIPSTPAudit['font'] = myFont
+
+    buttonBack = tkinter.Button(buttonsFn.top, text="Back", command=openVoiceMenu)
+    buttonBack.place(x=20, y=20)
+    buttonBack.config(height=1, width=8, fg='black', bg='white')
+    buttonBack['font'] = myFont
+
+    # Define the size of the main window
+    buttonsFn.top.geometry("700x500")  # Width x Height
+    buttonsFn.top.title("Voice Audit")
+    # top.configure(background = 'sky blue')
+    buttonsFn.top.mainloop()
+
 
 def openVoiceMenu():
 
@@ -1034,6 +1111,11 @@ def openVoiceMenu():
     button_B_Analysis.config(height=3, width=20, fg='black', background='white')
     button_B_Analysis['font'] = myFont
 
+    # 5
+    button_Voice_Audit = tkinter.Button(buttonsFn.top, text="Voice Audit",command=openVoiceAuditMenu)
+    button_Voice_Audit.place(x=100, y=340)
+    button_Voice_Audit.config(height=3, width=20, fg='black', background='white')
+    button_Voice_Audit['font'] = myFont
 
     buttonBack = tkinter.Button(buttonsFn.top, text="Back", command=openMainMenu)
     buttonBack.place(x=20, y=20)
@@ -1041,11 +1123,40 @@ def openVoiceMenu():
     buttonBack['font'] = myFont
 
     # Define the size of the main window
-    buttonsFn.top.geometry("700x400")  # Width x Height
+    buttonsFn.top.geometry("700x500")  # Width x Height
     buttonsFn.top.title("Voice Tool")
     #top.configure(background = 'sky blue')
 
     buttonsFn.top.mainloop()
+
+
+def openSecurityAudit():
+    # Main menu
+    # define font
+    myFont = font.Font(family='Calibri', size=15)
+
+    Imgname = tkinter.PhotoImage(file="Vodafone.png")
+    background_label = tkinter.Label(buttonsFn.top, image=Imgname)
+    background_label.place(x=0, y=0, relwidth=1, relheight=1)
+
+    # Define Buttons of the main window
+    # 1
+    buttonFWPolicies = tkinter.Button(buttonsFn.top, text="FW Policies")
+    buttonFWPolicies.place(x=170, y=130)
+    buttonFWPolicies.config(height=3, width=20, fg='black', background='white')
+    buttonFWPolicies['font'] = myFont
+
+    buttonBack = tkinter.Button(buttonsFn.top, text="Back", command=openSecurityMenu)
+    buttonBack.place(x=20, y=20)
+    buttonBack.config(height=1, width=8, fg='black', bg='white')
+    buttonBack['font'] = myFont
+
+    # Define the size of the main window
+    buttonsFn.top.geometry("55ppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp-0x350")  # Width x Height
+    buttonsFn.top.title("Security Audit")
+    # top.configure(background = 'sky blue')
+    buttonsFn.top.mainloop()
+
 
 def openSecurityMenu():
 
@@ -1081,13 +1192,20 @@ def openSecurityMenu():
     button_IP_Pool_Expansion.config(height=3, width=20, fg='black', background='white')
     button_IP_Pool_Expansion['font'] = myFont
 
+
+    # 5
+    button_FW_Policies = tkinter.Button(buttonsFn.top, text="Security Audit",command=openSecurityAudit)
+    button_FW_Policies.place(x=100, y=340)
+    button_FW_Policies.config(height=3, width=20, fg='black', background='white')
+    button_FW_Policies['font'] = myFont
+
     buttonBack = tkinter.Button(buttonsFn.top, text="Back", command=openMainMenu)
     buttonBack.place(x=20, y=20)
     buttonBack.config(height=1, width=8, fg='black', bg='white')
     buttonBack['font'] = myFont
 
     # Define the size of the main window
-    buttonsFn.top.geometry("700x400")  # Width x Height
+    buttonsFn.top.geometry("700x500")  # Width x Height
     buttonsFn.top.title("Security Tool")
     #top.configure(background = 'sky blue')
 
