@@ -1142,7 +1142,7 @@ def openSecurityAudit():
     # Define Buttons of the main window
     # 1
     buttonFWPolicies = tkinter.Button(buttonsFn.top, text="FW Policies")
-    buttonFWPolicies.place(x=170, y=130)
+    buttonFWPolicies.place(x=170, y=190)
     buttonFWPolicies.config(height=3, width=20, fg='black', background='white')
     buttonFWPolicies['font'] = myFont
 
@@ -1152,7 +1152,7 @@ def openSecurityAudit():
     buttonBack['font'] = myFont
 
     # Define the size of the main window
-    buttonsFn.top.geometry("55ppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp-0x350")  # Width x Height
+    buttonsFn.top.geometry("550x450")  # Width x Height
     buttonsFn.top.title("Security Audit")
     # top.configure(background = 'sky blue')
     buttonsFn.top.mainloop()

@@ -40,6 +40,7 @@ def getAllAPNS(lines):
     VRF=[]
     interface=[]
     IPpoolCount=[]
+    IPs=[]
     reading=0
     for line in lines:
         line=line.lstrip()
@@ -53,6 +54,7 @@ def getAllAPNS(lines):
             VRF.append(0)
             interface.append(0)
             IPpoolCount.append(0)
+            IPs.append("")
             print("APN Name",line.split(" ")[1].replace("\n",""))
             APNName.append(line.split(" ")[1].replace("\n","").lower())
             continue
@@ -96,6 +98,10 @@ def getAllAPNS(lines):
             if (name in poolName):
                 index = poolName.index(name)
                 IPpoolCount[index] = IPpoolCount[index] + 1
+                if(IPpoolCount[index]==1):
+                    IPs[index]=IPs[index]+line.split(" ")[3]
+                else:
+                    IPs[index] = IPs[index] +", "+ line.split(" ")[3]
                 if ("vrf" in line):
                     VRF[index] = 1
 
@@ -106,7 +112,7 @@ def getAllAPNS(lines):
     print("IPpoolCount",len(IPpoolCount))
     print("poolName",len(poolName))
 
-    return APNName,contextName,VRF,interface,IPpoolCount,poolName
+    return APNName,contextName,VRF,interface,IPpoolCount,poolName,IPs
 
 
 def getAPNType(APNName,contextName,VRF,interface):
@@ -127,14 +133,14 @@ def getAPNType(APNName,contextName,VRF,interface):
     return APNType
 
 
-def writeInCSV(APNName,APNType,contextName,IPpoolCount,MTX,poolName,pathToSave):
+def writeInCSV(APNName,APNType,contextName,IPpoolCount,MTX,poolName,IPs,pathToSave):
 
     with open(pathToSave + '\\'+MTX+' Corporate APNs' + '.csv', 'w') as out_file:
-        out_file.write('{0},{1},{2},{3},{4},{5}\n'.format("APN Name", "APN Type","Context Name","Number of pools","MTX","Pool Name"))
+        out_file.write('{0},{1},{2},{3},{4},{5},{6}\n'.format("APN Name", "APN Type","Context Name","Number of pools","MTX","Pool Name","IPs"))
         for i in range(len(APNName)):
             # if APNType[i]==None:continue
 
-            out_file.write('{0},{1},{2},{3},{4},{5}\n'.format(APNName[i],APNType[i],contextName[i],IPpoolCount[i],MTX,poolName[i]))
+            out_file.write('{0},{1},{2},{3},{4},{5},{6}\n'.format(APNName[i],APNType[i],contextName[i],IPpoolCount[i],MTX,poolName[i],IPs[i]))
 ##To write pool name for APN logic
 
 def APNDB(excelPath,MTX,pathToSave,username,password):
@@ -156,9 +162,9 @@ def APNDB(excelPath,MTX,pathToSave,username,password):
                 IP=row[IPindex]
     print(IP)
     lines=readConfig(IP,username,password)
-
-   # lines = f.readlines()
-    APNName, contextName, VRF, interface,IPpoolCount,poolName=getAllAPNS(lines)
+    # with open("D:\\Automation Team\\Corporate APN Project\\GGSN Config Files\\HQ GGSN 16 7 2020") as f:
+    #     lines = f.readlines()
+    APNName, contextName, VRF, interface,IPpoolCount,poolName,IPs=getAllAPNS(lines)
     APNType=getAPNType(APNName,contextName,VRF,interface)
-    writeInCSV(APNName,APNType,contextName,IPpoolCount,MTX,poolName,pathToSave)
+    writeInCSV(APNName,APNType,contextName,IPpoolCount,MTX,poolName,IPs,pathToSave)
 
