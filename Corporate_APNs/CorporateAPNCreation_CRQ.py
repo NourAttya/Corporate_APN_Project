@@ -180,9 +180,9 @@ def CorporateAPNCreationCRQ(FilePath,username,password):
         button.click()
         time.sleep(5)
 
-        button = browser.find_by_text('Next Stage')
-        button.click()
-        time.sleep(2)
+        # button = browser.find_by_text('Next Stage')
+        # button.click()
+        # time.sleep(2)
 
         button = browser.find_by_id('arid_WIN_3_1000000182')
         CRQ = button.value
