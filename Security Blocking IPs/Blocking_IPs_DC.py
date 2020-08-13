@@ -1,5 +1,5 @@
 def Blocking_IPs_DC (BlockingIP):
-    script = open(BlockingIP + "_Script.txt", "w")
+    script = open(BlockingIP + " DC_Script.txt", "w")
     script.write('HQ-ON: \n')
     script.write('------ \n \n')
     script.write('set address "Internet" "Suspected_' +BlockingIP+ ' '+BlockingIP+' 255.255.255.255 \n')
@@ -17,6 +17,7 @@ def Blocking_IPs_DC (BlockingIP):
     script.write('################################################################################### \n \n')
 
     script.write('ROLLBACK: \n')
+    script.write('-------- \n \n')
     script.write('HQ-ON: \n')
     script.write('------ \n \n')
     script.write('unset address "Internet" "Suspected_' + BlockingIP + ' ' + BlockingIP + ' 255.255.255.255 \n')

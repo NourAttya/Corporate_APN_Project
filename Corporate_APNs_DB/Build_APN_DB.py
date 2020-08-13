@@ -99,9 +99,9 @@ def getAllAPNS(lines):
                 index = poolName.index(name)
                 IPpoolCount[index] = IPpoolCount[index] + 1
                 if(IPpoolCount[index]==1):
-                    IPs[index]=IPs[index]+line.split(" ")[3]
+                    IPs[index] = IPs[index] + line.split(" ")[3] + ", " + line.split(" ")[4]
                 else:
-                    IPs[index] = IPs[index] +", "+ line.split(" ")[3]
+                    IPs[index] = IPs[index] + ", " + line.split(" ")[3] + ", " + line.split(" ")[4]
                 if ("vrf" in line):
                     VRF[index] = 1
 
