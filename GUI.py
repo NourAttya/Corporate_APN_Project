@@ -2,7 +2,7 @@ import tkinter
 import tkinter.font as font
 import buttonsFn
 from Corporate_APNs import IDNSandAPNconfig
-from Corporate_APNs_DB import  Build_APN_DB
+from Corporate_APNs_DB import  Build_APN_DB,APN_DB_Logic
 from tkinter import messagebox
 import xlrd
 from IP_Pool_Expansion import IPPoolExpansion
@@ -830,6 +830,11 @@ def openBuildDBMenu():
     buttonsFn.top.mainloop()
     # New_Window.configure(background='white')
 
+
+def APNsCleanupRun():
+    APN_DB_Logic.APN_DB_Logic(buttonsFn.file3_path.get(),buttonsFn.file4_path.get(),buttonsFn.folder_path.get(),buttonsFn.file2_path.get(),buttonsFn.file1_path.get())
+
+
 def openAPNsCleanupMenu():
     # define font
     myFont = font.Font(family='Calibri', size=12)
@@ -843,40 +848,82 @@ def openAPNsCleanupMenu():
     # background_label.configure(background='red')
     # Define Buttons of the main window
 
+    lbHint = tkinter.Label(buttonsFn.top, text="Option 1: select Folder of APN DBs and reference sheet of APNs to be terminated")
+    lbHint.place(x=130, y=90)
+    lbHint.config(font=("Calibri", 10, 'bold'), fg='black')
+
+    lbHint2 = tkinter.Label(buttonsFn.top,text="Option 2: select existing file of APNs to be terminated")
+    lbHint2.place(x=130, y=120)
+    lbHint2.config(font=("Calibri", 10, 'bold'), fg='black')
+
+    lbOption1 = tkinter.Label(buttonsFn.top, text="Option 1")
+    lbOption1.place(x=70, y=150)
+    lbOption1.config(font=("Calibri", 16, 'bold'), fg='black')
+
+    lbDBFolder = tkinter.Label(buttonsFn.top, text="select Folder \nof APN DBs")
+    lbDBFolder.place(x=110, y=180)
+    lbDBFolder.config(font=("Calibri", 12, 'bold'), fg='black')
+
+    entryDBFolder = tkinter.Entry(buttonsFn.top, textvariable=buttonsFn.folder_path)
+    entryDBFolder.place(x=250, y=180, width=400, height=25)
+    entryDBFolder.delete(0, 'end')
+
+    buttonBrowseFolder = tkinter.Button(buttonsFn.top, text="Browse", command=buttonsFn.first_browser)
+    buttonBrowseFolder.place(x=670, y=180)
+    buttonBrowseFolder['font'] = myFont
+
+
+
+    lbReferenceExcel = tkinter.Label(buttonsFn.top, text="Select reference\n sheet of APNs")
+    lbReferenceExcel.place(x=110, y=230)
+    lbReferenceExcel.config(font=("Calibri", 12, 'bold'), fg='black')
+
+    entryReferenceExcel = tkinter.Entry(buttonsFn.top, textvariable=buttonsFn.file2_path)
+    entryReferenceExcel.place(x=250, y=240, width=400, height=25)
+    entryReferenceExcel.delete(0, 'end')
+
+    buttonBrowseReferenceExcel = tkinter.Button(buttonsFn.top, text="Browse", command=buttonsFn.file2_browser)
+    buttonBrowseReferenceExcel.place(x=670, y=240)
+    buttonBrowseReferenceExcel['font'] = myFont
+
+    lbOption2 = tkinter.Label(buttonsFn.top,text="Option 2")
+    lbOption2.place(x=70, y=285)
+    lbOption2.config(font=("Calibri", 16, 'bold'), fg='black')
+
     lbExcel = tkinter.Label(buttonsFn.top, text="Select APNs \nExcel Sheet")
-    lbExcel.place(x=150, y=130)
+    lbExcel.place(x=150, y=325)
     lbExcel.config(font=("Calibri", 12, 'bold'), fg='black')
 
     entryExcel = tkinter.Entry(buttonsFn.top, textvariable=buttonsFn.file1_path)
-    entryExcel.place(x=250, y=130, width=400, height=25)
+    entryExcel.place(x=250, y=325, width=400, height=25)
     entryExcel.delete(0, 'end')
 
     buttonBrowse = tkinter.Button(buttonsFn.top, text="Browse", command=buttonsFn.file1_browser)
-    buttonBrowse.place(x=670, y=130)
+    buttonBrowse.place(x=670, y=325)
     buttonBrowse['font'] = myFont
 
-    lbSectionName= tkinter.Label(buttonsFn.top, text="APN Index :")
-    lbSectionName.place(x=150, y=205)
+    lbSectionName= tkinter.Label(buttonsFn.top, text="APN Index")
+    lbSectionName.place(x=70, y=385)
     lbSectionName.config(font=("Calibri", 16, 'bold'), fg='black')
 
     lbFrom= tkinter.Label(buttonsFn.top, text="From")
-    lbFrom.place(x=150, y=250)
+    lbFrom.place(x=150, y=425)
     lbFrom.config(font=("Calibri", 12, 'bold'), fg='black')
 
-    entryFrom = tkinter.Entry(buttonsFn.top, textvariable=buttonsFn.file1_path)
-    entryFrom.place(x=250, y=250, width=120, height=25)
+    entryFrom = tkinter.Entry(buttonsFn.top, textvariable=buttonsFn.file3_path)
+    entryFrom.place(x=250, y=425, width=120, height=25)
     entryFrom.delete(0, 'end')
 
     lbTo = tkinter.Label(buttonsFn.top, text="To")
-    lbTo.place(x=400, y=250)
+    lbTo.place(x=400, y=425)
     lbTo.config(font=("Calibri", 12, 'bold'), fg='black')
 
-    entryTo = tkinter.Entry(buttonsFn.top, textvariable=buttonsFn.file2_path)
-    entryTo.place(x=450, y=250, width=120, height=25)
+    entryTo = tkinter.Entry(buttonsFn.top, textvariable=buttonsFn.file4_path)
+    entryTo.place(x=450, y=425, width=120, height=25)
     entryTo.delete(0, 'end')
 
     buttonRun = tkinter.Button(buttonsFn.top, text="Run")
-    buttonRun.place(x=330, y=330)
+    buttonRun.place(x=330, y=485)
     buttonRun.config(height=1, width=12)
     buttonRun['font'] = myFont2
 
@@ -894,7 +941,7 @@ def openAPNsCleanupMenu():
     Title.place(x=300, y=40)
 
     # Define the size of the main window
-    buttonsFn.top.geometry("800x400")  # Width x Height
+    buttonsFn.top.geometry("800x550")  # Width x Height
     buttonsFn.top.title("APNs Cleanup")
     buttonsFn.top.mainloop()
     # New_Window.configure(background='white')
@@ -920,7 +967,7 @@ def openCorporateAPNAuditMenu():
     buttonUpdateDB.config(height=3, width=20,  fg='black', background = 'white')
     buttonUpdateDB['font'] = myFont
 
-    buttonBack = tkinter.Button(buttonsFn.top, text="Back", command=openPacketAuditMenu)
+    buttonBack = tkinter.Button(buttonsFn.top, text="Back", command=openGGSNAuditMenu)
     buttonBack.place(x=20, y=20)
     buttonBack.config(height=1, width=8, fg='black', bg='white')
     buttonBack['font'] = myFont
@@ -930,6 +977,127 @@ def openCorporateAPNAuditMenu():
     buttonsFn.top.title("Corporate APNs Audit")
     #top.configure(background = 'sky blue')
     buttonsFn.top.mainloop()
+
+def openChargingRulesAuditMenu():
+    # define font
+    myFont = font.Font(family='Calibri', size=12)
+    myFont2 = font.Font(family='Calibri', size=15)
+
+    # Imgname2 = tkinter.PhotoImage(file="Vodafone2.png")
+
+    background_label = tkinter.Label(buttonsFn.top)
+    background_label.place(x=0, y=0, relwidth=1, relheight=1)
+
+    # background_label.configure(background='red')
+    # Define Buttons of the main window
+
+    # 1
+    lbExcel = tkinter.Label(buttonsFn.top, text="Select Excel Sheet")
+    lbExcel.place(x=100, y=150)
+    lbExcel.config(font=("Calibri", 12, 'bold'), fg='black')
+
+    entryExcelPath = tkinter.Entry(buttonsFn.top, textvariable=buttonsFn.file1_path)
+    entryExcelPath.place(x=250, y=150, width=400, height=25)
+    entryExcelPath.delete(0, 'end')
+
+    buttonBrowse = tkinter.Button(buttonsFn.top, text="Browse", command=UpdateDropDownFromExcelForAPNDB)
+    buttonBrowse.place(x=670, y=145)
+    buttonBrowse['font'] = myFont
+
+    lbMTX = tkinter.Label(buttonsFn.top, text="Choose GGSN")
+    lbMTX.place(x=100, y=200)
+    lbMTX.config(font=("Calibri", 12, 'bold'), fg='black')
+    MTXMenu = tkinter.OptionMenu(buttonsFn.top, buttonsFn.tkvar1, [""])
+
+    MTXMenu.place(x=250, y=200)
+    MTXMenu.config(height=1, width=4, fg='black')
+    buttonsFn.tkvar1.set("")  # set the default option
+
+    lbUsername = tkinter.Label(buttonsFn.top, text="Username")
+    lbUsername.place(x=100, y=250)
+    lbUsername.config(font=("Calibri", 12, 'bold'), fg='black')
+
+    entryUsername = tkinter.Entry(buttonsFn.top, textvariable=buttonsFn.file4_path)
+    entryUsername.place(x=250, y=250, width=120, height=25)
+    entryUsername.delete(0, 'end')
+
+    lbPassword = tkinter.Label(buttonsFn.top, text="Password")
+    lbPassword.place(x=100, y=300)
+    lbPassword.config(font=("Calibri", 12, 'bold'), fg='black')
+
+    entryPassword = tkinter.Entry(buttonsFn.top, show="*", textvariable=buttonsFn.file3_path)
+    entryPassword.place(x=250, y=300, width=120, height=25)
+    entryPassword.delete(0, 'end')
+
+    lbTemplate = tkinter.Label(buttonsFn.top, text="Select Template\nSheet")
+    lbTemplate.place(x=100, y=350)
+    lbTemplate.config(font=("Calibri", 12, 'bold'), fg='black')
+
+    entryTemplatePath= tkinter.Entry(buttonsFn.top, textvariable=buttonsFn.file2_path)
+    entryTemplatePath.place(x=250, y=350, width=400, height=25)
+    entryTemplatePath.delete(0, 'end')
+
+    buttonBrowse = tkinter.Button(buttonsFn.top, text="Browse", command=buttonsFn.file2_browser)
+    buttonBrowse.place(x=670, y=345)
+    buttonBrowse['font'] = myFont
+
+
+    buttonRun = tkinter.Button(buttonsFn.top, text="Run")
+    buttonRun.place(x=330, y=420)
+    buttonRun.config(height=1, width=12)
+    buttonRun['font'] = myFont2
+
+    buttonBack = tkinter.Button(buttonsFn.top, text="Back", command=openGGSNAuditMenu)
+    buttonBack.place(x=20, y=20)
+    buttonBack.config(height=2, width=8, fg='black')
+    buttonBack['font'] = myFont
+
+    e = tkinter.Text(buttonsFn.top, width=75, height=10)
+    e.bind("<Tab>", buttonsFn.focus_next_widget)
+    # Appearnce Title
+
+    Title = tkinter.Label(buttonsFn.top, text="Charging Rules Audit")
+    Title.config(font=("Calibri", 24), foreground="black")
+    Title.place(x=260, y=40)
+
+    # Define the size of the main window
+    buttonsFn.top.geometry("800x500")  # Width x Height
+    buttonsFn.top.title("Charging Rules Audit")
+    buttonsFn.top.mainloop()
+    # New_Window.configure(background='white')
+
+def openGGSNAuditMenu():
+    # Main menu
+    # define font
+    myFont = font.Font(family='Calibri', size= 15)
+
+    Imgname = tkinter.PhotoImage(file="Vodafone.png")
+    background_label = tkinter.Label(buttonsFn.top,image=Imgname)
+    background_label.place(x=0, y=0, relwidth=1, relheight=1)
+
+    # Define Buttons of the main window
+    # 1
+    buttonCorporateAPNAudit = tkinter.Button(buttonsFn.top, text="Corporate APNs\n Audit",command=openCorporateAPNAuditMenu)
+    buttonCorporateAPNAudit.place(x=170, y=70)
+    buttonCorporateAPNAudit.config(height=3, width=20,  fg='black', background = 'white')
+    buttonCorporateAPNAudit['font'] = myFont
+    # 2
+    buttonChargingRulesAudit= tkinter.Button(buttonsFn.top, text="Charging Rules\n Audit",command=openChargingRulesAuditMenu)
+    buttonChargingRulesAudit.place(x=170, y=180)
+    buttonChargingRulesAudit.config(height=3, width=20,  fg='black', background = 'white')
+    buttonChargingRulesAudit['font'] = myFont
+
+    buttonBack = tkinter.Button(buttonsFn.top, text="Back", command=openPacketAuditMenu)
+    buttonBack.place(x=20, y=20)
+    buttonBack.config(height=1, width=8, fg='black', bg='white')
+    buttonBack['font'] = myFont
+
+    # Define the size of the main window
+    buttonsFn.top.geometry("550x350")  # Width x Height
+    buttonsFn.top.title("GGSN Audit")
+    #top.configure(background = 'sky blue')
+    buttonsFn.top.mainloop()
+
 def openPacketAuditMenu():
     # Main menu
     # define font
@@ -941,7 +1109,7 @@ def openPacketAuditMenu():
 
     # Define Buttons of the main window
     # 1
-    buttonCorpAPNAudit = tkinter.Button(buttonsFn.top, text="Corporate APN Audit", command=openCorporateAPNAuditMenu)
+    buttonCorpAPNAudit = tkinter.Button(buttonsFn.top, text="GGSN Audit", command=openGGSNAuditMenu)
     buttonCorpAPNAudit.place(x=100, y=100)
     buttonCorpAPNAudit.config(height=3, width=20, fg='black', background='white')
     buttonCorpAPNAudit['font'] = myFont
@@ -960,11 +1128,6 @@ def openPacketAuditMenu():
     buttonSGSNAudit.place(x=350, y=220)
     buttonSGSNAudit.config(height=3, width=20, fg='black', background='white')
     buttonSGSNAudit['font'] = myFont
-    # 5
-    buttonGGSNAudit = tkinter.Button(buttonsFn.top, text="GGSN Audit")
-    buttonGGSNAudit.place(x=100, y=340)
-    buttonGGSNAudit.config(height=3, width=20, fg='black', background='white')
-    buttonGGSNAudit['font'] = myFont
 
     buttonBack = tkinter.Button(buttonsFn.top, text="Back", command=openDataMenu)
     buttonBack.place(x=20, y=20)
@@ -972,7 +1135,7 @@ def openPacketAuditMenu():
     buttonBack['font'] = myFont
 
     # Define the size of the main window
-    buttonsFn.top.geometry("700x500")  # Width x Height
+    buttonsFn.top.geometry("700x370")  # Width x Height
     buttonsFn.top.title("Packet Audit")
     # top.configure(background = 'sky blue')
     buttonsFn.top.mainloop()

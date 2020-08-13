@@ -3,6 +3,7 @@ from Corporate_APNs import Internet_APN_script, PCconnectivity_APN_script, WIc3G
 import xlrd
 from Corporate_APNs import CorporateAPNCreation_CRQ
 
+
 def IDNSandAPNConfigCorp(APNname,IPpool,MTX,XLSXsheet,TypeOfAPN,SorD,VRFDest,SecMTX,IPrange,username,password):
 
     #resolving IP(getting netmask)

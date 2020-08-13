@@ -18,6 +18,9 @@ GGSN_IP_DICT = {"GGSN5": "10.253.2.50", "GGSN6": "10.254.2.21", "GGSN7": "10.254
                 "GGSN9": "10.122.244.20", "GGSN10": "10.255.224.4", "GGSN11": "10.5.14.4", "GGSN12": "10.254.222.20",
                 "GGSN13": "172.18.202.152", "GGSN14": "10.254.2.24"}
 
+
+
+
 # specify GGSN template file
 ggsn_template = "D:\\python3\\ggsn_template.txt"
 Trulebase_file = "D:\\python3\\rulebase_file.txt"
