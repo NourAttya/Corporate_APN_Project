@@ -7,6 +7,7 @@ from tkinter import messagebox
 import xlrd
 from IP_Pool_Expansion import IPPoolExpansion
 from Security_Corp_APN import Sec3GWIC_Script,SecInternet_script,SecPC_Connectivity_Script
+from Security_Blocking_IPs import Blocking_IPs_DC,Blocking_IPs_MI
 #Nour Attyia
 #Ahmed Ayman
 
@@ -1130,6 +1131,68 @@ def openVoiceMenu():
     buttonsFn.top.mainloop()
 
 
+def IPsBlockingRun():
+    if(buttonsFn.tkvar2.get()=="MI"):
+        Blocking_IPs_MI.Blocking_IPs_MI(buttonsFn.file1_path.get())
+    elif(buttonsFn.tkvar2.get()=="DC"):
+        Blocking_IPs_DC.Blocking_IPs_DC(buttonsFn.file1_path.get())
+
+
+def openIPsBlockingWindow():
+    # define font
+    myFont = font.Font(family='Calibri', size=12)
+    myFont2 = font.Font(family='Calibri', size=15)
+
+    # Imgname2 = tkinter.PhotoImage(file="Vodafone2.png")
+
+    background_label = tkinter.Label(buttonsFn.top)
+    background_label.place(x=0, y=0, relwidth=1, relheight=1)
+
+    # background_label.configure(background='red')
+    # Define Buttons of the main window
+
+    lbBlockingIP = tkinter.Label(buttonsFn.top, text="Blocking IP")
+    lbBlockingIP.place(x=50, y=180)
+    lbBlockingIP.config(font=("Calibri", 12, 'bold'), fg='black')
+
+    entryBlockingIP = tkinter.Entry(buttonsFn.top, textvariable=buttonsFn.file1_path)
+    entryBlockingIP.place(x=190, y=180, width=200, height=25)
+    entryBlockingIP.delete(0, 'end')
+
+
+    lbDCorMI = tkinter.Label(buttonsFn.top, text="Choose DC or MI")
+    lbDCorMI.place(x=50, y=240)
+    lbDCorMI.config(font=("Calibri", 12, 'bold'), fg='black')
+
+
+
+    DCorMIChoices = {'DC', 'MI'}
+    buttonsFn.tkvar2.set('DC')  # set the default option
+    DCorMIMenu = tkinter.OptionMenu(buttonsFn.top, buttonsFn.tkvar2, *DCorMIChoices)
+    DCorMIMenu.place(x=190, y=240)
+    # link function to change dropdown
+    buttonsFn.tkvar2.trace('w', buttonsFn.change_dropdown2)
+
+    buttonRun = tkinter.Button(buttonsFn.top, text="Run",command=IPsBlockingRun)
+    buttonRun.place(x=200, y=340)
+    buttonRun.config(height=2, width=12)
+    buttonRun['font'] = myFont2
+
+    buttonBack = tkinter.Button(buttonsFn.top, text="Back", command=openSecurityMenu)
+    buttonBack.place(x=20, y=20)
+    buttonBack.config(height=1, width=8, fg='black', bg='white')
+    buttonBack['font'] = myFont
+
+    Title = tkinter.Label(buttonsFn.top, text="IPs Blocking")
+    Title.config(font=("Calibri", 24), foreground="black")
+    Title.place(x=200, y=40)
+
+    # Define the size of the main window
+    buttonsFn.top.geometry("550x450")  # Width x Height
+    buttonsFn.top.title("IPs Blocking")
+    # top.configure(background = 'sky blue')
+    buttonsFn.top.mainloop()
+
 def openSecurityAudit():
     # Main menu
     # define font
@@ -1181,7 +1244,7 @@ def openSecurityMenu():
     button_Users_Cleanup['font'] = myFont
 
     # 3
-    button_IPs_Blocking = tkinter.Button(buttonsFn.top, text="IPs Blocking")
+    button_IPs_Blocking = tkinter.Button(buttonsFn.top, text="IPs Blocking",command=openIPsBlockingWindow)
     button_IPs_Blocking.place(x=350 ,y=100)
     button_IPs_Blocking.config(height=3, width=20, fg='black', background='white')
     button_IPs_Blocking['font'] = myFont
