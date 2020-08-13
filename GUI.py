@@ -7,7 +7,7 @@ from tkinter import messagebox
 import xlrd
 from IP_Pool_Expansion import IPPoolExpansion
 from Security_Corp_APN import Sec3GWIC_Script,SecInternet_script,SecPC_Connectivity_Script
-#Nour Attyiaa
+#Nour Attyaa
 #Ahmed Ayman
 
 
