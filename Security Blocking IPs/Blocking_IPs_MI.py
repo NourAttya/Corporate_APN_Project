@@ -1,4 +1,3 @@
-#A.A
 def Blocking_IPs_MI (BlockingIP):
     script = open(BlockingIP + " MI_Script.txt", "w")
     script.write('HQ-GI: \n')
