@@ -4,7 +4,7 @@ block_cipher = None
 
 
 a = Analysis(['GUI.py'],
-             pathex=['D:\\EPC\\Automation\\Corporate_APN_Project'],
+             pathex=['D:\\Automation Team\\Corporate APN Project'],
              binaries=[],
              datas=[],
              hiddenimports=[],
@@ -26,7 +26,7 @@ exe = EXE(pyz,
           bootloader_ignore_signals=False,
           strip=False,
           upx=True,
-          console=False , icon='Vod_Icon.ico')
+          console=False )
 coll = COLLECT(exe,
                a.binaries,
                a.zipfiles,

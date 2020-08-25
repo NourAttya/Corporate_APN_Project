@@ -7,8 +7,10 @@ from tkinter import messagebox
 import xlrd
 from IP_Pool_Expansion import IPPoolExpansion
 from Security_Corp_APN import Sec3GWIC_Script,SecInternet_script,SecPC_Connectivity_Script
+from Security_Blocking_IPs import Blocking_IPs_DC,Blocking_IPs_MI
+from GGSN_Audit  import GGSNAudit
 #Nour Attyia
-
+from MGW_Audit import MWGAudit
 
 
 #Corporate_APNs
@@ -68,7 +70,7 @@ def openPacketCorpMenu():
 
     entryAPNName = tkinter.Entry(buttonsFn.top, textvariable=buttonsFn.file3_path)
     entryAPNName.place(x=250, y=100, width=200, height=25)
-    entryAPNName.delete(0, 'end')
+    entryAPNName.delete(0, ' end')
 
 
     lbIPPool = tkinter.Label(buttonsFn.top, text="IP Pool")
@@ -921,7 +923,7 @@ def openAPNsCleanupMenu():
     entryTo.place(x=450, y=425, width=120, height=25)
     entryTo.delete(0, 'end')
 
-    buttonRun = tkinter.Button(buttonsFn.top, text="Run")
+    buttonRun = tkinter.Button(buttonsFn.top, text="Run",command=APNsCleanupRun)
     buttonRun.place(x=330, y=485)
     buttonRun.config(height=1, width=12)
     buttonRun['font'] = myFont2
@@ -977,6 +979,56 @@ def openCorporateAPNAuditMenu():
     #top.configure(background = 'sky blue')
     buttonsFn.top.mainloop()
 
+def UpdateDropDownFromExcelForChargingRules():
+    MTXs = []
+    buttonsFn.file1_browser()
+    # open the excel sheet and get the corresponding number to MTX name
+    wb = xlrd.open_workbook(buttonsFn.file1_path.get())
+    sheet = wb.sheet_by_index(0)
+    firstRow = 0
+    for j in range(sheet.nrows):
+        row = sheet.row_values(j)
+        if firstRow == 0:
+            for i in range(len(row)):
+                if (row[i] == "MTX Name"):
+                    MTXindex = i
+            firstRow = 1
+        else:
+            MTXs.append( str(row[MTXindex]))
+    print(MTXs)
+    MTXs.append("All")
+    MTXMenu = tkinter.OptionMenu(buttonsFn.top, buttonsFn.tkvar1, *MTXs)
+    MTXMenu.place(x=250, y=200)
+    MTXMenu.config(height=1, width=4, fg='black')
+    buttonsFn.tkvar1.set(MTXs[0])  # set the default option
+
+def chargingRulesAuditRun():
+    wb = xlrd.open_workbook(buttonsFn.file1_path.get())
+    sheet = wb.sheet_by_index(0)
+    firstRow = 0
+    MTXNumber=[]
+    IP=[]
+    for j in range(sheet.nrows):
+        row = sheet.row_values(j)
+        if firstRow == 0:
+            for i in range(len(row)):
+                if (row[i] == "MTX Name"):
+                    MTXindex = i
+                elif(row[i]=="MTX Number"):
+                    MTXNumberindex=i
+                elif (row[i] == "IP"):
+                    IPindex = i
+
+            firstRow = 1
+        else:
+            if(row[MTXindex]==buttonsFn.tkvar1.get()):
+                MTXNumber.append(row[MTXNumberindex])
+                IP.append(row[IPindex])
+            elif(buttonsFn.tkvar1.get()=="All"):
+                MTXNumber.append(row[MTXNumberindex])
+                IP.append(row[IPindex])
+    GGSNAudit.main_ggsn_rule(buttonsFn.file4_path.get(),buttonsFn.file3_path.get(),buttonsFn.file2_path.get(),MTXNumber,IP)
+
 def openChargingRulesAuditMenu():
     # define font
     myFont = font.Font(family='Calibri', size=12)
@@ -999,7 +1051,7 @@ def openChargingRulesAuditMenu():
     entryExcelPath.place(x=250, y=150, width=400, height=25)
     entryExcelPath.delete(0, 'end')
 
-    buttonBrowse = tkinter.Button(buttonsFn.top, text="Browse", command=UpdateDropDownFromExcelForAPNDB)
+    buttonBrowse = tkinter.Button(buttonsFn.top, text="Browse", command=UpdateDropDownFromExcelForChargingRules)
     buttonBrowse.place(x=670, y=145)
     buttonBrowse['font'] = myFont
 
@@ -1041,7 +1093,7 @@ def openChargingRulesAuditMenu():
     buttonBrowse['font'] = myFont
 
 
-    buttonRun = tkinter.Button(buttonsFn.top, text="Run")
+    buttonRun = tkinter.Button(buttonsFn.top, text="Run",command=chargingRulesAuditRun)
     buttonRun.place(x=330, y=420)
     buttonRun.config(height=1, width=12)
     buttonRun['font'] = myFont2
@@ -1138,6 +1190,73 @@ def openPacketAuditMenu():
     buttonsFn.top.title("Packet Audit")
     # top.configure(background = 'sky blue')
     buttonsFn.top.mainloop()
+
+
+def MGWAuditRun():
+    MWGAudit.MGWsAudit(buttonsFn.folder_path.get(),buttonsFn.file2_path.get())
+def openMGWAuditMenu():
+    # define font
+    myFont = font.Font(family='Calibri', size=12)
+    myFont2 = font.Font(family='Calibri', size=15)
+
+    # Imgname2 = tkinter.PhotoImage(file="Vodafone2.png")
+
+    background_label = tkinter.Label(buttonsFn.top)
+    background_label.place(x=0, y=0, relwidth=1, relheight=1)
+
+    # background_label.configure(background='red')
+    # Define Buttons of the main window
+
+
+    lbDBFolder = tkinter.Label(buttonsFn.top, text="select Folder \nof MGWs Files")
+    lbDBFolder.place(x=80, y=180)
+    lbDBFolder.config(font=("Calibri", 12, 'bold'), fg='black')
+
+    entryDBFolder = tkinter.Entry(buttonsFn.top, textvariable=buttonsFn.folder_path)
+    entryDBFolder.place(x=250, y=180, width=400, height=25)
+    entryDBFolder.delete(0, 'end')
+
+    buttonBrowseFolder = tkinter.Button(buttonsFn.top, text="Browse", command=buttonsFn.first_browser)
+    buttonBrowseFolder.place(x=670, y=180)
+    buttonBrowseFolder['font'] = myFont
+
+    lbReferenceExcel = tkinter.Label(buttonsFn.top, text="Select reference sheet\n of Announcements")
+    lbReferenceExcel.place(x=70, y=250)
+    lbReferenceExcel.config(font=("Calibri", 12, 'bold'), fg='black')
+
+    entryReferenceExcel = tkinter.Entry(buttonsFn.top, textvariable=buttonsFn.file2_path)
+    entryReferenceExcel.place(x=250, y=240, width=400, height=25)
+    entryReferenceExcel.delete(0, 'end')
+
+    buttonBrowseReferenceExcel = tkinter.Button(buttonsFn.top, text="Browse", command=buttonsFn.file2_browser)
+    buttonBrowseReferenceExcel.place(x=670, y=240)
+    buttonBrowseReferenceExcel['font'] = myFont
+
+
+    buttonRun = tkinter.Button(buttonsFn.top, text="Run", command=MGWAuditRun)
+    buttonRun.place(x=330, y=350)
+    buttonRun.config(height=1, width=12)
+    buttonRun['font'] = myFont2
+
+    buttonBack = tkinter.Button(buttonsFn.top, text="Back", command=openVoiceMenu)
+    buttonBack.place(x=20, y=20)
+    buttonBack.config(height=2, width=8, fg='black')
+    buttonBack['font'] = myFont
+
+    e = tkinter.Text(buttonsFn.top, width=75, height=10)
+    e.bind("<Tab>", buttonsFn.focus_next_widget)
+    # Appearnce Title
+
+    Title = tkinter.Label(buttonsFn.top, text="MGW Audit")
+    Title.config(font=("Calibri", 24), foreground="black")
+    Title.place(x=300, y=40)
+
+    # Define the size of the main window
+    buttonsFn.top.geometry("800x450")  # Width x Height
+    buttonsFn.top.title("MGW Audit")
+    buttonsFn.top.mainloop()
+    # New_Window.configure(background='white')
+
 
 def openDataMenu():
 
@@ -1262,7 +1381,7 @@ def openVoiceMenu():
     button_Interconnect['font'] = myFont
 
     # 3
-    button_MGW = tkinter.Button(buttonsFn.top, text="MGW")
+    button_MGW = tkinter.Button(buttonsFn.top, text="MGW",command=openMGWAuditMenu)
     button_MGW.place(x=350 ,y=100)
     button_MGW.config(height=3, width=20, fg='black', background='white')
     button_MGW['font'] = myFont
@@ -1292,6 +1411,68 @@ def openVoiceMenu():
     buttonsFn.top.mainloop()
 
 
+def IPsBlockingRun():
+    if(buttonsFn.tkvar2.get()=="MI"):
+        Blocking_IPs_MI.Blocking_IPs_MI(buttonsFn.file1_path.get())
+    elif(buttonsFn.tkvar2.get()=="DC"):
+        Blocking_IPs_DC.Blocking_IPs_DC(buttonsFn.file1_path.get())
+
+
+def openIPsBlockingWindow():
+    # define font
+    myFont = font.Font(family='Calibri', size=12)
+    myFont2 = font.Font(family='Calibri', size=15)
+
+    # Imgname2 = tkinter.PhotoImage(file="Vodafone2.png")
+
+    background_label = tkinter.Label(buttonsFn.top)
+    background_label.place(x=0, y=0, relwidth=1, relheight=1)
+
+    # background_label.configure(background='red')
+    # Define Buttons of the main window
+
+    lbBlockingIP = tkinter.Label(buttonsFn.top, text="Blocking IP")
+    lbBlockingIP.place(x=50, y=180)
+    lbBlockingIP.config(font=("Calibri", 12, 'bold'), fg='black')
+
+    entryBlockingIP = tkinter.Entry(buttonsFn.top, textvariable=buttonsFn.file1_path)
+    entryBlockingIP.place(x=190, y=180, width=200, height=25)
+    entryBlockingIP.delete(0, 'end')
+
+
+    lbDCorMI = tkinter.Label(buttonsFn.top, text="Choose DC or MI")
+    lbDCorMI.place(x=50, y=240)
+    lbDCorMI.config(font=("Calibri", 12, 'bold'), fg='black')
+
+
+
+    DCorMIChoices = {'DC', 'MI'}
+    buttonsFn.tkvar2.set('DC')  # set the default option
+    DCorMIMenu = tkinter.OptionMenu(buttonsFn.top, buttonsFn.tkvar2, *DCorMIChoices)
+    DCorMIMenu.place(x=190, y=240)
+    # link function to change dropdown
+    buttonsFn.tkvar2.trace('w', buttonsFn.change_dropdown2)
+
+    buttonRun = tkinter.Button(buttonsFn.top, text="Run",command=IPsBlockingRun)
+    buttonRun.place(x=200, y=340)
+    buttonRun.config(height=2, width=12)
+    buttonRun['font'] = myFont2
+
+    buttonBack = tkinter.Button(buttonsFn.top, text="Back", command=openSecurityMenu)
+    buttonBack.place(x=20, y=20)
+    buttonBack.config(height=1, width=8, fg='black', bg='white')
+    buttonBack['font'] = myFont
+
+    Title = tkinter.Label(buttonsFn.top, text="IPs Blocking")
+    Title.config(font=("Calibri", 24), foreground="black")
+    Title.place(x=200, y=40)
+
+    # Define the size of the main window
+    buttonsFn.top.geometry("550x450")  # Width x Height
+    buttonsFn.top.title("IPs Blocking")
+    # top.configure(background = 'sky blue')
+    buttonsFn.top.mainloop()
+
 def openSecurityAudit():
     # Main menu
     # define font
@@ -1318,7 +1499,67 @@ def openSecurityAudit():
     buttonsFn.top.title("Security Audit")
     # top.configure(background = 'sky blue')
     buttonsFn.top.mainloop()
+def IPsBlockingRun():
+    if(buttonsFn.tkvar2.get()=="MI"):
+        Blocking_IPs_MI.Blocking_IPs_MI(buttonsFn.file1_path.get())
+    elif(buttonsFn.tkvar2.get()=="DC"):
+        Blocking_IPs_DC.Blocking_IPs_DC(buttonsFn.file1_path.get())
 
+
+def openIPsBlockingWindow():
+    # define font
+    myFont = font.Font(family='Calibri', size=12)
+    myFont2 = font.Font(family='Calibri', size=15)
+
+    # Imgname2 = tkinter.PhotoImage(file="Vodafone2.png")
+
+    background_label = tkinter.Label(buttonsFn.top)
+    background_label.place(x=0, y=0, relwidth=1, relheight=1)
+
+    # background_label.configure(background='red')
+    # Define Buttons of the main window
+
+    lbBlockingIP = tkinter.Label(buttonsFn.top, text="Blocking IP")
+    lbBlockingIP.place(x=50, y=180)
+    lbBlockingIP.config(font=("Calibri", 12, 'bold'), fg='black')
+
+    entryBlockingIP = tkinter.Entry(buttonsFn.top, textvariable=buttonsFn.file1_path)
+    entryBlockingIP.place(x=190, y=180, width=200, height=25)
+    entryBlockingIP.delete(0, 'end')
+
+
+    lbDCorMI = tkinter.Label(buttonsFn.top, text="Choose DC or MI")
+    lbDCorMI.place(x=50, y=240)
+    lbDCorMI.config(font=("Calibri", 12, 'bold'), fg='black')
+
+
+
+    DCorMIChoices = {'DC', 'MI'}
+    buttonsFn.tkvar2.set('DC')  # set the default option
+    DCorMIMenu = tkinter.OptionMenu(buttonsFn.top, buttonsFn.tkvar2, *DCorMIChoices)
+    DCorMIMenu.place(x=190, y=240)
+    # link function to change dropdown
+    buttonsFn.tkvar2.trace('w', buttonsFn.change_dropdown2)
+
+    buttonRun = tkinter.Button(buttonsFn.top, text="Run",command=IPsBlockingRun)
+    buttonRun.place(x=200, y=340)
+    buttonRun.config(height=2, width=12)
+    buttonRun['font'] = myFont2
+
+    buttonBack = tkinter.Button(buttonsFn.top, text="Back", command=openSecurityMenu)
+    buttonBack.place(x=20, y=20)
+    buttonBack.config(height=1, width=8, fg='black', bg='white')
+    buttonBack['font'] = myFont
+
+    Title = tkinter.Label(buttonsFn.top, text="IPs Blocking")
+    Title.config(font=("Calibri", 24), foreground="black")
+    Title.place(x=200, y=40)
+
+    # Define the size of the main window
+    buttonsFn.top.geometry("550x450")  # Width x Height
+    buttonsFn.top.title("IPs Blocking")
+    # top.configure(background = 'sky blue')
+    buttonsFn.top.mainloop()
 
 def openSecurityMenu():
 
@@ -1343,7 +1584,7 @@ def openSecurityMenu():
     button_Users_Cleanup['font'] = myFont
 
     # 3
-    button_IPs_Blocking = tkinter.Button(buttonsFn.top, text="IPs Blocking")
+    button_IPs_Blocking = tkinter.Button(buttonsFn.top, text="IPs Blocking",command=openIPsBlockingWindow)
     button_IPs_Blocking.place(x=350 ,y=100)
     button_IPs_Blocking.config(height=3, width=20, fg='black', background='white')
     button_IPs_Blocking['font'] = myFont
