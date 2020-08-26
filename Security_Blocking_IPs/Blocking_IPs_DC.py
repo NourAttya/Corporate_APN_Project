@@ -24,4 +24,4 @@ def Blocking_IPs_DC (BlockingIP):
     script.write('unset group address "Internet" "Suspected_IPs_1" remove "Suspected_' + BlockingIP + '" \n')
     script.write(' \n')
     script.write('--------------------------------------------------------------------------------- \n \n')
-lt.write('--------------------------------------------------------------------------------- \n \n')
+    script.write('--------------------------------------------------------------------------------- \n \n')

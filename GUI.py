@@ -10,7 +10,7 @@ from Security_Corp_APN import Sec3GWIC_Script,SecInternet_script,SecPC_Connectiv
 from Security_Blocking_IPs import Blocking_IPs_DC,Blocking_IPs_MI
 from GGSN_Audit  import GGSNAudit
 #Nour Attyia
-from MGW_Audit import MWGAudit
+#from MGW_Audit import MWGAudit
 
 
 #Corporate_APNs
