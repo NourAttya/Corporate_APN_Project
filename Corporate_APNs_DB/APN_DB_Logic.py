@@ -64,10 +64,10 @@ def APN_DB_Logic(From, To,DBFolder,referenceSheet,APNsCleanupSheet):
     worksheet = workbook.sheet_by_index(0)
     print(worksheet)
     script = open(DBFolder+'\\To be edited '+ "_Script.txt", "w")
-    row = worksheet.row_values(From)
+    row = worksheet.row_values(int(From))
     script.write('On ' + row[4] + '-GGSN' + ':\n')
 
-    for j in range (From, To):
+    for j in range (int(From),int( To)):
         row = worksheet.row_values(j)
         print(row)
         #if j == 0: continue
@@ -105,7 +105,7 @@ def APN_DB_Logic(From, To,DBFolder,referenceSheet,APNsCleanupSheet):
             script.write(' no ' + row[0] + ' \n')
             script.write(' exit \n')
             script.write(' context' + row[2] + '\n')
-            for i in range (1, int(IPpoolCount) +1):
+            for i in range (0, int(IPpoolCount) ):
                 script.write(' no ip pool_' + str(i) +'\n')
             script.write(' end \n')
 

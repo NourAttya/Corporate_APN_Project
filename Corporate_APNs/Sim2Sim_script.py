@@ -15,7 +15,9 @@ def Sim2Sim_script(APNname,IP,netmask,MTX,MTXNum,SecMTX,secMTXnum,SorD,pathToSav
     if (SorD == "Static"):
         script.write('      ip address alloc-method no-dynamic allow-user-specified\n')
     else:
-        script.write('     ip address alloc-method local\n')
+        script.write('  ip address alloc-method local\n')
+        script.write('  dns primary 62.240.110.197 \n')
+        script.write('  dns secondary 62.240.110.198 \n')
     script.write('      ip access-group Corporate.vodafone.net-acl.in in\n')
     script.write('      ip access-group Corporate.vodafone.net-acl.out out \n')
     script.write('      ip source-violation ignore \n')
@@ -55,7 +57,9 @@ def Sim2Sim_script(APNname,IP,netmask,MTX,MTXNum,SecMTX,secMTXnum,SorD,pathToSav
     if (SorD == "Static"):
         script.write('      ip address alloc-method no-dynamic allow-user-specified\n')
     else:
-        script.write('     ip address alloc-method local\n')
+        script.write('  ip address alloc-method local\n')
+    script.write('  dns primary 62.240.110.197 \n')
+    script.write('  dns secondary 62.240.110.198 \n')
     script.write('      ip access-group Corporate.vodafone.net-acl.in in\n')
     script.write('      ip access-group Corporate.vodafone.net-acl.out out \n')
     script.write('      ip source-violation ignore \n')

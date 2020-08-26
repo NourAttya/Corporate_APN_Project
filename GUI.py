@@ -931,7 +931,6 @@ def openAPNsCleanupMenu():
     buttonBack = tkinter.Button(buttonsFn.top, text="Back", command=openCorporateAPNAuditMenu)
     buttonBack.place(x=20, y=20)
     buttonBack.config(height=2, width=8, fg='black')
-    buttonBack['font'] = myFont
 
     e = tkinter.Text(buttonsFn.top, width=75, height=10)
     e.bind("<Tab>", buttonsFn.focus_next_widget)
