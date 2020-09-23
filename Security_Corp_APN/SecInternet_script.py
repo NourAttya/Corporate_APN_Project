@@ -8,6 +8,14 @@ def SecInternet_Script (APN_Name, Sim_Range, Public_IP ):
     script.write('set security nat source rule-set VAS-Corporate-to-Internet rule ' +APN_Name+'-APN match destination-address 0.0.0.0/0 \n')
     script.write('set security nat source rule-set VAS-Corporate-to-Internet rule ' +APN_Name+'-APN then source-nat pool ' +APN_Name+'-APN-Pool \n')
     script.write('set security zones security-zone VAS-Corporate address-book address ' +APN_Name+'-APN ' +Sim_Range+ ' \n')
+    script.write(
+        'set security policies from-zone VAS-Corporate to-zone Internet policy' +APN_Name+ 'match source-address' +APN_Name+ ' \n')
+    script.write(
+        'set security policies from-zone VAS-Corporate to-zone Internet policy' +APN_Name+ 'match destination-address any \n')
+    script.write(
+        'set security policies from-zone VAS-Corporate to-zone Internet policy' +APN_Name+  'match application any \n')
+    script.write(
+        'set security policies from-zone VAS-Corporate to-zone Internet policy' +APN_Name+ 'then permit  \n')
     script.write('set routing-options static route ' +Sim_Range+ ' next-hop 10.222.7.139  \n')
     script.write('commit \n')
     script.write('---------------------------------------------------------------\n')
@@ -22,6 +30,8 @@ def SecInternet_Script (APN_Name, Sim_Range, Public_IP ):
         'delete security nat source rule-set VAS-Corporate-to-Internet rule ' + APN_Name + '\n')
     script.write(
         'delete security zones security-zone VAS-Corporate address-book address ' + APN_Name + '-APN ' + Sim_Range + ' \n')
+    script.write(
+        'set security policies from-zone VAS-Corporate to-zone Internet policy' + APN_Name + 'match application any \n')
     script.write('delete routing-options static route ' + Sim_Range + ' next-hop 10.222.7.139  \n')
     script.close()
     print('Nour')

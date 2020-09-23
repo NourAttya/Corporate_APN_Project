@@ -63,7 +63,7 @@ def IDNSandAPNConfigCorp(APNname,IPpool,MTX,XLSXsheet,TypeOfAPN,SorD,VRFDest,Sec
     else:
         return
 
-    CorporateAPNCreation_CRQ.CorporateAPNCreationCRQ(pathToSave + APNname + "_Script.txt", username, password)
+    #CorporateAPNCreation_CRQ.CorporateAPNCreationCRQ(pathToSave + APNname + "_Script.txt", username, password)
 
 
 

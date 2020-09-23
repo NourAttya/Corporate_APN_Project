@@ -70,7 +70,6 @@ def openPacketCorpMenu():
 
     entryAPNName = tkinter.Entry(buttonsFn.top, textvariable=buttonsFn.file3_path)
     entryAPNName.place(x=250, y=100, width=200, height=25)
-    entryAPNName.delete(0, ' end')
 
 
     lbIPPool = tkinter.Label(buttonsFn.top, text="IP Pool")
