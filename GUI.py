@@ -11,6 +11,8 @@ from Security_Blocking_IPs import Blocking_IPs_DC,Blocking_IPs_MI
 from GGSN_Audit  import GGSNAudit
 #Nour Attyia
 from MGW_Audit import MWGAudit
+import pandas as pd
+#from pandastable import Table, TableModel
 
 
 #Corporate_APNs
@@ -70,7 +72,7 @@ def openPacketCorpMenu():
 
     entryAPNName = tkinter.Entry(buttonsFn.top, textvariable=buttonsFn.file3_path)
     entryAPNName.place(x=250, y=100, width=200, height=25)
-    entryAPNName.delete(0, ' end')
+
 
 
     lbIPPool = tkinter.Label(buttonsFn.top, text="IP Pool")
@@ -167,24 +169,8 @@ def openPacketCorpMenu():
     # link function to change dropdown
     buttonsFn.tkvar2.trace('w', buttonsFn.change_dropdown2)
 
-    lbUsername = tkinter.Label(buttonsFn.top, text="Remedy's Username")
-    lbUsername.place(x=100, y=470)
-    lbUsername.config(font=("Calibri", 12, 'bold'), fg='black')
-
-    entryUsername = tkinter.Entry(buttonsFn.top, textvariable=buttonsFn.file4_path)
-    entryUsername.place(x=250, y=470, width=120, height=25)
-    entryUsername.delete(0, 'end')
-
-    lbPassword = tkinter.Label(buttonsFn.top, text="Remedy's Password")
-    lbPassword.place(x=400, y=470)
-    lbPassword.config(font=("Calibri", 12, 'bold'), fg='black')
-
-    entryPassword = tkinter.Entry(buttonsFn.top, show="*", textvariable=buttonsFn.file5_path)
-    entryPassword.place(x=550, y=470, width=120, height=25)
-    entryPassword.delete(0, 'end')
-
     buttonRun = tkinter.Button(buttonsFn.top, text="Run", command=CorpConfigRun)
-    buttonRun.place(x=330, y=530)
+    buttonRun.place(x=330, y=459)
     buttonRun.config(height=1, width=10)
     buttonRun['font'] = myFont2
 
@@ -202,7 +188,7 @@ def openPacketCorpMenu():
     Title.place(x=150, y=20)
 
     # Define the size of the main window
-    buttonsFn.top.geometry("800x600")  # Width x Height
+    buttonsFn.top.geometry("800x520")  # Width x Height
     buttonsFn.top.title("Packet Corporate APN Configuration")
 
     buttonsFn.top.mainloop()
@@ -1192,8 +1178,29 @@ def openPacketAuditMenu():
 
 
 def MGWAuditRun():
-    MWGAudit.MGWsAudit(buttonsFn.folder_path.get(),buttonsFn.file2_path.get())
+    MGWName, countOfAllMissing, countOfAllWrong, countOfAllUnknown =MWGAudit.MGWsAudit(buttonsFn.folder_path.get(),buttonsFn.file2_path.get())
+    writeMGWAuditOutput(MGWName,countOfAllMissing, countOfAllWrong, countOfAllUnknown)
+
+
+def writeMGWAuditOutput(MGWName,countOfAllMissing, countOfAllWrong, countOfAllUnknown):
+    # Highlights Menu
+    # define font
+    sub = tkinter.Tk()
+    myFont = font.Font(family='Calibri', size=15)
+    background_label = tkinter.Label(sub,background="red")
+    background_label.place(x=0, y=0, relwidth=1, relheight=1)
+    f = tkinter.Frame(sub)
+    f.pack(fill='both',expand=1)
+    data=zip(MGWName,countOfAllMissing, countOfAllWrong, countOfAllUnknown)
+    df=pd.DataFrame(data,columns=['MGW Name','Count of Missing Announcements','Count of Wrong Phrase ID','Count of Unknown Announcements Defined'])
+    table=Table(f, dataframe=df)
+    table.show()
+    # Define the size of the main window
+    sub.geometry("600x500")  # Width x Height
+    sub.title("MGW Audit Highlights")
+
 def openMGWAuditMenu():
+
     # define font
     myFont = font.Font(family='Calibri', size=12)
     myFont2 = font.Font(family='Calibri', size=15)
@@ -1256,6 +1263,113 @@ def openMGWAuditMenu():
     buttonsFn.top.mainloop()
     # New_Window.configure(background='white')
 
+def openWhitelistingMenu():
+
+    # define font
+    myFont = font.Font(family='Calibri', size=12)
+    myFont2 = font.Font(family='Calibri', size=15)
+
+    #Imgname2 = tkinter.PhotoImage(file="Vodafone2.png")
+
+    background_label = tkinter.Label(buttonsFn.top)
+    background_label.place(x=0, y=0, relwidth=1, relheight=1)
+
+    #background_label.configure(background='red')
+    # Define Buttons of the main window
+
+    lbAPNName = tkinter.Label(buttonsFn.top, text="APN Name")
+    lbAPNName.place(x=100, y=150)
+    lbAPNName.config(font=("Calibri", 12, 'bold'), fg='black')
+
+
+    entryAPNName = tkinter.Entry(buttonsFn.top, textvariable=buttonsFn.file3_path)
+    entryAPNName.place(x=250, y=150, width=200, height=25)
+
+
+    # 1
+    lbExcel = tkinter.Label(buttonsFn.top, text="Select Excel Sheet")
+    lbExcel.place(x=100, y=205)
+    lbExcel.config(font=("Calibri", 12, 'bold'), fg='black')
+
+    entryExcelPath = tkinter.Entry(buttonsFn.top, textvariable=buttonsFn.file1_path)
+    entryExcelPath.place(x=250, y=205, width=400, height=25)
+    entryExcelPath.delete(0, 'end')
+
+    buttonBrowse = tkinter.Button(buttonsFn.top, text="Browse", command=UpdateDropDownFromExcelForCorporateAPN)
+    buttonBrowse.place(x=670, y=200)
+    buttonBrowse['font'] = myFont
+
+    # link function to change dropdown
+    #this is for MTX dropdown list
+    buttonsFn.tkvar3.trace('w', buttonsFn.change_dropdown3)
+
+    lbPrimaryMTX = tkinter.Label(buttonsFn.top, text="Choose Primary MTX")
+    lbPrimaryMTX.place(x=100, y=250)
+    lbPrimaryMTX.config(font=("Calibri", 12, 'bold'), fg='black')
+
+    lbSecMTX= tkinter.Label(buttonsFn.top, text="Choose Secondary MTX")
+    lbSecMTX.place(x=100, y=300)
+    lbSecMTX.config(font=("Calibri", 12, 'bold'), fg='black')
+
+
+    PrimaryMTXMenu = tkinter.OptionMenu(buttonsFn.top, buttonsFn.tkvar3, [""])
+    PrimaryMTXMenu.place(x=300, y=245)
+    PrimaryMTXMenu.config(height=1, width=4, fg='black')
+    buttonsFn.tkvar3.set("")  # set the default option
+
+    SecMTXMenu = tkinter.OptionMenu(buttonsFn.top, buttonsFn.tkvar4, [""])
+    SecMTXMenu.place(x=300, y=300)
+    SecMTXMenu.config(height=1, width=4, fg='black')
+    buttonsFn.tkvar4.set("")  # set the default option
+
+    lbChoices= tkinter.Label(buttonsFn.top, text="Check List")
+    lbChoices.place(x=100, y=350)
+    lbChoices.config(font=("Calibri", 12, 'bold'), fg='black')
+
+    choices = ("IPs", "URLs", "Domains", "P2Ps")
+    checklist = buttonsFn.ChecklistBox(buttonsFn.top, choices, bd=1, relief="sunken", background="white")
+    checklist.place(x=300, y=350)
+    print("choices:", checklist.getCheckedItems())
+
+    buttonAdd = tkinter.Button(buttonsFn.top, text="Add",command=checklist.addChecklist)
+    buttonAdd.place(x=480, y=400)
+    buttonAdd.config(height=1, width=8)
+    buttonAdd['font'] = myFont2
+
+
+    lbRG = tkinter.Label(buttonsFn.top, text="RG")
+    lbRG.place(x=100, y=480)
+    lbRG.config(font=("Calibri", 12, 'bold'), fg='black')
+
+    entryRG = tkinter.Entry(buttonsFn.top, textvariable=buttonsFn.file5_path)
+    entryRG.place(x=250, y=480, width=200, height=25)
+
+
+
+    buttonRun = tkinter.Button(buttonsFn.top, text="Run")
+    buttonRun.place(x=570, y=570)
+    buttonRun.config(height=2, width=10)
+    buttonRun['font'] = myFont2
+
+    buttonBack = tkinter.Button(buttonsFn.top, text="Back", command=openDataMenu)
+    buttonBack.place(x=20, y=20)
+    buttonBack.config(height=2, width=8, fg='black')
+    buttonBack['font'] = myFont
+
+    e = tkinter.Text(buttonsFn.top, width=75, height=10)
+    e.bind("<Tab>", buttonsFn.focus_next_widget)
+    # Appearnce Title
+
+    Title = tkinter.Label(buttonsFn.top, text="Whitelisting Configuration")
+    Title.config(font=("Calibri", 28), foreground="black")
+    Title.place(x=450, y=20)
+
+    # Define the size of the main window
+    buttonsFn.top.geometry("1920x1080")  # Width x Height
+    buttonsFn.top.title("Whitelisting Configuration")
+
+    buttonsFn.top.mainloop()
+    # New_Window.configure(background='white')
 
 def openDataMenu():
 
@@ -1294,6 +1408,12 @@ def openDataMenu():
     # 5
     button_Capacity_Moves = tkinter.Button(buttonsFn.top, text="Capacity Moves")
     button_Capacity_Moves.place(x=100, y=340)
+    button_Capacity_Moves.config(height=3, width=20, fg='black', background='white')
+    button_Capacity_Moves['font'] = myFont
+
+    # 6
+    button_Capacity_Moves = tkinter.Button(buttonsFn.top, text="Whitelisting", command=openWhitelistingMenu)
+    button_Capacity_Moves.place(x=350, y=340)
     button_Capacity_Moves.config(height=3, width=20, fg='black', background='white')
     button_Capacity_Moves['font'] = myFont
 
