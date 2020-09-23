@@ -29,7 +29,7 @@ def UpdateDropDownFromExcelForCorporateAPN():
             for i in range(len(row)):
                 if (row[i] == "MTX Name"):
                     MTXindex = i
-            firstRow = 1
+            firstRow = 1RoamingTADIGOperationsTeam@voda.com
         else:
             MTXs.append( str(row[MTXindex]))
     print(MTXs)

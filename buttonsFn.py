@@ -257,3 +257,61 @@ def change_dropdownAPNType(*args):
         StatOrDynMenu.configure(state="disabled")
         tkvar5.set('Dynamic')
 
+
+class ChecklistBox(tkinter.Frame):
+    def __init__(self, parent, choices, **kwargs):
+        tkinter.Frame.__init__(self, parent, **kwargs)
+
+        self.vars = []
+        bg = self.cget("background")
+        for choice in choices:
+            var = tkinter.StringVar()
+            self.vars.append(var)
+            cb = tkinter.Checkbutton(self, var=var, text=choice,
+                                onvalue=choice, offvalue="",
+                                anchor="w", width=20, background=bg,
+                                relief="flat", highlightthickness=0
+            )
+            cb.pack(side="top", fill="x", anchor="w")
+    def addChecklist(self):
+        print("choices:", self.getCheckedItems())
+        checked=self.getCheckedItems()
+        if("IPs" in checked):
+            lbIPs = tkinter.Label(top, text="IPs")
+            lbIPs.place(x=800, y=150)
+            lbIPs.config(font=("Calibri", 12, 'bold'), fg='black')
+
+            entryIPs = tkinter.Entry(top, textvariable=file6_path)
+            entryIPs.place(x=950 ,y=150, width=200, height=60)
+        if ("URLs" in checked):
+            lbIPs = tkinter.Label(top, text="URLs")
+            lbIPs.place(x=800, y=250)
+            lbIPs.config(font=("Calibri", 12, 'bold'), fg='black')
+
+            entryIPs = tkinter.Entry(top, textvariable=file7_path)
+            entryIPs.place(x=950, y=250, width=200, height=60)
+        if ("Domains" in checked):
+            lbIPs = tkinter.Label(top, text="Domains")
+            lbIPs.place(x=800, y=350)
+            lbIPs.config(font=("Calibri", 12, 'bold'), fg='black')
+
+            entryIPs = tkinter.Entry(top, textvariable=file8_path)
+            entryIPs.place(x=950, y=350, width=200, height=60)
+
+        if ("P2Ps" in checked):
+            lbIPs = tkinter.Label(top, text="P2Ps")
+            lbIPs.place(x=800, y=450)
+            lbIPs.config(font=("Calibri", 12, 'bold'), fg='black')
+            choicesP2Ps = ("Google", "Instagram", "Facebook", "Whatsapp","YouTube")
+            checklistP2Ps = ChecklistBox(top, choicesP2Ps, bd=1, relief="sunken", background="white")
+            checklistP2Ps.place(x=950, y=450)
+
+
+
+    def getCheckedItems(self):
+        values = []
+        for var in self.vars:
+            value =  var.get()
+            if value:
+                values.append(value)
+        return values
