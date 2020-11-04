@@ -75,52 +75,56 @@ def APN_DB_Logic(From, To,DBFolder,referenceSheet,APNsCleanupSheet):
         if row[1]=='PC Connectivity':
             script.write(' Configure\n')
             script.write(' context aaa\n')
-            script.write(' no ' + row[0] + ' \n')
-            script.write(' exit \n')
-            script.write(' context' + row[2] + '\n')
-            for i in range (1, int(IPpoolCount) +1):
-                script.write(' no ip pool_' + str(i) +'\n')
-            script.write(' sleep 2 \n')
-            script.write(' no ip route 0.0.0.0 0.0.0.0 0.0.0.0 ' + row[0] + 'vrf ' + row[0] +'_vrf\n')
-            script.write(' sleep 2 \n')
-            script.write(' no interface ' + row[0] + '\n')
-            script.write(' sleep 2 \n')
-            script.write(' no ip vrf ' + row[0] + '_vrf \n')
-            script.write(' sleep 2 \n')
-            script.write(' end \n')
+            script.write(' no apn ' + row[0] + ' \n')
+            script.write(' exit \n\n')
+            script.write(' context ' + row[2] + '\n')
+            script.write(' no ip pool ' + row[5] + '.0 \n')
+            #for i in range (1, int(IPpoolCount) +1):
+               # script.write(' no ip pool_' + str(i) +'\n')
+            #script.write(' sleep 2 \n')
+            script.write(' no ip route 0.0.0.0 0.0.0.0 0.0.0.0 ' + row[5] + ' vrf ' + row[5] +'_vrf\n')
+            #script.write(' sleep 2 \n')
+            script.write(' no interface ' + row[5].replace("_pool","") + '\n')
+            #script.write(' sleep 2 \n')
+            script.write(' no ip vrf ' + row[5].replace("_pool","") + '_vrf \n')
+            #script.write(' sleep 2 \n')
+            script.write(' end \n\n')
 
         elif row[1]=='3G WIC':
             script.write(' Configure\n')
             script.write(' context aaa\n')
-            script.write(' no ' + row[0] + ' \n')
+            script.write(' no apn ' + row[0] + ' \n')
             script.write(' exit \n')
-            script.write(' context' + row[2] + '\n')
-            for i in range (1, int(IPpoolCount) +1):
-                script.write(' no ip pool_' + str(i) +'\n')
-            script.write(' end \n')
+            script.write(' context ' + row[2] + '\n')
+           # for i in range (1, int(IPpoolCount) +1):
+                #script.write(' no '+ row[5] + '.' + str(i) +'\n')
+            script.write(' no ip pool ' + row[5] + '.0 \n')
+            script.write(' end \n\n')
 
         elif row[1] == 'Internet':
             script.write(' Configure\n')
             script.write(' context aaa\n')
-            script.write(' no ' + row[0] + ' \n')
+            script.write(' no apn ' + row[0] + ' \n')
             script.write(' exit \n')
-            script.write(' context' + row[2] + '\n')
-            for i in range (0, int(IPpoolCount) ):
-                script.write(' no ip pool_' + str(i) +'\n')
-            script.write(' end \n')
+            script.write(' context ' + row[2] + '\n')
+           # for i in range (0, int(IPpoolCount) ):
+                #script.write(' no ip pool_' + str(i) +'\n')
+            script.write(' no ip pool ' + row[5] + '.0 \n')
+            script.write(' end \n\n')
 
         elif row[1] == 'sim2sim':
             script.write(' Configure\n')
             script.write(' context aaa\n')
-            script.write(' no ' + row[0] + ' \n')
+            script.write(' no apn ' + row[0] + ' \n\n')
             script.write(' exit \n')
-            script.write(' context' + row[2] + '\n')
-            for i in range (1, int(IPpoolCount) +1):
-                script.write(' no ip pool_' + str(i) +'\n')
-            script.write(' sleep 2 \n')
-            script.write(' no ip vrf ' + row[0] +'_vrf \n')
-            script.write(' sleep 2 \n')
-            script.write(' end \n')
+            script.write(' context ' + row[2] + '\n')
+            script.write(' no ip pool ' + row[5] + '.0 \n')
+            #for i in range (1, int(IPpoolCount) +1):
+               # script.write(' no ip pool_' + str(i) +'\n')
+            #script.write(' sleep 2 \n')
+            script.write(' no ip vrf ' + row[5].replace("_pool","") +'_vrf \n')
+            #script.write(' sleep 2 \n')
+            script.write(' end \n\n')
 
         else: continue
 
