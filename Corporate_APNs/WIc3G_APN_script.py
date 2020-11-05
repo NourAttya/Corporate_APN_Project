@@ -92,13 +92,13 @@ def WIc3GScript(APNname,IP,netmask,MTX,MTXNum,SecMTX,secMTXnum,SorD,pathToSave):
     script.write(
         'create naptrrecord '+APNname+'.apn.epc.mnc002.mcc602.3gppnetwork.org. -set order=100;preference=10;flags=a;service=x-3gpp-pgw:x-s5-gtp:x-gn;replacement=topoff.pgws5gn.'+MTX.lower()+'gw.nodes.epc.mnc002.mcc602.3gppnetwork.org.\n')
     script.write('\n')
-    script.write('update dnsserver\n')
+    script.write('update dnsserver -rebuild=true\n')
     script.write('\n')
     script.write('Rollback on All iDNSs\n')
     script.write('======================\n')
     script.write('\n')
     script.write('delete naptrrecord '+APNname+'.apn.epc.mnc002.mcc602.3gppnetwork.org.\n')
     script.write('\n')
-    script.write('update dnsserver\n')
+    script.write('update dnsserver -rebuild=true\n')
     script.close()
 

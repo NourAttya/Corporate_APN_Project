@@ -16,7 +16,11 @@ def InternetAPNScript(APNname,IP,netmask,MTX,MTXNum,SecMTX,secMTXnum,SorD,pathTo
     script.write('      dns primary 62.240.110.197\n')
     script.write('      dns secondary 62.240.110.198\n')
     script.write('      ip hide-service-address\n')
-    script.write('      ip address alloc-method local\n')
+    if (SorD == "Static"):
+        script.write('      ip address alloc-method no-dynamic allow-user-specified \n')
+    else:
+        script.write(
+            'ip address alloc-method local \n')
     script.write('      ip access-group Corporate.vodafone.net-acl.in in\n')
     script.write('      ip access-group Corporate.vodafone.net-acl.out out \n')
     script.write('      ip source-violation ignore \n')
@@ -50,7 +54,11 @@ def InternetAPNScript(APNname,IP,netmask,MTX,MTXNum,SecMTX,secMTXnum,SorD,pathTo
     script.write('      dns primary 62.240.110.197\n')
     script.write('      dns secondary 62.240.110.198\n')
     script.write('      ip hide-service-address\n')
-    script.write('      ip address alloc-method local\n')
+    if (SorD == "Static"):
+        script.write('      ip address alloc-method no-dynamic allow-user-specified \n')
+    else:
+        script.write(
+            'ip address alloc-method local \n')
     script.write('      ip access-group Corporate.vodafone.net-acl.in in\n')
     script.write('      ip access-group Corporate.vodafone.net-acl.out out \n')
     script.write('      ip source-violation ignore \n')
@@ -89,12 +97,12 @@ def InternetAPNScript(APNname,IP,netmask,MTX,MTXNum,SecMTX,secMTXnum,SorD,pathTo
     script.write(
         'create naptrrecord ' + APNname + '.apn.epc.mnc002.mcc602.3gppnetwork.org. -set order=100;preference=10;flags=a;service=x-3gpp-pgw:x-s5-gtp:x-gn;replacement=topoff.pgws5gn.' + MTX.lower() + 'gw.nodes.epc.mnc002.mcc602.3gppnetwork.org.\n')
     script.write('\n')
-    script.write('update dnsserver\n')
+    script.write('update dnsserver -rebuild=true\n')
     script.write('\n')
     script.write('Rollback on All iDNSs\n')
     script.write('======================\n')
     script.write('\n')
     script.write('delete naptrrecord ' + APNname + '.apn.epc.mnc002.mcc602.3gppnetwork.org.\n')
     script.write('\n')
-    script.write('update dnsserver\n')
+    script.write('update dnsserver -rebuild=true\n')
     script.close()

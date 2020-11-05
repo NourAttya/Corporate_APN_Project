@@ -4,7 +4,7 @@ block_cipher = None
 
 
 a = Analysis(['GUI.py'],
-             pathex=['D:\\Automation Team\\Corporate APN Project'],
+             pathex=['D:\\EPC\\Automation\\Corporate_APN_Project'],
              binaries=[],
              datas=[],
              hiddenimports=[],
