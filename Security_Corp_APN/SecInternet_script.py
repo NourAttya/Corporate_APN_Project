@@ -40,7 +40,7 @@ def SecInternet_Script (APN_Name, Sim_Range, Public_IP ):
     script.write(
         'delete security zones security-zone VAS-Corporate address-book address ' + APN_Name + '-APN ' + Sim_Range + ' \n')
     script.write(
-        'set security policies from-zone VAS-Corporate to-zone Internet policy' + APN_Name + 'match application any \n')
+        'delete security policies from-zone VAS-Corporate to-zone Internet policy '+APN_Name +'\n')
     script.write('delete routing-options static route ' + Sim_Range + ' next-hop 10.222.7.139  \n')
     script.write('---------------------------------------------------------------\n')
     script.write(' On RMD-GI Rollback:\n')

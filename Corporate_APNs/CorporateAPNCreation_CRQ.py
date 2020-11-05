@@ -176,9 +176,9 @@ def CorporateAPNCreationCRQ(FilePath,username,password):
         button.click()
         time.sleep(1)
 
-        button = browser.find_by_text('Save')
-        button.click()
-        time.sleep(5)
+        # button = browser.find_by_text('Save')
+        # button.click()
+        # time.sleep(5)
 
         # button = browser.find_by_text('Next Stage')
         # button.click()
@@ -202,3 +202,6 @@ def CorporateAPNCreationCRQ(FilePath,username,password):
         button.click()
         time.sleep(7)
         browser.quit()
+
+
+#CorporateAPNCreationCRQ("D:\\Automation Team\\Corporate APN Project\\test2.txt","APNCreation","12345")

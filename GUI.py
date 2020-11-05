@@ -12,7 +12,7 @@ from GGSN_Audit  import GGSNAudit
 #Nour Attyia
 from MGW_Audit import MWGAudit
 import pandas as pd
-#from pandastable import Table, TableModel
+from pandastable import Table, TableModel
 
 
 #Corporate_APNs

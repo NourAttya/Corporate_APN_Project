@@ -13,6 +13,7 @@ def Whitelisting_script(APNname,IPs,Domains,MTX,SecMTX,Priority,pathToSave,DDL,P
         for j in range(len(Domains)):
             script.write('ip server-ip-address = ' + Domains[j] + '\n')
         script.write('multi-line-or all-lines \n')
+<<<<<<< Updated upstream
         script.write('exit \n\n')
         script.write('group-of-ruledefs ' +APNname+'_009_090_99999 \n')
         script.write('add-ruledef priority 10 ' + APNname +'_Domains \n')
@@ -21,6 +22,17 @@ def Whitelisting_script(APNname,IPs,Domains,MTX,SecMTX,Priority,pathToSave,DDL,P
             script.write('group-of-ruledefs ' + APNname + '_009_090_00064 \n')
             script.write('add-ruledef priority 10 ' + APNname + '_Domains \n')
             script.write('exit \n\n')
+=======
+        script.write('exit \n')
+        if (HDL == 'High Speed'):
+            script.write('group-of-ruledefs' +APNname+'_009_090_99999 \n')
+            script.write('add-ruledef priority 10' + APNname +'_Domains \n')
+            script.write('exit \n')
+        if (HDL == 'Low Speed'):
+            script.write('group-of-ruledefs' + APNname + '_009_090_00064 \n')
+            script.write('add-ruledef priority 10' + APNname + '_Domains \n')
+            script.write('exit \n')
+>>>>>>> Stashed changes
         else:
             pass
     if ("IP" in DDL):
@@ -74,6 +86,7 @@ def Whitelisting_script(APNname,IPs,Domains,MTX,SecMTX,Priority,pathToSave,DDL,P
             script.write('ruledef' +APNname+'_gmail \n\n')
             script.write('p2p protocol = gmail \n')
             script.write('ip server-domain-name contains google.com.eg \n')
+<<<<<<< Updated upstream
             script.write('ip server-domain-name contains mail.google.com \n')
             script.write('ip server-domain-name contains gstatic.com \n')
             script.write('ip server-domain-name contains play.google.com \n')
@@ -103,11 +116,41 @@ def Whitelisting_script(APNname,IPs,Domains,MTX,SecMTX,Priority,pathToSave,DDL,P
             script.write('group-of-ruledefs ' + APNname + '_009_090_00064 \n')
             script.write('add-ruledef priority 10 ' + APNname + '_Domains \n')
             script.write('exit \n\n')
+=======
+                script.write('ip server-domain-name contains mail.google.com \n')
+                script.write('ip server-domain-name contains gstatic.com \n')
+                script.write('ip server-domain-name contains play.google.com \n')
+                script.write('ip server-domain-name contains contacts.google.com \n')
+                script.write('ip server-domain-name contains hangouts.google.com \n')
+                script.write('ip server-domain-name contains android.clients.google.com \n')
+                script.write('ip server-domain-name contains inbox.google.com \n')
+                script.write('multi-line-or all-lines \n')
+                script.write('group-of-ruledefs' + APNname + '_009_090_99999 \n')
+                script.write('add-ruledef priority 40' + APNname + _'gmail \n')
+                script.write('exit \n')
+            if (PDL == 'instagram'):
+                script.write('ruledef' +APNname+'_instagram \n')
+                script.write('p2p protocol = instagram \n')
+                script.write('multi-line-or all-lines \n')
+                script.write('group-of-ruledefs' + APNname + '_009_090_99999 \n')
+                script.write('add-ruledef priority 50' +APNname+'_gmail \n')
+                script.write('exit \n')
+            if (PDL == 'Whatsapp'):
+                script.write('ruledef APNname_Whatsapp \n')
+                script.write('p2p protocol = Whatsapp \n')
+                script.write('multi-line-or all-lines \n')
+                script.write('group-of-ruledefs' +APNname+ '_009_090_99999 \n')
+                script.write('add-ruledef priority 60' +APNname+'_gmail \n')
+                script.write('exit \n')
+            else:
+                continue
+>>>>>>> Stashed changes
         else:
             pass
     else:
         pass
         script.write('  exit\n')
+<<<<<<< Updated upstream
     script.write('end\n')
     script.write('\n')
     script.write(' config\n ')
@@ -122,3 +165,15 @@ def Whitelisting_script(APNname,IPs,Domains,MTX,SecMTX,Priority,pathToSave,DDL,P
     script.write('#################################################################################################################### \n')
     script.close()
 
+=======
+        script.write('end\n')
+        script.write('\n')
+        script.write(' config\n ')
+        script.write('active-charging service ecs \n')
+        script.write('rulebase corporate-internet \n')
+        script.write('action priority' +Priority+ 'dynamic-only group-of-ruledefs' +APNname+'_009_090_99999 charging-action sid_009_rg_090_rate_99999 \n')
+        script.write(' exit \n')
+        script.write('end\n')
+        script.write('\n\n')
+    script.write('####################################################################################################################\n')
+>>>>>>> Stashed changes
