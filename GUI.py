@@ -1,7 +1,7 @@
 import tkinter
 import tkinter.font as font
 import buttonsFn
-from Corporate_APNs import IDNSandAPNconfig
+from Corporate_APNs import IDNSandAPNconfig,Test_APNs
 from Corporate_APNs_DB import  Build_APN_DB,APN_DB_Logic
 from tkinter import messagebox
 import xlrd
@@ -1311,7 +1311,6 @@ def openWhitelistingMenu():
     lbSecMTX.place(x=100, y=300)
     lbSecMTX.config(font=("Calibri", 12, 'bold'), fg='black')
 
-
     PrimaryMTXMenu = tkinter.OptionMenu(buttonsFn.top, buttonsFn.tkvar3, [""])
     PrimaryMTXMenu.place(x=300, y=245)
     PrimaryMTXMenu.config(height=1, width=4, fg='black')
@@ -1371,6 +1370,195 @@ def openWhitelistingMenu():
     buttonsFn.top.mainloop()
     # New_Window.configure(background='white')
 
+
+
+
+def TestAPNRun():
+    wb = xlrd.open_workbook(buttonsFn.file1_path.get())
+    sheet = wb.sheet_by_index(0)
+    firstRow = 0
+    MTXIP=""
+    for j in range(sheet.nrows):
+        row = sheet.row_values(j)
+        if firstRow == 0:
+            for i in range(len(row)):
+                if (row[i] == "MTX Name"):
+                    MTXindex = i
+                elif (row[i] == "IP"):
+                    MTXIPindex = i
+
+            firstRow = 1
+        elif row[MTXindex] == buttonsFn.tkvar3.get():
+            MTXIP = str(row[MTXIPindex])
+            MTXIP = MTXIP.replace('=', "")
+            MTXIP = MTXIP.replace('"', "")
+
+    lines= Test_APNs.Log_testAPN(MTXIP,buttonsFn.file3_path.get(),buttonsFn.file4_path.get(),buttonsFn.file2_path.get())
+    if (lines[0] == "Failure: No matching configuration data\n"):
+        #Test_APNs.Test_APN()
+        messagebox.showinfo("Message Box", "APN Not Found.\n Please Fire APN")
+
+def TestAPNFireRun():
+    wb = xlrd.open_workbook(buttonsFn.file1_path.get())
+    sheet = wb.sheet_by_index(0)
+    firstRow = 0
+    MTXIP=""
+    MTXNum=""
+    for j in range(sheet.nrows):
+        row = sheet.row_values(j)
+        if firstRow == 0:
+            for i in range(len(row)):
+                if (row[i] == "MTX Name"):
+                    MTXindex = i
+                elif (row[i] == "IP"):
+                    MTXIPindex = i
+                elif (row[i] == "MTX Number"):
+                    MTXnumindex=i
+
+            firstRow = 1
+        elif row[MTXindex] == buttonsFn.tkvar3.get():
+            MTXIP = str(row[MTXIPindex])
+            MTXIP = MTXIP.replace('=', "")
+            MTXIP = MTXIP.replace('"', "")
+            MTXNum = str(row[MTXnumindex])
+            MTXNum = MTXNum.replace('=', "")
+            MTXNum = MTXNum.replace('"', "")
+    fileNameToRemove = buttonsFn.file1_path.get().split('/')[-1]
+    pathToSave = buttonsFn.file1_path.get().replace(fileNameToRemove, "")
+    Test_APNs.Test_APN(buttonsFn.file2_path.get(),pathToSave,buttonsFn.tkvar3.get(),MTXNum,MTXIP,buttonsFn.tkvar5.get())
+
+
+def UpdateDropDownFromExcelForTestAPN():
+    MTXs = []
+    buttonsFn.file1_browser()
+    # open the excel sheet and get the corresponding number to MTX name
+    wb = xlrd.open_workbook(buttonsFn.file1_path.get())
+    sheet = wb.sheet_by_index(0)
+    firstRow = 0
+    for j in range(sheet.nrows):
+        row = sheet.row_values(j)
+        if firstRow == 0:
+            for i in range(len(row)):
+                if (row[i] == "MTX Name"):
+                    MTXindex = i
+            firstRow = 1
+        else:
+            MTXs.append( str(row[MTXindex]))
+    print(MTXs)
+
+    MTXMenu = tkinter.OptionMenu(buttonsFn.top, buttonsFn.tkvar3, *MTXs)
+    MTXMenu.place(x=300, y=300)
+    MTXMenu.config(height=1, width=4, fg='black')
+    buttonsFn.tkvar3.set(MTXs[0])  # set the default option
+
+
+
+
+def openTestAPNMenu():
+    # define font
+    myFont = font.Font(family='Calibri', size=12)
+    myFont2 = font.Font(family='Calibri', size=15)
+
+    # Imgname2 = tkinter.PhotoImage(file="Vodafone2.png")
+
+    background_label = tkinter.Label(buttonsFn.top)
+    background_label.place(x=0, y=0, relwidth=1, relheight=1)
+
+    lbAPNName = tkinter.Label(buttonsFn.top, text="APN Name")
+    lbAPNName.place(x=100, y=100)
+    lbAPNName.config(font=("Calibri", 12, 'bold'), fg='black')
+
+    entryAPNName = tkinter.Entry(buttonsFn.top, textvariable=buttonsFn.file2_path)
+    entryAPNName.place(x=250, y=100, width=200, height=25)
+    entryAPNName.delete(0, 'end')
+
+    lbUsername = tkinter.Label(buttonsFn.top, text="Username")
+    lbUsername.place(x=100, y=150)
+    lbUsername.config(font=("Calibri", 12, 'bold'), fg='black')
+
+    entryUsername = tkinter.Entry(buttonsFn.top, textvariable=buttonsFn.file3_path)
+    entryUsername.place(x=250, y=150, width=200, height=25)
+    entryUsername.delete(0, 'end')
+
+    lbPassword = tkinter.Label(buttonsFn.top, text="Password")
+    lbPassword.place(x=100, y=200)
+    lbPassword.config(font=("Calibri", 12, 'bold'), fg='black')
+
+    entryPassword = tkinter.Entry(buttonsFn.top,show="*", textvariable=buttonsFn.file4_path)
+    entryPassword.place(x=250, y=200, width=200, height=25)
+    entryPassword.delete(0, 'end')
+
+
+    lbExcel = tkinter.Label(buttonsFn.top, text="Select Excel Sheet")
+    lbExcel.place(x=100, y=245)
+    lbExcel.config(font=("Calibri", 12, 'bold'), fg='black')
+
+    entryExcelPath = tkinter.Entry(buttonsFn.top, textvariable=buttonsFn.file1_path)
+    entryExcelPath.place(x=250, y=245, width=400, height=25)
+    entryExcelPath.delete(0, 'end')
+
+    buttonBrowse = tkinter.Button(buttonsFn.top, text="Browse", command=UpdateDropDownFromExcelForTestAPN)
+    buttonBrowse.place(x=670, y=250)
+    buttonBrowse['font'] = myFont
+
+    lbMTX = tkinter.Label(buttonsFn.top, text="Choose GGSN")
+    lbMTX.place(x=100, y=300)
+    lbMTX.config(font=("Calibri", 12, 'bold'), fg='black')
+
+    MTXMenu = tkinter.OptionMenu(buttonsFn.top, buttonsFn.tkvar3, [""])
+    MTXMenu.place(x=300, y=300)
+    MTXMenu.config(height=1, width=4, fg='black')
+    buttonsFn.tkvar3.set("")  # set the default option
+
+    lbStatOrDyn = tkinter.Label(buttonsFn.top, text="Choose Static\n or Dynamic")
+    lbStatOrDyn.place(x=480, y=100)
+    lbStatOrDyn.config(font=("Calibri", 12, 'bold'), fg='black')
+
+    StatOrDynChoices = {'Static', 'Dynamic'}
+    buttonsFn.tkvar5.set('Dynamic')  # set the default option
+    StatOrDynMenu = tkinter.OptionMenu(buttonsFn.top, buttonsFn.tkvar5, *StatOrDynChoices)
+    StatOrDynMenu.place(x=600, y=100)
+    #StatOrDynMenu.configure(state="disabled")
+
+    lbIPSubnet = tkinter.Label(buttonsFn.top, text="IP Subnet")
+    lbIPSubnet.place(x=500, y=200)
+    lbIPSubnet.config(font=("Calibri", 12, 'bold'), fg='black')
+
+    entryIOSubnet = tkinter.Entry(buttonsFn.top, show="*", textvariable=buttonsFn.file4_path)
+    entryIOSubnet.place(x=600, y=200, width=150, height=25)
+    entryIOSubnet.delete(0, 'end')
+
+    buttonFindAPN = tkinter.Button(buttonsFn.top, text="Find APN",command=TestAPNRun)
+    buttonFindAPN.place(x=250, y=380)
+    buttonFindAPN.config(height=1, width=10)
+    buttonFindAPN['font'] = myFont2
+
+    buttonRunConfig = tkinter.Button(buttonsFn.top, text="Fire APN",command=TestAPNFireRun)
+    buttonRunConfig.place(x=420, y=380)
+    buttonRunConfig.config(height=1, width=10)
+    buttonRunConfig['font'] = myFont2
+
+
+    buttonBack = tkinter.Button(buttonsFn.top, text="Back", command=openDataMenu)
+    buttonBack.place(x=20, y=20)
+    buttonBack.config(height=2, width=8, fg='black')
+    buttonBack['font'] = myFont
+
+    e = tkinter.Text(buttonsFn.top, width=75, height=10)
+    e.bind("<Tab>", buttonsFn.focus_next_widget)
+    # Appearnce Title
+
+    Title = tkinter.Label(buttonsFn.top, text="Test APN")
+    Title.config(font=("Calibri", 28), foreground="black")
+    Title.place(x=300, y=20)
+
+    # Define the size of the main window
+    buttonsFn.top.geometry("800x450")  # Width x Height
+    buttonsFn.top.title("Test APN")
+
+    buttonsFn.top.mainloop()
+    # New_Window.configure(background='white')
+
 def openDataMenu():
 
     # Main menu
@@ -1388,7 +1576,7 @@ def openDataMenu():
     button_Corporate_APN.config(height=3, width=20,  fg='black', background = 'white')
     button_Corporate_APN['font'] = myFont
     # 2
-    button_Test_APN = tkinter.Button(buttonsFn.top, text="Test APN")
+    button_Test_APN = tkinter.Button(buttonsFn.top, text="Test APN",command=openTestAPNMenu)
     button_Test_APN.place(x=350, y=220)
     button_Test_APN.config(height=3, width=20,  fg='black', background = 'white')
     button_Test_APN['font'] = myFont

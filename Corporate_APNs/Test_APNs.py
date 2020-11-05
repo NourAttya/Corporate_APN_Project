@@ -1,5 +1,6 @@
 import paramiko
 import xlrd
+import  ipaddress
 def Log_testAPN(host, username, password, APNname):
 
     port = 22
@@ -17,7 +18,10 @@ def Log_testAPN(host, username, password, APNname):
     return lines
 
 #if (lines[0] == "Failure: No matching configuration data\n"):
-def Test_APN(APNname, pathToSave, MTX, MTXNum, IP, SorD, netmask):
+def Test_APN(APNname, pathToSave, MTX, MTXNum, IP, SorD):
+    net = ipaddress.ip_network(IP, False)
+    netmask = net.netmask
+    IP = IP.split("/")[0]
 
     script = open(pathToSave + APNname + "_Script.txt", "w")
     script.write(MTX + '-GGSN' + str(MTXNum) + ':\n')
